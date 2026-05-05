@@ -21,6 +21,14 @@ Older docs under `docs/product/` may describe earlier designs. Use them as histo
 
 ## 2. Writing Standard by User Layer
 
+The three layers use different writing logic because the user's cognitive task is different.
+
+| Layer | Internal Name | Core Question | Writing Job |
+| --- | --- | --- | --- |
+| Starter | Operation | How do I run it now? | Remove action friction |
+| Project | Engineering | Why does AI coding go wrong, and how do I improve efficiency while reducing mistakes? | Build engineering constraints |
+| Architecture | Thinking | How does AI reshape human thinking and work systems? | Build AI-era literacy and methods |
+
 ### Starter Layer
 
 Write like a campus teaching assistant standing beside the student.
@@ -73,6 +81,12 @@ If failed:
 
 Write like a project workflow mentor.
 
+Core idea:
+
+> AI coding efficiency comes from constraints, not from letting the model do anything.
+
+The project layer should explicitly name AI coding's problems and then show how each workflow mechanism reduces error or improves efficiency.
+
 Use:
 
 - Pain point.
@@ -80,6 +94,7 @@ Use:
 - What cost it reduces.
 - What workflow habit it creates.
 - How it affects review, testing, diff size, context quality, and rollback.
+- What AI coding failure mode it prevents.
 
 Good project pattern:
 
@@ -88,9 +103,26 @@ Pain point: AI can modify many files faster than you can review them.
 Plan-before-edit reduces review cost by forcing file scope, risk, and verification command before edits.
 ```
 
+Common project-layer failure modes to reference:
+
+- hallucinated requirement
+- missing context
+- over-editing
+- ignored project rules
+- unverifiable result
+- weak review
+- CI failure loop
+- token waste from repeated context setup
+
 ### Architecture Layer
 
-Write like a systems designer.
+Write like a systems designer and reflective practitioner.
+
+Core idea:
+
+> Agent architecture is also human systems thinking expressed through AI tools.
+
+Do not stop at "what is MCP / hooks / multi-agent". The architecture layer should help users see how AI co-working reshapes their problem definition, workflow design, context management, feedback habits, and method formation.
 
 Use:
 
@@ -100,6 +132,8 @@ Use:
 - Feedback loops.
 - Reusable assets.
 - Multi-agent role separation.
+- Human thinking pattern behind the technical structure.
+- Literacy or habit the user should cultivate.
 
 Good architecture pattern:
 
@@ -108,7 +142,36 @@ Value: A fixed pipeline keeps repeated setup out of the prompt.
 Spend context on the new problem, not on rebuilding the workflow every session.
 ```
 
-## 3. Source Types
+Architecture-layer concepts should be framed this way:
+
+- pipeline -> process awareness
+- context architecture -> information organization
+- memory -> experience sedimentation
+- multi-agent -> division of labor
+- evaluation loop -> feedback design
+- automation boundary -> risk governance
+- workflow retrospective -> method formation
+
+The final goal is not "knowing how to use AI". The final goal is AI-era systematic thinking and collaboration literacy.
+
+## 3. Source and Reference Priority
+
+Reference hierarchy for the next content-filling phase:
+
+1. Official documentation
+2. High-quality open-source learning projects such as `learn-claude-code`, `claude-mem`, `claude-howto`
+3. Bloggers and structured personal guides
+4. Community and individual experience notes
+
+Rules:
+
+- Official docs decide product facts.
+- Open-source learning projects can inform learning path design and examples, but must not override official facts.
+- Bloggers can provide framing and teaching inspiration, but do not become source of truth.
+- Community experience can reveal pain points and missing troubleshooting cases.
+- Any non-official claim must be labeled as `Personal Note`, `Community Signal`, or checked back against official docs before becoming instruction.
+
+## 4. Source Types
 
 Use the current source hierarchy:
 
@@ -126,7 +189,7 @@ Rules:
 - Do not copy self-media tutorials.
 - Do not recommend VPN, proxy vendors, nodes, airports, bypass protocols, or circumvention tutorials.
 
-## 4. Roadmap Node Guide
+## 5. Roadmap Node Guide
 
 Type location:
 
@@ -234,7 +297,7 @@ Use as fallback, mainly for project and architecture layers.
 
 Do not rely only on `steps` for starter layer unless the step is very simple.
 
-## 5. Troubleshooting Card Guide
+## 6. Troubleshooting Card Guide
 
 Current shape:
 
@@ -285,7 +348,7 @@ Escalation rules:
 - `ask-campus-helper`: likely needs a more experienced peer.
 - `official-support`: account, subscription, product access, billing, or official platform issue.
 
-## 6. Tool Selection Guide
+## 7. Tool Selection Guide
 
 The tool selection page should not become a benchmark page.
 
@@ -308,7 +371,7 @@ Write:
 - "If you have X, choose Y."
 - "If not sure, default to Codex for the first run."
 
-## 7. Environment Check Guide
+## 8. Environment Check Guide
 
 Current starter expectation:
 
@@ -340,7 +403,7 @@ When updating versions:
 4. Update `SOURCES.lastCheckedAt`.
 5. Update docs if examples changed.
 
-## 8. Practice Task Guide
+## 9. Practice Task Guide
 
 Practice tasks should be small and verifiable.
 
@@ -358,7 +421,7 @@ Avoid:
 - "Connect real user accounts."
 - "Deploy to production."
 
-## 9. Rule Template Guide
+## 10. Rule Template Guide
 
 Rule templates should teach boundaries, not prompt cleverness.
 
@@ -377,7 +440,7 @@ Do not include:
 - Real personal credentials.
 - Commands that delete or reset files.
 
-## 10. Update Record Guide
+## 11. Update Record Guide
 
 Use `UPDATES` for changes that may affect users.
 
@@ -402,7 +465,7 @@ Statuses:
 - `published`: visible or reflected in content.
 - `ignored`: not relevant.
 
-## 11. Assistant Content Boundary
+## 12. Assistant Content Boundary
 
 The assistant should answer from:
 
@@ -426,7 +489,7 @@ When adding assistant API:
 - Include source IDs.
 - Refuse secret-handling requests.
 
-## 12. Review Checklist Before Publishing Content
+## 13. Review Checklist Before Publishing Content
 
 Before a content change is done:
 
@@ -440,7 +503,7 @@ Before a content change is done:
 - Did `content.test.ts` pass?
 - Did TypeScript pass?
 
-## 13. Current Content Debt
+## 14. Current Content Debt
 
 Known items to improve:
 
@@ -449,3 +512,19 @@ Known items to improve:
 - Update old `docs/product/content-model.md` or archive it.
 - Add more project-layer examples for PR and CI workflows.
 - Add architecture-layer diagrams or concrete sample pipelines.
+
+## 15. Current Content-Filling Phase
+
+Current progress:
+
+- Overall frontend UI should not be redesigned at large scale.
+- Columns and sections can be added or removed when they serve layer-specific content.
+- The next main task is to fill every roadmap detail page around the three-layer core ideas.
+
+Execution focus:
+
+1. Starter layer pages should become hard, detailed execution scripts.
+2. Project layer pages should explain AI coding pain points, efficiency gains, and mistake-reduction mechanisms.
+3. Architecture layer pages should connect agent/workflow architecture back to human thinking patterns and AI-era literacy.
+
+Do not expand into more tools before this content pass is complete.

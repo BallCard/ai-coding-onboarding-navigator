@@ -33,25 +33,87 @@ The first version serves Windows and macOS users.
 
 ### 3.1 Layered Guidance
 
-Different users need different guidance density.
+The three layers are not only difficulty levels. They represent three different cognitive tasks.
 
-Starter layer:
+Short version:
+
+- Starter layer: from "I cannot use it" to "I can run one verified task."
+- Project layer: from "I can run it" to "I can use it safely and efficiently in a real project."
+- Architecture layer: from "I can use AI" to "I can build AI-era systems of thinking and work."
+
+### 3.1.1 Starter Layer: Operation
+
+Core question:
+
+> How do I run it now?
+
+This layer solves action friction.
+
+The user may not know what terminal is, what output means success, or whether an error means stop. Content must behave like a teaching assistant standing beside the user.
+
+Writing principles:
 
 - Be explicit and concrete.
-- Tell users what key to press, what command to copy, what output means success, and what error means stop.
+- Tell users what key to press, what app to open, what command to copy, what output means success, and what error means stop.
+- Separate Windows and macOS when the operation differs.
 - Avoid conceptual language unless it changes the next action.
 
-Project layer:
+The layer cultivates basic usability.
 
-- Explain workflow logic.
-- Focus on real project pain: accidental edits, unreadable diffs, CI failures, review cost, and repeated context setup.
-- Show why rules, permissions, tests, and PRs matter.
+### 3.1.2 Project Layer: Engineering
 
-Architecture layer:
+Core question:
 
-- Explain system design and efficiency.
-- Focus on pipeline, context placement, automation boundaries, multi-agent collaboration, evaluation loops, and reusable workflow assets.
-- Make clear how these reduce repeated prompting, token waste, and coordination cost.
+> Why does AI coding go wrong, and how do we improve efficiency while reducing mistakes?
+
+This layer is not about teaching more features. It is about facing the real defects of AI coding:
+
+- It hallucinates requirements.
+- It misreads or overuses context.
+- It changes too many files.
+- It ignores project rules.
+- It produces plausible but unverified results.
+- It makes users relax review because generation is fast.
+- It amplifies existing project disorder.
+
+Writing principles:
+
+- Start from the pain point.
+- Explain why the mechanism exists.
+- Explain what risk or cost it reduces.
+- Show the workflow habit it creates.
+- Focus on task boundaries, rules, context control, permissions, small edits, diff review, tests, PR/CI feedback, and recovery.
+
+The core claim:
+
+> AI coding efficiency comes from constraints, not from letting the agent do anything.
+
+The layer cultivates engineering judgment.
+
+### 3.1.3 Architecture Layer: Thinking
+
+Core question:
+
+> When AI becomes a tool, how should human thinking and work be reconstructed?
+
+This layer must not stop at agent architecture, MCP, hooks, pipeline, or multi-agent vocabulary. These are not magic AI concepts. They are expressions of human systems thinking through AI tools:
+
+- Pipeline is process awareness.
+- Context architecture is information organization.
+- Memory is experience sedimentation.
+- Multi-agent collaboration is division of labor.
+- Evaluation loop is feedback design.
+- Automation boundary is risk governance.
+- Workflow retrospective is method formation.
+
+Writing principles:
+
+- Return to the human side of the tool.
+- Explain how AI co-working reshapes how people define problems, split tasks, organize context, evaluate outputs, and preserve methods.
+- Explain system structure, reuse value, token/context cost, automation boundaries, and feedback loops.
+- Make the final goal "AI-era literacy and thinking", not merely "knowing how to use AI."
+
+The layer cultivates systematic thinking and AI collaboration literacy.
 
 ### 3.2 Official Source First
 
@@ -96,7 +158,7 @@ Implemented routes:
 - `/setup` - Windows/macOS install and verification flow.
 - `/troubleshooting` - structured troubleshooting database.
 - `/practice` - first task, rule templates, and safety guide.
-- `/advanced` - project and architecture modules.
+- `/advanced` - current architecture-layer topic interface.
 - `/updates` - source map and update radar.
 
 Implemented core features:
@@ -114,7 +176,7 @@ Implemented core features:
 
 ## 5. Route Layers
 
-### 5.1 Starter Layer
+### 5.1 Starter Layer / Operation Layer
 
 Goal:
 
@@ -143,11 +205,11 @@ Expected user outcome:
 - Rules file exists.
 - First task is completed and checked with Git or a visible result.
 
-### 5.2 Project Layer
+### 5.2 Project Layer / Engineering Layer
 
 Goal:
 
-> Help a student move from first success to real project workflow.
+> Help a student understand why AI coding fails in real projects, then build constraints that increase efficiency and reduce mistakes.
 
 Project nodes:
 
@@ -164,16 +226,17 @@ Project nodes:
 Expected user outcome:
 
 - They do not let AI edit blindly.
+- They can identify common AI coding failure modes.
 - They can ask for a plan before edits.
 - They can inspect diff.
 - They can run tests or verification commands.
 - They can prepare a PR with intent, validation, and risks.
 
-### 5.3 Architecture Layer
+### 5.3 Architecture Layer / Thinking Layer
 
 Goal:
 
-> Help students turn repeated AI coding work into reusable systems.
+> Help students move beyond "using AI" and form AI-era systematic thinking, workflow design ability, and collaboration literacy.
 
 Architecture nodes:
 
@@ -192,6 +255,7 @@ Expected user outcome:
 - They know what should and should not be automated.
 - They can split work across agents with clear outputs.
 - They can evaluate and improve a workflow.
+- They can reflect on how AI changes their own thinking and work habits.
 
 ## 6. Page Map
 
@@ -223,6 +287,13 @@ Purpose:
 - Let different collaborators work on starter, project, and architecture content independently.
 - Reuse the same `ROADMAP_NODES` data instead of duplicating content.
 - Keep `/` as the unified interface.
+
+Current interface note:
+
+- `/starter` uses the regular layer route list.
+- `/project` currently uses a custom capability-map interface inside `LayerRoute.tsx`.
+- `/architecture` is the collaboration entry for architecture-layer nodes.
+- `/advanced` is retained as the current architecture-layer topic interface. Do not remove or "restore" it unless the architecture interface is redesigned deliberately.
 
 ### Roadmap Detail
 
@@ -283,7 +354,7 @@ File: `src/pages/Advanced.tsx`
 
 Purpose:
 
-- Present project and architecture concepts as workflow design modules.
+- Present architecture-layer concepts as workflow design modules.
 - Link to official sources for capabilities.
 
 ### Updates

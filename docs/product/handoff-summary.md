@@ -25,9 +25,9 @@ It is:
 
 ### Three Route Levels
 
-1. Starter layer: from zero to first successful AI coding task
-2. Project layer: from successful first run to real project workflow
-3. Architecture layer: from tool usage to Agentic Thinking
+1. Starter / Operation layer: from zero to first successful AI coding task
+2. Project / Engineering layer: from successful first run to efficient and safer real-project AI coding
+3. Architecture / Thinking layer: from tool usage to AI-era systematic thinking and collaboration literacy
 
 ### Starter Layer
 
@@ -57,6 +57,12 @@ Covers:
 - Review / CI feedback loop
 - Capability map: MCP / Hooks / Skills / Subagents
 
+Core writing idea:
+
+- Name the real AI coding pain point first.
+- Explain how the workflow improves efficiency or reduces mistakes.
+- Do not present features as isolated tricks.
+
 ### Architecture Layer
 
 Covers:
@@ -68,6 +74,12 @@ Covers:
 - Multi-agent collaboration
 - Evaluation and feedback loop
 - Workflow retrospective
+
+Core writing idea:
+
+- Return from agent architecture to human thinking.
+- Treat pipeline, memory, context, evaluation, multi-agent, and automation as expressions of systematic thinking.
+- The goal is not merely "knowing how to use AI", but cultivating AI-era literacy and work methods.
 
 ## 3. Important Product Decisions
 
@@ -222,13 +234,13 @@ Expected current behavior without `OPENAI_API_KEY`:
 
 Recommended next work:
 
-1. Run a real user test with 3-5 campus students.
-2. Observe whether they can choose a layer, follow a route, and complete a first task.
-3. Add missing troubleshooting issues from real failures.
-4. Add richer examples to project and architecture layer details.
-5. Implement the real OpenAI Responses API assistant after reviewing current official OpenAI docs.
-6. Add rate limiting and server-side logging redaction before public release.
-7. Improve mobile layout and code splitting.
+1. Fill every roadmap detail page around the three-layer writing core.
+2. Keep the overall frontend UI stable; only add/remove columns where content needs it.
+3. Use source priority: official docs first; then `learn-claude-code`, `claude-mem`, `claude-howto` and similar open-source learning projects; then bloggers; then community experience.
+4. Run a real user test with 3-5 campus students.
+5. Add missing troubleshooting issues from real failures.
+6. Implement the real OpenAI Responses API assistant after reviewing current official OpenAI docs.
+7. Add rate limiting and server-side logging redaction before public release.
 
 ## 8. Do Not Do Next
 

@@ -15,7 +15,8 @@
   - 项目层：从跑通到真实项目
   - 架构层：从工具使用到 Agentic Thinking
 - 每个路线图节点的详情页
-- 三层独立入口：`/starter`、`/project`、`/architecture`
+- 三层协作入口：`/starter`、`/project`、`/architecture`
+- 架构层专题接口：`/advanced`
 - Claude Code / Codex 工具选择页
 - Windows/macOS 安装验证页
 - 排障数据库
@@ -58,6 +59,14 @@ http://localhost:3000/starter
 http://localhost:3000/project
 http://localhost:3000/architecture
 ```
+
+架构层当前还有一个专题接口：
+
+```text
+http://localhost:3000/advanced
+```
+
+说明：`/architecture` 用作三层协作入口；`/advanced` 保留为架构层专题页面。不要把 `/advanced` 当成旧页面直接删掉或改回普通路线列表。
 
 启动预留 API 服务端：
 

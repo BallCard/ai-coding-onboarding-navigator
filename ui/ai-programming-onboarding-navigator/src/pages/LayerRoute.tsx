@@ -48,39 +48,39 @@ const LEVEL_GUIDE: Record<RouteLevel, { eyebrow: string; headline: string; subco
 const PROJECT_CAPABILITY_VISUALS = [
   {
     icon: Target,
-    position: 'lg:left-[8%] lg:top-[10%]',
+    position: 'lg:left-[14%] lg:top-[14%]',
     accent: 'border-[#8c6d3d]/45 bg-[#f9f1df]',
-    line: 'lg:left-[25%] lg:top-[27%] lg:w-[22%] lg:rotate-[24deg]',
+    line: 'lg:left-[27%] lg:top-[28%] lg:w-[18%] lg:rotate-[22deg]',
   },
   {
     icon: FileText,
-    position: 'lg:right-[8%] lg:top-[10%]',
+    position: 'lg:right-[14%] lg:top-[14%]',
     accent: 'border-[#7f5a46]/45 bg-[#fbefe8]',
-    line: 'lg:right-[25%] lg:top-[27%] lg:w-[22%] lg:-rotate-[24deg]',
+    line: 'lg:right-[27%] lg:top-[28%] lg:w-[18%] lg:-rotate-[22deg]',
   },
   {
     icon: FolderSearch,
-    position: 'lg:left-[3%] lg:top-[45%]',
+    position: 'lg:left-[8%] lg:top-[45%]',
     accent: 'border-[#526b72]/45 bg-[#edf5f6]',
-    line: 'lg:left-[22%] lg:top-[51%] lg:w-[22%]',
+    line: 'lg:left-[23%] lg:top-[51%] lg:w-[20%]',
   },
   {
     icon: Puzzle,
-    position: 'lg:right-[3%] lg:top-[45%]',
+    position: 'lg:right-[8%] lg:top-[45%]',
     accent: 'border-[#626f50]/45 bg-[#eef4e9]',
-    line: 'lg:right-[22%] lg:top-[51%] lg:w-[22%]',
+    line: 'lg:right-[23%] lg:top-[51%] lg:w-[20%]',
   },
   {
     icon: PlugZap,
-    position: 'lg:left-[17%] lg:bottom-[5%]',
+    position: 'lg:left-[18%] lg:bottom-[12%]',
     accent: 'border-[#395f82]/40 bg-[#edf2f7]',
-    line: 'lg:left-[31%] lg:bottom-[28%] lg:w-[18%] lg:-rotate-[31deg]',
+    line: 'lg:left-[30%] lg:bottom-[31%] lg:w-[16%] lg:-rotate-[28deg]',
   },
   {
     icon: ShieldCheck,
-    position: 'lg:right-[17%] lg:bottom-[5%]',
+    position: 'lg:right-[18%] lg:bottom-[12%]',
     accent: 'border-[#5d654f]/45 bg-[#f0f4ec]',
-    line: 'lg:right-[31%] lg:bottom-[28%] lg:w-[18%] lg:rotate-[31deg]',
+    line: 'lg:right-[30%] lg:bottom-[31%] lg:w-[16%] lg:rotate-[28deg]',
   },
 ];
 
@@ -130,7 +130,7 @@ function ProjectLayerMap({
 
       <section className="relative mb-16 overflow-hidden border border-clay/70 bg-white rounded-[8px] shadow-[0_30px_90px_-58px_rgba(18,17,16,0.55)]">
         <div className="absolute inset-0 technical-grid opacity-80" />
-        <div className="relative min-h-[720px] px-5 py-8 md:p-10 lg:p-12">
+        <div className="relative min-h-[610px] px-5 py-8 md:p-10 lg:p-12">
           <div className="hidden lg:block">
             {PROJECT_CAPABILITY_VISUALS.map((visual) => (
               <div
@@ -140,10 +140,10 @@ function ProjectLayerMap({
             ))}
           </div>
 
-          <div className="lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 mx-auto mb-8 lg:mb-0 w-full max-w-[320px] aspect-square rounded-full bg-ink text-paper border border-ink/10 shadow-[0_42px_110px_-54px_rgba(18,17,16,0.9)] flex flex-col items-center justify-center text-center p-8">
-            <Brain size={42} className="mb-5 text-paper/90" />
+          <div className="lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 mx-auto mb-8 lg:mb-0 w-full max-w-[280px] aspect-square rounded-full bg-ink text-paper border border-ink/10 shadow-[0_42px_110px_-54px_rgba(18,17,16,0.9)] flex flex-col items-center justify-center text-center p-8">
+            <Brain size={36} className="mb-5 text-paper/90" />
             <span className="tertiary-text !text-paper/55 mb-4">LLM / Agent</span>
-            <h2 className="text-4xl font-serif font-bold text-paper mb-4">不完美的大脑</h2>
+            <h2 className="text-3xl font-serif font-bold text-paper mb-4">不完美的大脑</h2>
             <p className="text-sm !text-paper/68 leading-relaxed">
               能推理、能生成、能执行，但必须被目标、边界、上下文和验证持续校正。
             </p>
@@ -163,23 +163,18 @@ function ProjectLayerMap({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-120px' }}
                   transition={{ delay: index * 0.05, duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
-                  className={`group lg:absolute lg:w-[300px] ${visual.position}`}
+                  className={`group lg:absolute lg:w-[190px] ${visual.position}`}
                 >
-                  <div className={`h-full rounded-[8px] border p-5 md:p-6 shadow-[0_24px_70px_-52px_rgba(18,17,16,0.6)] transition-all duration-500 hover:-translate-y-1 hover:border-ink/35 ${visual.accent}`}>
-                    <div className="flex items-start justify-between gap-4 mb-5">
-                      <div className="w-11 h-11 rounded-full bg-white/80 border border-clay/70 flex items-center justify-center text-sage">
-                        <Icon size={20} />
+                  <div className={`h-full rounded-[8px] border p-4 shadow-[0_18px_50px_-42px_rgba(18,17,16,0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-ink/35 ${visual.accent}`}>
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className="w-9 h-9 rounded-full bg-white/80 border border-clay/70 flex items-center justify-center text-sage">
+                        <Icon size={17} />
                       </div>
-                      <span className="tertiary-text px-3 py-1.5 rounded-full border border-white/70 bg-white/55">
+                      <span className="tertiary-text px-2.5 py-1.5 rounded-full border border-white/70 bg-white/55">
                         {capability.shortLabel}
                       </span>
                     </div>
-                    <h3 className="text-2xl font-serif font-bold mb-3">{capability.title}</h3>
-                    <p className="!text-ink/76 text-sm leading-relaxed font-medium mb-4">{capability.description}</p>
-                    <div className="border-t border-ink/10 pt-4">
-                      <span className="tertiary-text">对用户的影响</span>
-                      <p className="!text-ink/70 text-sm leading-relaxed mt-2 mb-5">{capability.userImpact}</p>
-                    </div>
+                    <h3 className="text-lg font-serif font-bold mb-4">{capability.title}</h3>
                     {node && (
                       <div className="flex flex-wrap items-center gap-3">
                         <Link to={`/roadmap/${node.id}`} className="link-claude">
@@ -187,9 +182,9 @@ function ProjectLayerMap({
                         </Link>
                         <button
                           onClick={() => onToggleCompleted(node.id)}
-                          className="h-9 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.14em] border border-ink/15 text-sage hover:border-ink hover:text-ink transition-all bg-white/45"
+                          className="h-8 px-3 rounded-full text-[10px] font-black uppercase tracking-[0.12em] border border-ink/15 text-sage hover:border-ink hover:text-ink transition-all bg-white/45"
                         >
-                          {isCompleted ? '已完成' : '标记完成'}
+                          {isCompleted ? '已完成' : '完成'}
                         </button>
                       </div>
                     )}
