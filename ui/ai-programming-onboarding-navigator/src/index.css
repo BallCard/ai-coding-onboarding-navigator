@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fbfaf8;
+  --color-ink: #121110;
+  --color-clay: #e8e4e0;
+  --color-oat: #f3f0ec;
+  --color-sage: #4f5547;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libre Baskerville", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans antialiased selection:bg-clay/60;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
+  }
+}
+
+.structure-border {
+  @apply border border-clay/70;
+}
+
+.tertiary-text {
+  @apply text-[9px] font-black uppercase tracking-[0.22em] text-sage/85;
+}
+
+.terminal-box {
+  @apply bg-[#1a1918] text-[#e0dad5] p-8 rounded-[24px] font-mono text-[13px] leading-relaxed border border-white/5 shadow-2xl;
+}
+
+.step-card {
+  @apply bg-white border border-clay/60 p-12 rounded-[40px] shadow-[0_18px_55px_-34px_rgba(18,17,16,0.45)] transition-all duration-700 hover:border-sage/35 hover:shadow-[0_30px_70px_-28px_rgba(18,17,16,0.22)] hover:-translate-y-1 ease-[cubic-bezier(0.23,1,0.32,1)];
+}
+
+.step-card p {
+  color: rgba(18, 17, 16, 0.76);
+}
+
+.step-card li,
+.step-card span {
+  text-wrap: pretty;
+}
+
+.step-card .tertiary-text {
+  color: rgba(79, 85, 71, 0.9);
+}
+
+.step-card code,
+.step-card pre {
+  color: inherit;
+}
+
+.technical-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(107, 112, 92, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+h1, h2, h3, h4 {
+  @apply font-serif leading-tight text-ink;
+}
+
+.btn-claude {
+  @apply h-14 px-10 rounded-full bg-ink text-paper font-bold text-[11px] uppercase tracking-[0.2em] transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-3;
+}
+
+.link-claude {
+  @apply inline-flex items-center gap-2 text-[11px] font-black text-ink/80 border-b border-transparent hover:text-ink hover:border-ink transition-all uppercase tracking-widest leading-none;
+}

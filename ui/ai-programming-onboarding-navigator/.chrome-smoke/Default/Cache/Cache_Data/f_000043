@@ -1,0 +1,389 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/@fs/D:\\ClaudeCode教学\\ui\\ai-programming-onboarding-navigator\\src\\pages\\RoadmapDetail.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=cd9e9787"; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+var _s = $RefreshSig$();
+import { motion } from "/node_modules/.vite/deps/motion_react.js?v=41e6a9d4";
+import { Link, useParams } from "/node_modules/.vite/deps/react-router-dom.js?v=6ccb0aee";
+import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, ShieldCheck, AlertCircle } from "/node_modules/.vite/deps/lucide-react.js?v=41c7cbef";
+import { ROADMAP_NODES, TROUBLESHOOTING_DATA, getSource } from "/src/constants.ts?t=1777886698045";
+export default function RoadmapDetail() {
+  _s();
+  const { nodeId } = useParams();
+  const node = ROADMAP_NODES.find((item) => item.id === nodeId);
+  if (!node) {
+    return /* @__PURE__ */ jsxDEV("div", { className: "max-w-4xl mx-auto px-6 py-32", children: [
+      /* @__PURE__ */ jsxDEV("h1", { className: "text-4xl font-serif font-bold mb-6", children: "没有找到这个路线节点" }, void 0, false, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 13,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV(Link, { to: "/", className: "link-claude", children: "回到路线图" }, void 0, false, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 14,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+      lineNumber: 12,
+      columnNumber: 7
+    }, this);
+  }
+  const sources = node.sourceIds.map(getSource).filter(Boolean);
+  const issues = TROUBLESHOOTING_DATA.filter((issue) => issue.category === node.stuckCategory || issue.os === node.stuckCategory).slice(0, 4);
+  const nextNode = node.nextStepId ? ROADMAP_NODES.find((item) => item.id === node.nextStepId) : void 0;
+  return /* @__PURE__ */ jsxDEV(motion.div, { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, className: "max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32", children: [
+    /* @__PURE__ */ jsxDEV(Link, { to: "/", className: "link-claude mb-12", children: [
+      /* @__PURE__ */ jsxDEV(ArrowLeft, { size: 14 }, void 0, false, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 26,
+        columnNumber: 9
+      }, this),
+      " 回到层次路线图"
+    ] }, void 0, true, {
+      fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+      lineNumber: 25,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("header", { className: "grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 items-start mb-20", children: [
+      /* @__PURE__ */ jsxDEV("div", { children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-4 mb-8", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "w-12 h-[1px] bg-sage" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 32,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ jsxDEV("span", { className: "tertiary-text !tracking-[0.3em] !text-sage", children: [
+            node.level,
+            " route"
+          ] }, void 0, true, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 33,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 31,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("h1", { className: "text-5xl md:text-7xl font-serif tracking-tighter mb-8 text-ink leading-none", children: node.title }, void 0, false, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 35,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("p", { className: "text-xl text-sage/70 leading-relaxed font-serif italic border-l-2 border-clay/40 pl-8", children: node.description }, void 0, false, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 36,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 30,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("aside", { className: "step-card !p-9", children: [
+        /* @__PURE__ */ jsxDEV("span", { className: "tertiary-text", children: "这一步要达成什么" }, void 0, false, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 40,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("h2", { className: "text-3xl font-serif font-bold mt-5 mb-5", children: node.userGoal }, void 0, false, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 41,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("p", { className: "text-sm text-sage/70 leading-relaxed", children: node.successCriteria[0] }, void 0, false, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 42,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 39,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+      lineNumber: 29,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 lg:grid-cols-12 gap-10", children: [
+      /* @__PURE__ */ jsxDEV("section", { className: "lg:col-span-8 space-y-10", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "step-card !p-8 md:!p-10", children: [
+          /* @__PURE__ */ jsxDEV("h2", { className: "text-3xl font-serif font-bold mb-8", children: "操作路径" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 49,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5", children: node.tasks.map(
+            (task, index) => /* @__PURE__ */ jsxDEV("div", { className: "bg-oat/35 border border-clay/30 rounded-[24px] p-5", children: [
+              /* @__PURE__ */ jsxDEV("div", { className: "tertiary-text mb-4", children: [
+                "Step ",
+                index + 1
+              ] }, void 0, true, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 53,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "text-sage/85 leading-relaxed", children: task }, void 0, false, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 54,
+                columnNumber: 19
+              }, this)
+            ] }, task, true, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 52,
+              columnNumber: 15
+            }, this)
+          ) }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 50,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 48,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "step-card !p-8 md:!p-10", children: [
+          /* @__PURE__ */ jsxDEV("h2", { className: "text-3xl font-serif font-bold mb-8", children: "完成标准" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 61,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "space-y-5", children: node.successCriteria.map(
+            (criterion) => /* @__PURE__ */ jsxDEV("div", { className: "flex items-start gap-4", children: [
+              /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 18, className: "text-sage mt-1 flex-shrink-0" }, void 0, false, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 65,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "text-sage/80 leading-relaxed", children: criterion }, void 0, false, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 66,
+                columnNumber: 19
+              }, this)
+            ] }, criterion, true, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 64,
+              columnNumber: 15
+            }, this)
+          ) }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 62,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 60,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "step-card !p-8 md:!p-10", children: [
+          /* @__PURE__ */ jsxDEV("h2", { className: "text-3xl font-serif font-bold mb-8", children: "常见卡点" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 73,
+            columnNumber: 13
+          }, this),
+          issues.length > 0 ? /* @__PURE__ */ jsxDEV("div", { className: "space-y-5", children: issues.map(
+            (issue) => /* @__PURE__ */ jsxDEV(Link, { to: `/troubleshooting?node=${node.id}&category=${issue.category}`, className: "block bg-oat/35 border border-clay/30 rounded-[24px] p-5 hover:border-ink transition-colors", children: [
+              /* @__PURE__ */ jsxDEV("div", { className: "flex items-center gap-3 mb-3", children: [
+                /* @__PURE__ */ jsxDEV(AlertCircle, { size: 16, className: "text-sage" }, void 0, false, {
+                  fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                  lineNumber: 79,
+                  columnNumber: 23
+                }, this),
+                /* @__PURE__ */ jsxDEV("span", { className: "tertiary-text", children: issue.category }, void 0, false, {
+                  fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                  lineNumber: 80,
+                  columnNumber: 23
+                }, this)
+              ] }, void 0, true, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 78,
+                columnNumber: 21
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "font-serif font-bold text-lg mb-2", children: issue.symptom }, void 0, false, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 82,
+                columnNumber: 21
+              }, this),
+              /* @__PURE__ */ jsxDEV("p", { className: "text-sm text-sage/70", children: issue.firstActions[0] }, void 0, false, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 83,
+                columnNumber: 21
+              }, this)
+            ] }, issue.id, true, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 77,
+              columnNumber: 15
+            }, this)
+          ) }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 75,
+            columnNumber: 13
+          }, this) : /* @__PURE__ */ jsxDEV("p", { className: "text-sage/70", children: "这一步暂时没有单独卡点，遇到问题可进入排障数据库搜索症状。" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 88,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 72,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 47,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("aside", { className: "lg:col-span-4 space-y-8", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "step-card !p-8", children: [
+          /* @__PURE__ */ jsxDEV("h2", { className: "text-2xl font-serif font-bold mb-6", children: "官方来源" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 95,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "space-y-4", children: sources.map(
+            (source) => source && /* @__PURE__ */ jsxDEV("a", { href: source.url, target: source.url === "#" ? void 0 : "_blank", rel: "noreferrer", className: "block border border-clay/40 rounded-2xl p-4 hover:border-ink transition-colors", children: [
+              /* @__PURE__ */ jsxDEV("div", { className: "tertiary-text mb-3", children: source.sourceType }, void 0, false, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 99,
+                columnNumber: 19
+              }, this),
+              /* @__PURE__ */ jsxDEV("div", { className: "flex items-center justify-between gap-4", children: [
+                /* @__PURE__ */ jsxDEV("span", { className: "text-sm text-sage/80", children: source.title }, void 0, false, {
+                  fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                  lineNumber: 101,
+                  columnNumber: 21
+                }, this),
+                source.url !== "#" && /* @__PURE__ */ jsxDEV(ExternalLink, { size: 14, className: "text-sage/40 flex-shrink-0" }, void 0, false, {
+                  fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                  lineNumber: 102,
+                  columnNumber: 44
+                }, this)
+              ] }, void 0, true, {
+                fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+                lineNumber: 100,
+                columnNumber: 19
+              }, this)
+            ] }, source.id, true, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 98,
+              columnNumber: 15
+            }, this)
+          ) }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 96,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 94,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "step-card !p-8", children: [
+          /* @__PURE__ */ jsxDEV("h2", { className: "text-2xl font-serif font-bold mb-6", children: "安全提醒" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 110,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "flex items-start gap-4", children: [
+            /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 18, className: "text-sage mt-1 flex-shrink-0" }, void 0, false, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 112,
+              columnNumber: 15
+            }, this),
+            /* @__PURE__ */ jsxDEV("p", { className: "text-sm text-sage/75 leading-relaxed", children: "在真实项目里，让 Agent 修改前先确认规则文件、Git 状态和验证命令。不要把第一次尝试放在重要课程项目中。" }, void 0, false, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 113,
+              columnNumber: 15
+            }, this)
+          ] }, void 0, true, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 111,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 109,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "step-card !p-8", children: [
+          /* @__PURE__ */ jsxDEV("h2", { className: "text-2xl font-serif font-bold mb-6", children: "下一步" }, void 0, false, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 120,
+            columnNumber: 13
+          }, this),
+          nextNode ? /* @__PURE__ */ jsxDEV(Link, { to: `/roadmap/${nextNode.id}`, className: "btn-claude w-fit", children: [
+            nextNode.title,
+            " ",
+            /* @__PURE__ */ jsxDEV(ArrowRight, { size: 16 }, void 0, false, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 123,
+              columnNumber: 34
+            }, this)
+          ] }, void 0, true, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 122,
+            columnNumber: 13
+          }, this) : /* @__PURE__ */ jsxDEV(Link, { to: node.route, className: "btn-claude w-fit", children: [
+            "进入对应页面 ",
+            /* @__PURE__ */ jsxDEV(ArrowRight, { size: 16 }, void 0, false, {
+              fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+              lineNumber: 127,
+              columnNumber: 24
+            }, this)
+          ] }, void 0, true, {
+            fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+            lineNumber: 126,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+          lineNumber: 119,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+        lineNumber: 93,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+      lineNumber: 46,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
+    fileName: "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx",
+    lineNumber: 24,
+    columnNumber: 5
+  }, this);
+}
+_s(RoadmapDetail, "5ZXqQDsol+9bWyv9T7UbuYmiP9I=", false, function() {
+  return [useParams];
+});
+_c = RoadmapDetail;
+var _c;
+$RefreshReg$(_c, "RoadmapDetail");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "D:/ClaudeCode教学/ui/ai-programming-onboarding-navigator/src/pages/RoadmapDetail.tsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBWVE7O0FBWlIsU0FBU0EsY0FBYztBQUN2QixTQUFTQyxNQUFNQyxpQkFBaUI7QUFDaEMsU0FBU0MsV0FBV0MsWUFBWUMsY0FBY0MsY0FBY0MsYUFBYUMsbUJBQW1CO0FBQzVGLFNBQVNDLGVBQWVDLHNCQUFzQkMsaUJBQWlCO0FBRS9ELHdCQUF3QkMsZ0JBQWdCO0FBQUFDLEtBQUE7QUFDdEMsUUFBTSxFQUFFQyxPQUFPLElBQUlaLFVBQVU7QUFDN0IsUUFBTWEsT0FBT04sY0FBY08sS0FBSyxDQUFDQyxTQUFTQSxLQUFLQyxPQUFPSixNQUFNO0FBRTVELE1BQUksQ0FBQ0MsTUFBTTtBQUNULFdBQ0UsdUJBQUMsU0FBSSxXQUFVLGdDQUNiO0FBQUEsNkJBQUMsUUFBRyxXQUFVLHNDQUFxQywwQkFBbkQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQUE2RDtBQUFBLE1BQzdELHVCQUFDLFFBQUssSUFBRyxLQUFJLFdBQVUsZUFBYyxxQkFBckM7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQUEwQztBQUFBLFNBRjVDO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FHQTtBQUFBLEVBRUo7QUFFQSxRQUFNSSxVQUFVSixLQUFLSyxVQUFVQyxJQUFJVixTQUFTLEVBQUVXLE9BQU9DLE9BQU87QUFDNUQsUUFBTUMsU0FBU2QscUJBQXFCWSxPQUFPLENBQUNHLFVBQVVBLE1BQU1DLGFBQWFYLEtBQUtZLGlCQUFpQkYsTUFBTUcsT0FBT2IsS0FBS1ksYUFBYSxFQUFFRSxNQUFNLEdBQUcsQ0FBQztBQUMxSSxRQUFNQyxXQUFXZixLQUFLZ0IsYUFBYXRCLGNBQWNPLEtBQUssQ0FBQ0MsU0FBU0EsS0FBS0MsT0FBT0gsS0FBS2dCLFVBQVUsSUFBSUM7QUFFL0YsU0FDRSx1QkFBQyxPQUFPLEtBQVAsRUFBVyxTQUFTLEVBQUVDLFNBQVMsR0FBR0MsR0FBRyxHQUFHLEdBQUcsU0FBUyxFQUFFRCxTQUFTLEdBQUdDLEdBQUcsRUFBRSxHQUFHLFdBQVUsa0RBQ25GO0FBQUEsMkJBQUMsUUFBSyxJQUFHLEtBQUksV0FBVSxxQkFDckI7QUFBQSw2QkFBQyxhQUFVLE1BQU0sTUFBakI7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQUFvQjtBQUFBLE1BQUc7QUFBQSxTQUR6QjtBQUFBO0FBQUE7QUFBQTtBQUFBLFdBRUE7QUFBQSxJQUVBLHVCQUFDLFlBQU8sV0FBVSx3RUFDaEI7QUFBQSw2QkFBQyxTQUNDO0FBQUEsK0JBQUMsU0FBSSxXQUFVLGdDQUNiO0FBQUEsaUNBQUMsU0FBSSxXQUFVLDBCQUFmO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQXFDO0FBQUEsVUFDckMsdUJBQUMsVUFBSyxXQUFVLDhDQUE4Q25CO0FBQUFBLGlCQUFLb0I7QUFBQUEsWUFBTTtBQUFBLGVBQXpFO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQStFO0FBQUEsYUFGakY7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUdBO0FBQUEsUUFDQSx1QkFBQyxRQUFHLFdBQVUsK0VBQStFcEIsZUFBS3FCLFNBQWxHO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBd0c7QUFBQSxRQUN4Ryx1QkFBQyxPQUFFLFdBQVUseUZBQXlGckIsZUFBS3NCLGVBQTNHO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBdUg7QUFBQSxXQU56SDtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBT0E7QUFBQSxNQUVBLHVCQUFDLFdBQU0sV0FBVSxrQkFDZjtBQUFBLCtCQUFDLFVBQUssV0FBVSxpQkFBZ0Isd0JBQWhDO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBd0M7QUFBQSxRQUN4Qyx1QkFBQyxRQUFHLFdBQVUsMkNBQTJDdEIsZUFBS3VCLFlBQTlEO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBdUU7QUFBQSxRQUN2RSx1QkFBQyxPQUFFLFdBQVUsd0NBQXdDdkIsZUFBS3dCLGdCQUFnQixDQUFDLEtBQTNFO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBNkU7QUFBQSxXQUgvRTtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBSUE7QUFBQSxTQWRGO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FlQTtBQUFBLElBRUEsdUJBQUMsU0FBSSxXQUFVLDJDQUNiO0FBQUEsNkJBQUMsYUFBUSxXQUFVLDRCQUNqQjtBQUFBLCtCQUFDLFNBQUksV0FBVSwyQkFDYjtBQUFBLGlDQUFDLFFBQUcsV0FBVSxzQ0FBcUMsb0JBQW5EO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQXVEO0FBQUEsVUFDdkQsdUJBQUMsU0FBSSxXQUFVLHlDQUNaeEIsZUFBS3lCLE1BQU1uQjtBQUFBQSxZQUFJLENBQUNvQixNQUFNQyxVQUNyQix1QkFBQyxTQUFlLFdBQVUsc0RBQ3hCO0FBQUEscUNBQUMsU0FBSSxXQUFVLHNCQUFxQjtBQUFBO0FBQUEsZ0JBQU1BLFFBQVE7QUFBQSxtQkFBbEQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxxQkFBb0Q7QUFBQSxjQUNwRCx1QkFBQyxPQUFFLFdBQVUsZ0NBQWdDRCxrQkFBN0M7QUFBQTtBQUFBO0FBQUE7QUFBQSxxQkFBa0Q7QUFBQSxpQkFGMUNBLE1BQVY7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQkFHQTtBQUFBLFVBQ0QsS0FOSDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQU9BO0FBQUEsYUFURjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBVUE7QUFBQSxRQUVBLHVCQUFDLFNBQUksV0FBVSwyQkFDYjtBQUFBLGlDQUFDLFFBQUcsV0FBVSxzQ0FBcUMsb0JBQW5EO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQXVEO0FBQUEsVUFDdkQsdUJBQUMsU0FBSSxXQUFVLGFBQ1oxQixlQUFLd0IsZ0JBQWdCbEI7QUFBQUEsWUFBSSxDQUFDc0IsY0FDekIsdUJBQUMsU0FBb0IsV0FBVSwwQkFDN0I7QUFBQSxxQ0FBQyxnQkFBYSxNQUFNLElBQUksV0FBVSxrQ0FBbEM7QUFBQTtBQUFBO0FBQUE7QUFBQSxxQkFBZ0U7QUFBQSxjQUNoRSx1QkFBQyxPQUFFLFdBQVUsZ0NBQWdDQSx1QkFBN0M7QUFBQTtBQUFBO0FBQUE7QUFBQSxxQkFBdUQ7QUFBQSxpQkFGL0NBLFdBQVY7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQkFHQTtBQUFBLFVBQ0QsS0FOSDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQU9BO0FBQUEsYUFURjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBVUE7QUFBQSxRQUVBLHVCQUFDLFNBQUksV0FBVSwyQkFDYjtBQUFBLGlDQUFDLFFBQUcsV0FBVSxzQ0FBcUMsb0JBQW5EO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQXVEO0FBQUEsVUFDdERuQixPQUFPb0IsU0FBUyxJQUNmLHVCQUFDLFNBQUksV0FBVSxhQUNacEIsaUJBQU9IO0FBQUFBLFlBQUksQ0FBQ0ksVUFDWCx1QkFBQyxRQUFvQixJQUFJLHlCQUF5QlYsS0FBS0csRUFBRSxhQUFhTyxNQUFNQyxRQUFRLElBQUksV0FBVSwrRkFDaEc7QUFBQSxxQ0FBQyxTQUFJLFdBQVUsZ0NBQ2I7QUFBQSx1Q0FBQyxlQUFZLE1BQU0sSUFBSSxXQUFVLGVBQWpDO0FBQUE7QUFBQTtBQUFBO0FBQUEsdUJBQTRDO0FBQUEsZ0JBQzVDLHVCQUFDLFVBQUssV0FBVSxpQkFBaUJELGdCQUFNQyxZQUF2QztBQUFBO0FBQUE7QUFBQTtBQUFBLHVCQUFnRDtBQUFBLG1CQUZsRDtBQUFBO0FBQUE7QUFBQTtBQUFBLHFCQUdBO0FBQUEsY0FDQSx1QkFBQyxPQUFFLFdBQVUscUNBQXFDRCxnQkFBTW9CLFdBQXhEO0FBQUE7QUFBQTtBQUFBO0FBQUEscUJBQWdFO0FBQUEsY0FDaEUsdUJBQUMsT0FBRSxXQUFVLHdCQUF3QnBCLGdCQUFNcUIsYUFBYSxDQUFDLEtBQXpEO0FBQUE7QUFBQTtBQUFBO0FBQUEscUJBQTJEO0FBQUEsaUJBTmxEckIsTUFBTVAsSUFBakI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQkFPQTtBQUFBLFVBQ0QsS0FWSDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQVdBLElBRUEsdUJBQUMsT0FBRSxXQUFVLGdCQUFlLDZDQUE1QjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUF5RDtBQUFBLGFBaEI3RDtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBa0JBO0FBQUEsV0EzQ0Y7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQTRDQTtBQUFBLE1BRUEsdUJBQUMsV0FBTSxXQUFVLDJCQUNmO0FBQUEsK0JBQUMsU0FBSSxXQUFVLGtCQUNiO0FBQUEsaUNBQUMsUUFBRyxXQUFVLHNDQUFxQyxvQkFBbkQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFBdUQ7QUFBQSxVQUN2RCx1QkFBQyxTQUFJLFdBQVUsYUFDWkMsa0JBQVFFO0FBQUFBLFlBQUksQ0FBQzBCLFdBQVdBLFVBQ3ZCLHVCQUFDLE9BQWtCLE1BQU1BLE9BQU9DLEtBQUssUUFBUUQsT0FBT0MsUUFBUSxNQUFNaEIsU0FBWSxVQUFVLEtBQUksY0FBYSxXQUFVLGtGQUNqSDtBQUFBLHFDQUFDLFNBQUksV0FBVSxzQkFBc0JlLGlCQUFPRSxjQUE1QztBQUFBO0FBQUE7QUFBQTtBQUFBLHFCQUF1RDtBQUFBLGNBQ3ZELHVCQUFDLFNBQUksV0FBVSwyQ0FDYjtBQUFBLHVDQUFDLFVBQUssV0FBVSx3QkFBd0JGLGlCQUFPWCxTQUEvQztBQUFBO0FBQUE7QUFBQTtBQUFBLHVCQUFxRDtBQUFBLGdCQUNwRFcsT0FBT0MsUUFBUSxPQUFPLHVCQUFDLGdCQUFhLE1BQU0sSUFBSSxXQUFVLGdDQUFsQztBQUFBO0FBQUE7QUFBQTtBQUFBLHVCQUE4RDtBQUFBLG1CQUZ2RjtBQUFBO0FBQUE7QUFBQTtBQUFBLHFCQUdBO0FBQUEsaUJBTE1ELE9BQU83QixJQUFmO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUJBTUE7QUFBQSxVQUNELEtBVEg7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFVQTtBQUFBLGFBWkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQWFBO0FBQUEsUUFFQSx1QkFBQyxTQUFJLFdBQVUsa0JBQ2I7QUFBQSxpQ0FBQyxRQUFHLFdBQVUsc0NBQXFDLG9CQUFuRDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUF1RDtBQUFBLFVBQ3ZELHVCQUFDLFNBQUksV0FBVSwwQkFDYjtBQUFBLG1DQUFDLGVBQVksTUFBTSxJQUFJLFdBQVUsa0NBQWpDO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUJBQStEO0FBQUEsWUFDL0QsdUJBQUMsT0FBRSxXQUFVLHdDQUFzQyx3RUFBbkQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQkFFQTtBQUFBLGVBSkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFLQTtBQUFBLGFBUEY7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQVFBO0FBQUEsUUFFQSx1QkFBQyxTQUFJLFdBQVUsa0JBQ2I7QUFBQSxpQ0FBQyxRQUFHLFdBQVUsc0NBQXFDLG1CQUFuRDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUFzRDtBQUFBLFVBQ3JEWSxXQUNDLHVCQUFDLFFBQUssSUFBSSxZQUFZQSxTQUFTWixFQUFFLElBQUksV0FBVSxvQkFDNUNZO0FBQUFBLHFCQUFTTTtBQUFBQSxZQUFNO0FBQUEsWUFBQyx1QkFBQyxjQUFXLE1BQU0sTUFBbEI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQkFBcUI7QUFBQSxlQUR4QztBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUVBLElBRUEsdUJBQUMsUUFBSyxJQUFJckIsS0FBS21DLE9BQU8sV0FBVSxvQkFBa0I7QUFBQTtBQUFBLFlBQ3pDLHVCQUFDLGNBQVcsTUFBTSxNQUFsQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1CQUFxQjtBQUFBLGVBRDlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBRUE7QUFBQSxhQVRKO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFXQTtBQUFBLFdBckNGO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFzQ0E7QUFBQSxTQXJGRjtBQUFBO0FBQUE7QUFBQTtBQUFBLFdBc0ZBO0FBQUEsT0E1R0Y7QUFBQTtBQUFBO0FBQUE7QUFBQSxTQTZHQTtBQUVKO0FBQUNyQyxHQWpJdUJELGVBQWE7QUFBQSxVQUNoQlYsU0FBUztBQUFBO0FBQUEsS0FETlU7QUFBYSxJQUFBdUM7QUFBQSxhQUFBQSxJQUFBIiwibmFtZXMiOlsibW90aW9uIiwiTGluayIsInVzZVBhcmFtcyIsIkFycm93TGVmdCIsIkFycm93UmlnaHQiLCJDaGVja0NpcmNsZTIiLCJFeHRlcm5hbExpbmsiLCJTaGllbGRDaGVjayIsIkFsZXJ0Q2lyY2xlIiwiUk9BRE1BUF9OT0RFUyIsIlRST1VCTEVTSE9PVElOR19EQVRBIiwiZ2V0U291cmNlIiwiUm9hZG1hcERldGFpbCIsIl9zIiwibm9kZUlkIiwibm9kZSIsImZpbmQiLCJpdGVtIiwiaWQiLCJzb3VyY2VzIiwic291cmNlSWRzIiwibWFwIiwiZmlsdGVyIiwiQm9vbGVhbiIsImlzc3VlcyIsImlzc3VlIiwiY2F0ZWdvcnkiLCJzdHVja0NhdGVnb3J5Iiwib3MiLCJzbGljZSIsIm5leHROb2RlIiwibmV4dFN0ZXBJZCIsInVuZGVmaW5lZCIsIm9wYWNpdHkiLCJ5IiwibGV2ZWwiLCJ0aXRsZSIsImRlc2NyaXB0aW9uIiwidXNlckdvYWwiLCJzdWNjZXNzQ3JpdGVyaWEiLCJ0YXNrcyIsInRhc2siLCJpbmRleCIsImNyaXRlcmlvbiIsImxlbmd0aCIsInN5bXB0b20iLCJmaXJzdEFjdGlvbnMiLCJzb3VyY2UiLCJ1cmwiLCJzb3VyY2VUeXBlIiwicm91dGUiLCJfYyJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJSb2FkbWFwRGV0YWlsLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBtb3Rpb24gfSBmcm9tICdtb3Rpb24vcmVhY3QnO1xuaW1wb3J0IHsgTGluaywgdXNlUGFyYW1zIH0gZnJvbSAncmVhY3Qtcm91dGVyLWRvbSc7XG5pbXBvcnQgeyBBcnJvd0xlZnQsIEFycm93UmlnaHQsIENoZWNrQ2lyY2xlMiwgRXh0ZXJuYWxMaW5rLCBTaGllbGRDaGVjaywgQWxlcnRDaXJjbGUgfSBmcm9tICdsdWNpZGUtcmVhY3QnO1xuaW1wb3J0IHsgUk9BRE1BUF9OT0RFUywgVFJPVUJMRVNIT09USU5HX0RBVEEsIGdldFNvdXJjZSB9IGZyb20gJy4uL2NvbnN0YW50cyc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFJvYWRtYXBEZXRhaWwoKSB7XG4gIGNvbnN0IHsgbm9kZUlkIH0gPSB1c2VQYXJhbXMoKTtcbiAgY29uc3Qgbm9kZSA9IFJPQURNQVBfTk9ERVMuZmluZCgoaXRlbSkgPT4gaXRlbS5pZCA9PT0gbm9kZUlkKTtcblxuICBpZiAoIW5vZGUpIHtcbiAgICByZXR1cm4gKFxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJtYXgtdy00eGwgbXgtYXV0byBweC02IHB5LTMyXCI+XG4gICAgICAgIDxoMSBjbGFzc05hbWU9XCJ0ZXh0LTR4bCBmb250LXNlcmlmIGZvbnQtYm9sZCBtYi02XCI+5rKh5pyJ5om+5Yiw6L+Z5Liq6Lev57q/6IqC54K5PC9oMT5cbiAgICAgICAgPExpbmsgdG89XCIvXCIgY2xhc3NOYW1lPVwibGluay1jbGF1ZGVcIj7lm57liLDot6/nur/lm748L0xpbms+XG4gICAgICA8L2Rpdj5cbiAgICApO1xuICB9XG5cbiAgY29uc3Qgc291cmNlcyA9IG5vZGUuc291cmNlSWRzLm1hcChnZXRTb3VyY2UpLmZpbHRlcihCb29sZWFuKTtcbiAgY29uc3QgaXNzdWVzID0gVFJPVUJMRVNIT09USU5HX0RBVEEuZmlsdGVyKChpc3N1ZSkgPT4gaXNzdWUuY2F0ZWdvcnkgPT09IG5vZGUuc3R1Y2tDYXRlZ29yeSB8fCBpc3N1ZS5vcyA9PT0gbm9kZS5zdHVja0NhdGVnb3J5KS5zbGljZSgwLCA0KTtcbiAgY29uc3QgbmV4dE5vZGUgPSBub2RlLm5leHRTdGVwSWQgPyBST0FETUFQX05PREVTLmZpbmQoKGl0ZW0pID0+IGl0ZW0uaWQgPT09IG5vZGUubmV4dFN0ZXBJZCkgOiB1bmRlZmluZWQ7XG5cbiAgcmV0dXJuIChcbiAgICA8bW90aW9uLmRpdiBpbml0aWFsPXt7IG9wYWNpdHk6IDAsIHk6IDIwIH19IGFuaW1hdGU9e3sgb3BhY2l0eTogMSwgeTogMCB9fSBjbGFzc05hbWU9XCJtYXgtdy03eGwgbXgtYXV0byBweC02IG1kOnB4LTEwIHB5LTI0IG1kOnB5LTMyXCI+XG4gICAgICA8TGluayB0bz1cIi9cIiBjbGFzc05hbWU9XCJsaW5rLWNsYXVkZSBtYi0xMlwiPlxuICAgICAgICA8QXJyb3dMZWZ0IHNpemU9ezE0fSAvPiDlm57liLDlsYLmrKHot6/nur/lm75cbiAgICAgIDwvTGluaz5cblxuICAgICAgPGhlYWRlciBjbGFzc05hbWU9XCJncmlkIGdyaWQtY29scy0xIGxnOmdyaWQtY29scy1bMS4xZnJfMC45ZnJdIGdhcC0xNiBpdGVtcy1zdGFydCBtYi0yMFwiPlxuICAgICAgICA8ZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTQgbWItOFwiPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJ3LTEyIGgtWzFweF0gYmctc2FnZVwiIC8+XG4gICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0ZXJ0aWFyeS10ZXh0ICF0cmFja2luZy1bMC4zZW1dICF0ZXh0LXNhZ2VcIj57bm9kZS5sZXZlbH0gcm91dGU8L3NwYW4+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGgxIGNsYXNzTmFtZT1cInRleHQtNXhsIG1kOnRleHQtN3hsIGZvbnQtc2VyaWYgdHJhY2tpbmctdGlnaHRlciBtYi04IHRleHQtaW5rIGxlYWRpbmctbm9uZVwiPntub2RlLnRpdGxlfTwvaDE+XG4gICAgICAgICAgPHAgY2xhc3NOYW1lPVwidGV4dC14bCB0ZXh0LXNhZ2UvNzAgbGVhZGluZy1yZWxheGVkIGZvbnQtc2VyaWYgaXRhbGljIGJvcmRlci1sLTIgYm9yZGVyLWNsYXkvNDAgcGwtOFwiPntub2RlLmRlc2NyaXB0aW9ufTwvcD5cbiAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgPGFzaWRlIGNsYXNzTmFtZT1cInN0ZXAtY2FyZCAhcC05XCI+XG4gICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwidGVydGlhcnktdGV4dFwiPui/meS4gOatpeimgei+vuaIkOS7gOS5iDwvc3Bhbj5cbiAgICAgICAgICA8aDIgY2xhc3NOYW1lPVwidGV4dC0zeGwgZm9udC1zZXJpZiBmb250LWJvbGQgbXQtNSBtYi01XCI+e25vZGUudXNlckdvYWx9PC9oMj5cbiAgICAgICAgICA8cCBjbGFzc05hbWU9XCJ0ZXh0LXNtIHRleHQtc2FnZS83MCBsZWFkaW5nLXJlbGF4ZWRcIj57bm9kZS5zdWNjZXNzQ3JpdGVyaWFbMF19PC9wPlxuICAgICAgICA8L2FzaWRlPlxuICAgICAgPC9oZWFkZXI+XG5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBncmlkLWNvbHMtMSBsZzpncmlkLWNvbHMtMTIgZ2FwLTEwXCI+XG4gICAgICAgIDxzZWN0aW9uIGNsYXNzTmFtZT1cImxnOmNvbC1zcGFuLTggc3BhY2UteS0xMFwiPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwic3RlcC1jYXJkICFwLTggbWQ6IXAtMTBcIj5cbiAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9XCJ0ZXh0LTN4bCBmb250LXNlcmlmIGZvbnQtYm9sZCBtYi04XCI+5pON5L2c6Lev5b6EPC9oMj5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBncmlkLWNvbHMtMSBtZDpncmlkLWNvbHMtMiBnYXAtNVwiPlxuICAgICAgICAgICAgICB7bm9kZS50YXNrcy5tYXAoKHRhc2ssIGluZGV4KSA9PiAoXG4gICAgICAgICAgICAgICAgPGRpdiBrZXk9e3Rhc2t9IGNsYXNzTmFtZT1cImJnLW9hdC8zNSBib3JkZXIgYm9yZGVyLWNsYXkvMzAgcm91bmRlZC1bMjRweF0gcC01XCI+XG4gICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInRlcnRpYXJ5LXRleHQgbWItNFwiPlN0ZXAge2luZGV4ICsgMX08L2Rpdj5cbiAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtc2FnZS84NSBsZWFkaW5nLXJlbGF4ZWRcIj57dGFza308L3A+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICkpfVxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInN0ZXAtY2FyZCAhcC04IG1kOiFwLTEwXCI+XG4gICAgICAgICAgICA8aDIgY2xhc3NOYW1lPVwidGV4dC0zeGwgZm9udC1zZXJpZiBmb250LWJvbGQgbWItOFwiPuWujOaIkOagh+WHhjwvaDI+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInNwYWNlLXktNVwiPlxuICAgICAgICAgICAgICB7bm9kZS5zdWNjZXNzQ3JpdGVyaWEubWFwKChjcml0ZXJpb24pID0+IChcbiAgICAgICAgICAgICAgICA8ZGl2IGtleT17Y3JpdGVyaW9ufSBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC00XCI+XG4gICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezE4fSBjbGFzc05hbWU9XCJ0ZXh0LXNhZ2UgbXQtMSBmbGV4LXNocmluay0wXCIgLz5cbiAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtc2FnZS84MCBsZWFkaW5nLXJlbGF4ZWRcIj57Y3JpdGVyaW9ufTwvcD5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwic3RlcC1jYXJkICFwLTggbWQ6IXAtMTBcIj5cbiAgICAgICAgICAgIDxoMiBjbGFzc05hbWU9XCJ0ZXh0LTN4bCBmb250LXNlcmlmIGZvbnQtYm9sZCBtYi04XCI+5bi46KeB5Y2h54K5PC9oMj5cbiAgICAgICAgICAgIHtpc3N1ZXMubGVuZ3RoID4gMCA/IChcbiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJzcGFjZS15LTVcIj5cbiAgICAgICAgICAgICAgICB7aXNzdWVzLm1hcCgoaXNzdWUpID0+IChcbiAgICAgICAgICAgICAgICAgIDxMaW5rIGtleT17aXNzdWUuaWR9IHRvPXtgL3Ryb3VibGVzaG9vdGluZz9ub2RlPSR7bm9kZS5pZH0mY2F0ZWdvcnk9JHtpc3N1ZS5jYXRlZ29yeX1gfSBjbGFzc05hbWU9XCJibG9jayBiZy1vYXQvMzUgYm9yZGVyIGJvcmRlci1jbGF5LzMwIHJvdW5kZWQtWzI0cHhdIHAtNSBob3Zlcjpib3JkZXItaW5rIHRyYW5zaXRpb24tY29sb3JzXCI+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTMgbWItM1wiPlxuICAgICAgICAgICAgICAgICAgICAgIDxBbGVydENpcmNsZSBzaXplPXsxNn0gY2xhc3NOYW1lPVwidGV4dC1zYWdlXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0ZXJ0aWFyeS10ZXh0XCI+e2lzc3VlLmNhdGVnb3J5fTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cImZvbnQtc2VyaWYgZm9udC1ib2xkIHRleHQtbGcgbWItMlwiPntpc3N1ZS5zeW1wdG9tfTwvcD5cbiAgICAgICAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwidGV4dC1zbSB0ZXh0LXNhZ2UvNzBcIj57aXNzdWUuZmlyc3RBY3Rpb25zWzBdfTwvcD5cbiAgICAgICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICApIDogKFxuICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJ0ZXh0LXNhZ2UvNzBcIj7ov5nkuIDmraXmmoLml7bmsqHmnInljZXni6zljaHngrnvvIzpgYfliLDpl67popjlj6/ov5vlhaXmjpLpmpzmlbDmja7lupPmkJzntKLnl4fnirbjgII8L3A+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L3NlY3Rpb24+XG5cbiAgICAgICAgPGFzaWRlIGNsYXNzTmFtZT1cImxnOmNvbC1zcGFuLTQgc3BhY2UteS04XCI+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJzdGVwLWNhcmQgIXAtOFwiPlxuICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT1cInRleHQtMnhsIGZvbnQtc2VyaWYgZm9udC1ib2xkIG1iLTZcIj7lrpjmlrnmnaXmupA8L2gyPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJzcGFjZS15LTRcIj5cbiAgICAgICAgICAgICAge3NvdXJjZXMubWFwKChzb3VyY2UpID0+IHNvdXJjZSAmJiAoXG4gICAgICAgICAgICAgICAgPGEga2V5PXtzb3VyY2UuaWR9IGhyZWY9e3NvdXJjZS51cmx9IHRhcmdldD17c291cmNlLnVybCA9PT0gJyMnID8gdW5kZWZpbmVkIDogJ19ibGFuayd9IHJlbD1cIm5vcmVmZXJyZXJcIiBjbGFzc05hbWU9XCJibG9jayBib3JkZXIgYm9yZGVyLWNsYXkvNDAgcm91bmRlZC0yeGwgcC00IGhvdmVyOmJvcmRlci1pbmsgdHJhbnNpdGlvbi1jb2xvcnNcIj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwidGVydGlhcnktdGV4dCBtYi0zXCI+e3NvdXJjZS5zb3VyY2VUeXBlfTwvZGl2PlxuICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTRcIj5cbiAgICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwidGV4dC1zbSB0ZXh0LXNhZ2UvODBcIj57c291cmNlLnRpdGxlfTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAge3NvdXJjZS51cmwgIT09ICcjJyAmJiA8RXh0ZXJuYWxMaW5rIHNpemU9ezE0fSBjbGFzc05hbWU9XCJ0ZXh0LXNhZ2UvNDAgZmxleC1zaHJpbmstMFwiIC8+fVxuICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgPC9hPlxuICAgICAgICAgICAgICApKX1cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJzdGVwLWNhcmQgIXAtOFwiPlxuICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT1cInRleHQtMnhsIGZvbnQtc2VyaWYgZm9udC1ib2xkIG1iLTZcIj7lronlhajmj5DphpI8L2gyPlxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLXN0YXJ0IGdhcC00XCI+XG4gICAgICAgICAgICAgIDxTaGllbGRDaGVjayBzaXplPXsxOH0gY2xhc3NOYW1lPVwidGV4dC1zYWdlIG10LTEgZmxleC1zaHJpbmstMFwiIC8+XG4gICAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtc20gdGV4dC1zYWdlLzc1IGxlYWRpbmctcmVsYXhlZFwiPlxuICAgICAgICAgICAgICAgIOWcqOecn+WunumhueebrumHjO+8jOiuqSBBZ2VudCDkv67mlLnliY3lhYjnoa7orqTop4TliJnmlofku7bjgIFHaXQg54q25oCB5ZKM6aqM6K+B5ZG95Luk44CC5LiN6KaB5oqK56ys5LiA5qyh5bCd6K+V5pS+5Zyo6YeN6KaB6K++56iL6aG555uu5Lit44CCXG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJzdGVwLWNhcmQgIXAtOFwiPlxuICAgICAgICAgICAgPGgyIGNsYXNzTmFtZT1cInRleHQtMnhsIGZvbnQtc2VyaWYgZm9udC1ib2xkIG1iLTZcIj7kuIvkuIDmraU8L2gyPlxuICAgICAgICAgICAge25leHROb2RlID8gKFxuICAgICAgICAgICAgICA8TGluayB0bz17YC9yb2FkbWFwLyR7bmV4dE5vZGUuaWR9YH0gY2xhc3NOYW1lPVwiYnRuLWNsYXVkZSB3LWZpdFwiPlxuICAgICAgICAgICAgICAgIHtuZXh0Tm9kZS50aXRsZX0gPEFycm93UmlnaHQgc2l6ZT17MTZ9IC8+XG4gICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgICkgOiAoXG4gICAgICAgICAgICAgIDxMaW5rIHRvPXtub2RlLnJvdXRlfSBjbGFzc05hbWU9XCJidG4tY2xhdWRlIHctZml0XCI+XG4gICAgICAgICAgICAgICAg6L+b5YWl5a+55bqU6aG16Z2iIDxBcnJvd1JpZ2h0IHNpemU9ezE2fSAvPlxuICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2FzaWRlPlxuICAgICAgPC9kaXY+XG4gICAgPC9tb3Rpb24uZGl2PlxuICApO1xufVxuIl0sImZpbGUiOiJEOi9DbGF1ZGVDb2Rl5pWZ5a2mL3VpL2FpLXByb2dyYW1taW5nLW9uYm9hcmRpbmctbmF2aWdhdG9yL3NyYy9wYWdlcy9Sb2FkbWFwRGV0YWlsLnRzeCJ9

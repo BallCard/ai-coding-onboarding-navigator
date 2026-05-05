@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Layer Visual Directions</title>
+  <style>
+    :root {
+      --paper: #f7f2ea;
+      --ink: #1f1d1a;
+      --muted: #6f675d;
+      --line: #d8cdbc;
+      --sage: #566b5f;
+      --rust: #9a4f32;
+      --blue: #345f7f;
+      --gold: #b48a3c;
+      --white: #fffaf2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 42px 28px 64px;
+    }
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 6vw, 78px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      margin: 0 0 18px;
+    }
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      margin: 0 0 10px;
+    }
+    h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      margin: 0 0 8px;
+    }
+    p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .eyebrow {
+      color: var(--sage);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .note {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 242, 0.72);
+      padding: 22px;
+      border-radius: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .option {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 242, 0.76);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px -60px rgba(31, 29, 26, 0.55);
+    }
+    .option-head {
+      padding: 20px 20px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--sage);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .canvas {
+      min-height: 520px;
+      padding: 18px;
+      position: relative;
+      background:
+        linear-gradient(rgba(31, 29, 26, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31, 29, 26, 0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .brain-canvas {
+      display: grid;
+      place-items: center;
+    }
+    .brain {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 30%, #fff7ea, #26332e 74%);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(31,29,26,0.18), 0 30px 90px -45px #1f1d1a;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    .brain strong { display: block; font-family: Georgia, serif; font-size: 27px; }
+    .brain span { font-size: 11px; opacity: 0.78; line-height: 1.45; }
+    .node {
+      position: absolute;
+      width: 122px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 242, 0.92);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--ink);
+      box-shadow: 0 18px 50px -42px rgba(31,29,26,0.8);
+    }
+    .node small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .n1 { left: 7%; top: 16%; border-color: rgba(52,95,127,0.35); }
+    .n2 { right: 7%; top: 17%; border-color: rgba(154,79,50,0.35); }
+    .n3 { left: 4%; bottom: 24%; border-color: rgba(86,107,95,0.45); }
+    .n4 { right: 4%; bottom: 25%; border-color: rgba(180,138,60,0.45); }
+    .n5 { left: 38%; bottom: 4%; border-color: rgba(31,29,26,0.28); }
+    .line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(31,29,26,0.32), transparent);
+      transform-origin: left center;
+    }
+    .l1 { width: 180px; left: 29%; top: 34%; transform: rotate(24deg); }
+    .l2 { width: 170px; right: 27%; top: 34%; transform: rotate(156deg); }
+    .l3 { width: 185px; left: 25%; bottom: 36%; transform: rotate(-22deg); }
+    .l4 { width: 180px; right: 25%; bottom: 36%; transform: rotate(202deg); }
+    .l5 { width: 115px; left: 45%; bottom: 25%; transform: rotate(90deg); }
+    .bench {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 14px;
+      height: 100%;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 242, 0.82);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .panel.dark {
+      background: #24231f;
+      color: var(--white);
+      min-height: 240px;
+    }
+    .panel.dark p { color: rgba(255,250,242,0.72); }
+    .pill {
+      display: inline-block;
+      margin: 6px 5px 0 0;
+      padding: 7px 9px;
+      border: 1px solid rgba(216,205,188,0.75);
+      border-radius: 999px;
+      color: var(--sage);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .stack { display: grid; gap: 12px; }
+    .mini-task {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(247,242,234,0.8);
+    }
+    .hybrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .mini-map {
+      position: relative;
+      height: 280px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,250,242,0.72);
+      overflow: hidden;
+    }
+    .mini-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: #26332e;
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+    .orbit {
+      position: absolute;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--white);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--sage);
+    }
+    .o1 { left: 10%; top: 14%; }
+    .o2 { right: 10%; top: 14%; }
+    .o3 { left: 13%; bottom: 12%; }
+    .o4 { right: 13%; bottom: 12%; }
+    .track-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .track {
+      border-left: 3px solid var(--sage);
+      background: rgba(247,242,234,0.85);
+      padding: 11px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .pros {
+      padding: 16px 20px 22px;
+      border-top: 1px solid var(--line);
+    }
+    .pros ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+    @media (max-width: 1050px) {
+      header, .grid { grid-template-columns: 1fr; }
+      .canvas { min-height: 460px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <div class="eyebrow">Project Layer / Visual Comparison</div>
+        <h1>把项目层改成“武装大脑”而不是线性路线</h1>
+        <p>目标：让学生理解 LLM/Agent 本体并不可靠，真正能做项目，是因为规则、上下文、工具、验证和协作机制把它约束并增强了。</p>
+      </div>
+      <div class="note">
+        <h3>判断标准</h3>
+        <p>第一眼能不能看懂：中间是谁，外圈是什么能力，点进去之后该做什么，以及它为什么比“按步骤 1-2-3”更适合项目层。</p>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="option">
+        <div class="option-head">
+          <span class="tag">A / 推荐</span>
+          <h2>中心大脑图谱</h2>
+          <p>LLM/Agent 居中，Skill、MCP、Repo Context、Tests、GitHub、CI 作为外接能力环绕。</p>
+        </div>
+        <div class="canvas brain-canvas">
+          <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div><div class="line l5"></div>
+          <div class="node n1">Skills<small>把重复流程变成可调用策略</small></div>
+          <div class="node n2">MCP / Tools<small>接数据库、网页、文件、GitHub</small></div>
+          <div class="node n3">Repo Context<small>规则、代码结构、历史约束</small></div>
+          <div class="node n4">Verification<small>测试、lint、build、smoke</small></div>
+          <div class="node n5">Human Intent<small>目标、边界、取舍</small></div>
+          <div class="brain">
+            <div><strong>LLM</strong><span>不完美的大脑<br/>需要被武装和约束</span></div>
+          </div>
+        </div>
+        <div class="pros">
+          <h3>适合表达</h3>
+          <ul>
+            <li>最贴合你的比喻，记忆点强。</li>
+            <li>项目层从“路线”升级成“系统认知”。</li>
+            <li>可用轻动画：中心呼吸、外圈缓慢浮动、连线点亮。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="option">
+        <div class="option-head">
+          <span class="tag">B</span>
+          <h2>项目工作台</h2>
+          <p>把 Agent 当成工作流驾驶舱，左边是上下文输入，右边是任务与验证输出。</p>
+        </div>
+        <div class="canvas">
+          <div class="bench">
+            <div class="stack">
+              <div class="panel">
+                <h3>Context Inputs</h3>
+                <span class="pill">AGENTS.md</span>
+                <span class="pill">README</span>
+                <span class="pill">Issues</span>
+                <span class="pill">Docs</span>
+              </div>
+              <div class="panel">
+                <h3>Capabilities</h3>
+                <span class="pill">Skill</span>
+                <span class="pill">MCP</span>
+                <span class="pill">Browser</span>
+                <span class="pill">Terminal</span>
+              </div>
+              <div class="panel">
+                <h3>Guardrails</h3>
+                <span class="pill">Permissions</span>
+                <span class="pill">Tests</span>
+                <span class="pill">Secrets</span>
+              </div>
+            </div>
+            <div class="stack">
+              <div class="panel dark">
+                <h3>Agent Workspace</h3>
+                <p>读规范 → 建假设 → 改代码 → 验证 → 给出结果</p>
+              </div>
+              <div class="mini-task"><strong>当前任务</strong><br/>把需求拆成一个可验证的项目改动</div>
+              <div class="mini-task"><strong>完成信号</strong><br/>代码变更、测试结果、用户可见影响</div>
+            </div>
+          </div>
+        </div>
+        <div class="pros">
+          <h3>适合表达</h3>
+          <ul>
+            <li>更工程、更清晰，学习成本低。</li>
+            <li>适合讲真实项目流程和验收标准。</li>
+            <li>但比喻不够强，视觉记忆点弱于 A。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="option">
+        <div class="option-head">
+          <span class="tag">C</span>
+          <h2>图谱 + 任务轨道</h2>
+          <p>上方是中心图谱，下方保留少量任务入口，兼顾认知模型和行动路径。</p>
+        </div>
+        <div class="canvas hybrid">
+          <div class="mini-map">
+            <div class="mini-center">Agent<br/>Brain</div>
+            <div class="orbit o1">Skill</div>
+            <div class="orbit o2">MCP</div>
+            <div class="orbit o3">Context</div>
+            <div class="orbit o4">Tests</div>
+          </div>
+          <div class="track-list">
+            <div class="track">1. 建规则</div>
+            <div class="track">2. 喂上下文</div>
+            <div class="track">3. 接工具</div>
+            <div class="track">4. 跑验证</div>
+          </div>
+        </div>
+        <div class="pros">
+          <h3>适合表达</h3>
+          <ul>
+            <li>保留行动感，不会太抽象。</li>
+            <li>适合 MVP 快速落地。</li>
+            <li>风险是又回到“步骤页”，项目层差异不够彻底。</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
