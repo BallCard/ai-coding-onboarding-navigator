@@ -4,16 +4,12 @@
  */
 
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import type { ElementType, ReactNode } from 'react';
+import { AnimatePresence } from 'motion/react';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 import {
-  AlertCircle,
   Compass,
-  FileCode,
-  Github,
-  Network,
-  Settings,
-  Terminal,
+  Menu,
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -28,12 +24,13 @@ import Advanced from './pages/Advanced';
 import RoadmapDetail from './pages/RoadmapDetail';
 import LayerRoute from './pages/LayerRoute';
 import FloatingAssistant from './components/FloatingAssistant';
+import MobileMenu from './components/MobileMenu';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-function NavItem({ to, label, icon: Icon }: { to: string; label: string; icon: ElementType }) {
+function NavItem({ to, label }: { to: string; label: string }) {
   const location = useLocation();
   const isActive = location.pathname === to;
 
@@ -41,64 +38,56 @@ function NavItem({ to, label, icon: Icon }: { to: string; label: string; icon: E
     <Link
       to={to}
       className={cn(
-        'relative flex items-center gap-1.5 px-3 2xl:px-5 py-2 text-[12px] font-bold tracking-[0.04em] transition-all rounded-full group whitespace-nowrap',
-        isActive ? 'text-ink' : 'text-sage/60 hover:text-ink'
+        'relative px-4 py-2 text-[11px] font-bold tracking-[0.04em] transition-all rounded-full whitespace-nowrap',
+        isActive
+          ? 'text-ink bg-clay/40'
+          : 'text-sage/60 hover:text-ink hover:bg-clay/20'
       )}
     >
-      <Icon size={14} className={cn('transition-colors flex-shrink-0', isActive ? 'text-ink' : 'text-sage/40 group-hover:text-sage')} />
       <span>{label}</span>
-      {isActive && (
-        <motion.div
-          layoutId="nav-glow"
-          className="absolute inset-0 bg-clay/30 rounded-full -z-10"
-          transition={{ type: 'spring', bounce: 0.1, duration: 0.8 }}
-        />
-      )}
     </Link>
   );
 }
 
 function Layout({ children }: { children: ReactNode }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen flex flex-col technical-grid">
       <header className="sticky top-0 z-50 bg-paper/80 backdrop-blur-xl border-b border-clay/30">
         <div className="max-w-7xl mx-auto px-4 2xl:px-6 h-16 flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-4 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 rounded-full bg-ink flex items-center justify-center transition-transform group-hover:rotate-12">
               <Compass size={18} className="text-paper" />
             </div>
-            <div className="hidden 2xl:flex flex-col">
-              <span className="text-sm font-serif font-bold tracking-tight leading-none mb-0.5 text-ink">AI Navigator</span>
-              <span className="tertiary-text opacity-50">Campus Onboarding</span>
-            </div>
+            <span className="text-sm font-serif font-bold tracking-tight text-ink">AI Navigator</span>
           </Link>
 
-          <nav className="hidden xl:flex items-center justify-center gap-1 flex-1 min-w-0">
-            <NavItem to="/" label="路线图" icon={Compass} />
-            <NavItem to="/starter" label="入门层" icon={Terminal} />
-            <NavItem to="/tools" label="工具选择" icon={Settings} />
-            <NavItem to="/troubleshooting" label="卡点排障" icon={AlertCircle} />
-            <NavItem to="/practice" label="首次实践" icon={FileCode} />
-            <NavItem to="/advanced" label="架构层" icon={Network} />
+          <nav className="hidden xl:flex items-center gap-1">
+            <NavItem to="/" label="路线图" />
+            <NavItem to="/troubleshooting" label="卡点排障" />
+            <NavItem to="/practice" label="首次实践" />
           </nav>
 
-          <div className="flex items-center gap-2 2xl:gap-3 flex-shrink-0">
-            <div className="h-6 w-px bg-clay/50 hidden md:block" />
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden 2xl:block p-2 text-sage/40 hover:text-ink transition-colors"
-              aria-label="GitHub"
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="xl:hidden h-10 w-10 flex items-center justify-center rounded-full border border-clay/50 text-sage/60 hover:text-ink hover:border-clay transition-all"
+              aria-label="打开菜单"
             >
-              <Github size={18} />
-            </a>
-            <Link to="/practice" className="h-10 px-4 2xl:px-6 rounded-full bg-ink text-paper text-[10px] font-black tracking-[0.04em] 2xl:tracking-[0.08em] hover:opacity-90 transition-all active:scale-95 shadow-xl shadow-clay/20 flex items-center whitespace-nowrap">
-              开始第一次任务
+              <Menu size={18} />
+            </button>
+            <Link
+              to="/practice"
+              className="h-10 px-5 rounded-full bg-ink text-paper text-[10px] font-black tracking-[0.08em] hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-clay/20 flex items-center whitespace-nowrap"
+            >
+              开始任务
             </Link>
           </div>
         </div>
       </header>
+
+      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <main className="flex-1 relative">
         <AnimatePresence mode="wait">{children}</AnimatePresence>
