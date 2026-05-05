@@ -195,18 +195,20 @@ function ProjectLayerMap({
         </div>
       </section>
 
-      <section className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 items-start">
-        <div>
-          <span className="tertiary-text">Project Modules</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mt-5 mb-6 tracking-tight">
-            外圈是能力，下面才是具体项目动作
-          </h2>
+      <section className="space-y-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 items-end">
+          <div>
+            <span className="tertiary-text">Project Modules</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mt-5 mb-6 tracking-tight">
+              外圈是能力，下面才是具体项目动作
+            </h2>
+          </div>
           <p className="!text-ink/72 leading-relaxed font-medium">
             这里保留现有项目层节点，但不再暗示必须按编号推进。真实项目里，用户通常是缺哪块就补哪块：目标不清先补契约，仓库陌生先补上下文，结果不可信先补验证。
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {nodes.map((node) => {
             const isCompleted = completed.includes(node.id);
             const primarySource = getSource(node.sourceIds[0]);
