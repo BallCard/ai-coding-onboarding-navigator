@@ -152,13 +152,12 @@ Implemented routes:
 - `/` - three-layer route map.
 - `/starter` - independent starter layer entry.
 - `/project` - independent project layer entry.
-- `/architecture` - independent architecture layer entry.
+- `/advanced` - independent architecture layer entry.
 - `/roadmap/:nodeId` - detail page for each route node.
 - `/tools` - Claude Code / Codex selection.
 - `/setup` - Windows/macOS install and verification flow.
 - `/troubleshooting` - structured troubleshooting database.
 - `/practice` - first task, rule templates, and safety guide.
-- `/advanced` - current architecture-layer topic interface.
 - `/updates` - source map and update radar.
 
 Implemented core features:
@@ -279,7 +278,7 @@ Routes:
 
 - `/starter`
 - `/project`
-- `/architecture`
+- `/advanced`
 
 Purpose:
 
@@ -292,8 +291,7 @@ Current interface note:
 
 - `/starter` uses the regular layer route list.
 - `/project` currently uses a custom capability-map interface inside `LayerRoute.tsx`.
-- `/architecture` is the collaboration entry for architecture-layer nodes.
-- `/advanced` is retained as the current architecture-layer topic interface. Do not remove or "restore" it unless the architecture interface is redesigned deliberately.
+- `/advanced` is the collaboration entry and current topic interface for architecture-layer nodes. Do not recreate `/architecture` as a parallel entry.
 
 ### Roadmap Detail
 

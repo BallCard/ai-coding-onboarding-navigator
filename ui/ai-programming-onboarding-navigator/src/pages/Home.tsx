@@ -59,7 +59,7 @@ export default function Home() {
 
       <section className="mb-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {ROUTE_LEVELS.map((level) => {
-          const layerPath = level.id === 'advanced' ? '/architecture' : `/${level.id}`;
+          const layerPath = `/${level.id}`;
           return (
           <div
             key={level.id}

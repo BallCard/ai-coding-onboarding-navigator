@@ -21,7 +21,6 @@ const STORAGE_KEY = 'ai-navigator-completed-nodes';
 const PATH_TO_LEVEL: Record<string, RouteLevel> = {
   starter: 'starter',
   project: 'project',
-  architecture: 'advanced',
 };
 
 const LEVEL_GUIDE: Record<RouteLevel, { eyebrow: string; headline: string; subcopy: string; owner: string }> = {

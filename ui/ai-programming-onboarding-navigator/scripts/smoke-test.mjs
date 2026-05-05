@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 
 const baseUrl = process.env.SMOKE_BASE_URL ?? 'http://localhost:3000';
-const routes = ['/', '/starter', '/project', '/architecture', '/roadmap/select-tool', '/roadmap/agentic-thinking', '/tools', '/setup', '/troubleshooting', '/practice', '/advanced', '/updates'];
+const routes = ['/', '/starter', '/project', '/advanced', '/roadmap/select-tool', '/roadmap/agentic-thinking', '/tools', '/setup', '/troubleshooting', '/practice', '/updates'];
 const expectedShellText = ['<div id="root"></div>', '/src/main.tsx'];
 
 for (const route of routes) {

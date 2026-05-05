@@ -258,21 +258,20 @@ Current routes:
 /
 /starter
 /project
-/architecture
+/advanced
 /roadmap/:nodeId
 /tools
 /setup
 /troubleshooting
 /practice
 /updates
-/advanced
 ```
 
 Route meaning:
 
 - `/` is the unified interface.
-- `/starter`, `/project`, and `/architecture` are collaboration entries for the three teaching layers.
-- `/advanced` is still an active architecture-layer topic interface, not a deprecated route.
+- `/starter`, `/project`, and `/advanced` are collaboration entries for the three teaching layers.
+- `/advanced` is the architecture-layer topic interface; do not recreate `/architecture` as a parallel route.
 
 ### 9.3 Roadmap Detail Rendering
 
@@ -308,7 +307,7 @@ Routes:
 ```text
 /starter
 /project
-/architecture
+/advanced
 ```
 
 Purpose:
@@ -321,9 +320,9 @@ Purpose:
 Current implementation notes:
 
 - `project` renders a custom capability-map layout in `LayerRoute.tsx`.
-- `starter` and `architecture` use the regular layer entry layout.
-- `advanced` also has a dedicated route at `/advanced` through `Advanced.tsx`.
-- Do not collapse `/advanced` into `/architecture` without a product decision.
+- `starter` uses the regular layer entry layout.
+- `advanced` is implemented through `Advanced.tsx`.
+- Do not add `/architecture` unless the product route system is redesigned deliberately.
 
 ### 9.5 Floating Assistant
 
