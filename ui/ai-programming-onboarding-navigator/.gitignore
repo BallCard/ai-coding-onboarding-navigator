@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Chrome smoke test artifacts
+.chrome-smoke/
