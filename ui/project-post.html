@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Navigator 项目发帖素材</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #fbfaf8;
+        --ink: #121110;
+        --sage: #4f5547;
+        --clay: #e8e4e0;
+        --oat: #f3f0ec;
+        --blue: #2563eb;
+        --green: #166534;
+        --red: #b91c1c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 1px 1px, rgba(79, 85, 71, 0.08) 1px, transparent 0),
+          var(--paper);
+        background-size: 36px 36px;
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Microsoft YaHei", sans-serif;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 40px 0 56px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 34px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+      }
+
+      .mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 18px;
+      }
+
+      .copy-button {
+        border: 0;
+        border-radius: 999px;
+        padding: 13px 20px;
+        background: var(--ink);
+        color: var(--paper);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        transition:
+          transform 160ms ease,
+          opacity 160ms ease;
+      }
+
+      .copy-button:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .panel,
+      .shot,
+      .markdown-box {
+        border: 1px solid rgba(232, 228, 224, 0.95);
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 24px 70px -48px rgba(18, 17, 16, 0.42);
+      }
+
+      .panel {
+        border-radius: 8px;
+        padding: clamp(28px, 4vw, 52px);
+      }
+
+      .eyebrow,
+      .tag,
+      .label {
+        color: rgba(79, 85, 71, 0.86);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 20px 0 18px;
+        max-width: 760px;
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(42px, 7vw, 78px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 720px;
+        color: rgba(18, 17, 16, 0.72);
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(18px, 2.2vw, 24px);
+        font-style: italic;
+        line-height: 1.62;
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .fact {
+        min-height: 112px;
+        border: 1px solid var(--clay);
+        border-radius: 8px;
+        padding: 18px;
+        background: var(--paper);
+      }
+
+      .fact strong {
+        display: block;
+        margin: 10px 0 6px;
+        font-size: 18px;
+      }
+
+      .fact span {
+        color: rgba(79, 85, 71, 0.78);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .preview {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .preview .panel {
+        flex: 1;
+        padding: 28px;
+      }
+
+      .post-title {
+        margin: 14px 0 12px;
+        font-size: 26px;
+        line-height: 1.28;
+        font-weight: 900;
+      }
+
+      .post-body {
+        color: rgba(18, 17, 16, 0.74);
+        font-size: 15px;
+        line-height: 1.86;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .tag {
+        border: 1px solid var(--clay);
+        border-radius: 999px;
+        padding: 7px 10px;
+        background: var(--oat);
+        font-size: 9px;
+      }
+
+      .notice {
+        border-left: 3px solid var(--blue);
+        padding: 12px 14px;
+        background: #eff6ff;
+        color: #1e3a8a;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        margin: 46px 0 18px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(28px, 4vw, 44px);
+      }
+
+      .section-head p {
+        max-width: 520px;
+        margin: 0;
+        color: rgba(79, 85, 71, 0.78);
+        line-height: 1.65;
+      }
+
+      .shots {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .shot {
+        overflow: hidden;
+        border-radius: 8px;
+      }
+
+      .shot figure {
+        margin: 0;
+      }
+
+      .shot img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        background: linear-gradient(135deg, var(--oat), var(--clay));
+      }
+
+      .shot-placeholder {
+        display: grid;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        place-items: center;
+        padding: 28px;
+        background:
+          radial-gradient(circle at 1px 1px, rgba(79, 85, 71, 0.12) 1px, transparent 0),
+          linear-gradient(135deg, #f8f6f2, #e8e4e0);
+        background-size: 28px 28px, auto;
+        color: rgba(79, 85, 71, 0.82);
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-align: center;
+      }
+
+      .shot figcaption {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 15px 16px 16px;
+        border-top: 1px solid var(--clay);
+      }
+
+      .shot b {
+        font-size: 15px;
+      }
+
+      .shot span {
+        color: rgba(79, 85, 71, 0.78);
+        font-size: 12px;
+      }
+
+      .markdown-box {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .markdown-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--clay);
+        background: var(--oat);
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        min-height: 520px;
+        border: 0;
+        resize: vertical;
+        padding: 22px;
+        background: #171614;
+        color: #eee9e4;
+        font-family: "JetBrains Mono", Consolas, monospace;
+        font-size: 13px;
+        line-height: 1.72;
+        outline: none;
+      }
+
+      .status {
+        min-height: 20px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .shots,
+        .facts {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar,
+        .section-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .copy-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="topbar">
+        <div class="brand">
+          <div class="mark">N</div>
+          <span>AI Navigator / 发帖素材</span>
+        </div>
+        <button class="copy-button" id="copyMarkdown" type="button">一键复制 Markdown</button>
+      </div>
+
+      <section class="hero">
+        <article class="panel">
+          <div class="eyebrow">Campus AI Coding Onboarding</div>
+          <h1>把 AI 编程上手路径做成一张可执行导航图</h1>
+          <p class="lead">
+            这个项目面向中国高校学生：不堆教程，不贩卖焦虑，只回答三个问题：
+            现在该做什么，怎样算成功，卡住后去哪排障。
+          </p>
+
+          <div class="facts" aria-label="项目核心信息">
+            <div class="fact">
+              <div class="label">Audience</div>
+              <strong>高校学生</strong>
+              <span>覆盖 Windows / macOS，适配不同技术背景。</span>
+            </div>
+            <div class="fact">
+              <div class="label">Path</div>
+              <strong>任务路线</strong>
+              <span>从选工具、装环境到第一次可验证实践。</span>
+            </div>
+            <div class="fact">
+              <div class="label">Trust</div>
+              <strong>官方来源</strong>
+              <span>事实以官方文档为准，本项目负责中文化路径。</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="preview">
+          <div class="panel">
+            <div class="eyebrow">Post Preview</div>
+            <h2 class="post-title">我做了一个给大学生用的 AI 编程上手导航站</h2>
+            <div class="post-body">
+              它不是教程合集，而是把 Claude Code / Codex 的入门过程拆成可执行路线：
+              先选工具，再验证安装，再做第一次任务。每一步都有完成标准和卡点入口。
+            </div>
+            <div class="tags">
+              <span class="tag">Claude Code</span>
+              <span class="tag">Codex</span>
+              <span class="tag">AI Coding</span>
+              <span class="tag">校园工具</span>
+            </div>
+          </div>
+          <div class="notice">
+            复制按钮会复制下方完整 Markdown。发布前只需要把项目地址、部署链接和截图路径按平台要求替换。
+          </div>
+        </aside>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Screenshots</div>
+            <h2>关键页面截图</h2>
+          </div>
+          <p>截图文件固定放在 <code>ui/post-assets/</code>。后续重新截图时覆盖同名文件即可，不需要改 Markdown。</p>
+        </div>
+
+        <div class="shots">
+          <article class="shot">
+            <figure>
+              <img src="post-assets/home-roadmap.png" alt="首页路线图截图" />
+              <figcaption><b>首页路线图</b><span>按当前状态进入路径</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/layer-starter.png" alt="入门层主页面截图" />
+              <figcaption><b>入门层主页面</b><span>把工具跑起来</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/layer-project.png" alt="项目层主页面截图" />
+              <figcaption><b>项目层主页面</b><span>放进真实项目</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/layer-advanced.png" alt="架构层主页面截图" />
+              <figcaption><b>架构层主页面</b><span>沉淀可复用流程</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/tool-selection.png" alt="工具选择页截图" />
+              <figcaption><b>工具选择</b><span>Claude Code / Codex 选择辅助</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/setup-verification.png" alt="安装验证页截图" />
+              <figcaption><b>安装验证</b><span>把安装结果变成可检查标准</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/troubleshooting.png" alt="卡点排障页截图" />
+              <figcaption><b>卡点排障</b><span>从问题入口回到下一步动作</span></figcaption>
+            </figure>
+          </article>
+          <article class="shot">
+            <figure>
+              <img src="post-assets/first-practice.png" alt="首次实践页截图" />
+              <figcaption><b>首次实践</b><span>选择第一个可验证 AI 编程任务</span></figcaption>
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Markdown</div>
+            <h2>可复制发帖正文</h2>
+          </div>
+          <p class="status" id="copyStatus" aria-live="polite"></p>
+        </div>
+
+        <div class="markdown-box">
+          <div class="markdown-toolbar">
+            <span class="label">post.md</span>
+            <button class="copy-button" id="copyMarkdownBottom" type="button">复制 Markdown</button>
+          </div>
+          <textarea id="markdownPreview" spellcheck="false"></textarea>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const postMarkdown = `# 我做了一个给大学生用的 AI 编程上手导航站
+
+项目名：AI Navigator
+
+一句话：把 Claude Code / Codex 的上手过程，做成一张面向中国高校学生的可执行导航图。
+
+## 为什么做
+
+很多同学不是不想用 AI 编程，而是卡在更前面的地方：
+
+- 不知道 Claude Code 和 Codex 该先选哪个
+- Windows / macOS 环境不知道怎样才算装好了
+- 登录、订阅、API、终端、权限、网络任意一步都可能卡住
+- 看了很多教程，但不知道自己现在应该做哪一步
+- 第一次任务没有验收标准，做完也不知道算不算跑通
+
+所以这个项目不做“教程合集”，而是做“上手导航系统”。
+
+核心问题只有三个：
+
+1. 我现在该做什么？
+2. 怎样算这一步成功？
+3. 如果卡住，下一步去哪排障？
+
+## 项目截图
+
+### 首页路线图
+
+![首页路线图](post-assets/home-roadmap.png)
+
+### 入门层主页面
+
+![入门层主页面](post-assets/layer-starter.png)
+
+### 项目层主页面
+
+![项目层主页面](post-assets/layer-project.png)
+
+### 架构层主页面
+
+![架构层主页面](post-assets/layer-advanced.png)
+
+### 工具选择
+
+![工具选择](post-assets/tool-selection.png)
+
+### 安装验证
+
+![安装验证](post-assets/setup-verification.png)
+
+### 卡点排障
+
+![卡点排障](post-assets/troubleshooting.png)
+
+### 首次实践
+
+![首次实践](post-assets/first-practice.png)
+
+## 现在包含什么
+
+- 可视化上手路线图
+- Claude Code / Codex 工具选择入口
+- Windows / macOS 安装与验证路径
+- 常见卡点排障入口
+- 第一次 AI 编程实践任务选择
+- 来源记录与更新记录
+
+## 内容原则
+
+这个站点不靠二手转述堆信息。
+
+事实判断以官方文档为准，项目只做中文语境下的路径组织、检查清单和验收标准。
+
+- 官方事实：来自 Anthropic / OpenAI 官方文档、帮助中心、官方更新记录
+- 中文解释：只做 Official-Derived，不替官方文档编造结论
+- 个人经验：标注 Personal Note 和验证日期
+- 社区内容：只作为卡点信号，不作为事实依据
+
+## 适合谁
+
+- 想开始 AI 编程，但还没跑通第一次任务的同学
+- 不确定该用 Claude Code 还是 Codex 的同学
+- 被安装、登录、订阅、终端环境、网络权限卡住的同学
+- 想把 AI 编程纳入自己长期工作流的同学
+
+## 不适合谁
+
+- 已经熟练使用多 Agent / MCP / Hook 的高级用户
+- 想找完整教程长文的人
+- 想看未经验证的工具传闻或二手搬运的人
+
+## 项目定位
+
+它不是博客，不是营销页，也不是“资料大全”。
+
+我更希望它像一个校园里的 AI 编程上手导航台：
+
+先帮你走通第一步，再让你知道下一步怎么走。`;
+
+      const preview = document.querySelector("#markdownPreview");
+      const status = document.querySelector("#copyStatus");
+      const buttons = [
+        document.querySelector("#copyMarkdown"),
+        document.querySelector("#copyMarkdownBottom"),
+      ];
+
+      preview.value = postMarkdown;
+
+      async function copyMarkdown() {
+        try {
+          await navigator.clipboard.writeText(postMarkdown);
+          showCopied();
+        } catch (error) {
+          preview.focus();
+          preview.select();
+          try {
+            const copied = document.execCommand("copy");
+            if (!copied) throw new Error("execCommand copy failed");
+            showCopied();
+          } catch (fallbackError) {
+            status.textContent = "浏览器拦截了剪贴板权限，已选中文本，可手动复制。";
+            status.style.color = "var(--red)";
+          }
+        }
+      }
+
+      function showCopied() {
+        status.style.color = "var(--green)";
+        status.textContent = "已复制到剪贴板";
+        buttons.forEach((button) => {
+          button.textContent = "已复制";
+        });
+        window.setTimeout(() => {
+          status.textContent = "";
+          buttons[0].textContent = "一键复制 Markdown";
+          buttons[1].textContent = "复制 Markdown";
+        }, 1800);
+      }
+
+      buttons.forEach((button) => button.addEventListener("click", copyMarkdown));
+
+      document.querySelectorAll(".shot img").forEach((image) => {
+        image.addEventListener("error", () => {
+          const placeholder = document.createElement("div");
+          placeholder.className = "shot-placeholder";
+          placeholder.textContent = "截图待生成：运行 capture-post-screenshots.mjs";
+          image.replaceWith(placeholder);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -41,6 +41,7 @@ Copy `.env.example` and fill later:
 ```text
 OPENAI_API_KEY=""
 OPENAI_MODEL="gpt-5.4-mini"
+ASSISTANT_RATE_LIMIT_MAX="12"
 ```
 
 The API key must stay server-side.
@@ -52,6 +53,7 @@ The API key must stay server-side.
 npm run lint
 npm run build
 node scripts\smoke-test.mjs
+node scripts\api-smoke-test.mjs
 powershell.exe -ExecutionPolicy Bypass -File scripts\browser-smoke.ps1
 ```
 
@@ -65,9 +67,21 @@ powershell.exe -ExecutionPolicy Bypass -File scripts\browser-smoke.ps1
 
 ## Assistant Status
 
-Current assistant is local-first:
+Current assistant is local-first and API-backed:
 
 - Frontend calls `/api/troubleshooting-assistant`
 - If API is unavailable, frontend falls back to local matching
 - Without `OPENAI_API_KEY`, server returns local matches
-- With `OPENAI_API_KEY`, server returns `501` until the real OpenAI Responses API integration is implemented
+- With `OPENAI_API_KEY`, server calls the OpenAI Responses API from the backend only
+- If OpenAI fails or times out, server returns local fallback results
+
+## Assistant Safety
+
+- API key is read only from server environment variables.
+- User input is limited to 800 characters.
+- Request body is limited to 12kb.
+- API keys, bearer tokens, and JWT-like strings are redacted before processing.
+- Rate limiting is enabled per IP. Default: 12 requests per minute.
+- The model only receives matched troubleshooting context from the site.
+- The assistant is instructed not to provide credential handling, account bypass, or network bypass guidance.
+- User-facing errors do not expose stack traces or secrets.

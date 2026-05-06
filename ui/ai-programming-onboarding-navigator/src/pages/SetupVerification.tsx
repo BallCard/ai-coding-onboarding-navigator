@@ -157,7 +157,7 @@ export default function SetupVerification() {
           <div className="step-card !p-8">
             <h4 className="tertiary-text mb-5">不要做</h4>
             <p className="text-sm text-sage/70 leading-relaxed">
-              不要把 API Key 写进项目文件，不要在重要课程项目里做第一次实验，不要为了跑通而跳过官方认证和权限说明。
+              密钥和账号凭据不写进项目文件。第一次实验放在测试目录里做，认证和权限说明按官方文档逐项确认。
             </p>
           </div>
         </aside>

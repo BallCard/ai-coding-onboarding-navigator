@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ROADMAP_NODES, TROUBLESHOOTING_DATA, getSource, type TroubleshootingCategory } from '../constants';
 import { Search, AlertTriangle, HelpCircle, ShieldCheck, ArrowRight } from 'lucide-react';
 
@@ -64,7 +64,7 @@ export default function Troubleshooting() {
           <div>
             <h2 className="font-serif font-bold text-xl mb-2">网络问题先拆开测</h2>
             <p className="text-sm text-sage/75 leading-relaxed">
-              本站不提供规避网络限制的工具、节点、协议或教程。这里只判断浏览器、终端、npm、登录回调和校园网策略分别卡在哪里。
+              这里帮你判断问题卡在浏览器、终端、npm、登录回调还是校园网策略。涉及网络访问限制时，请按学校网络规则和官方支持路径处理。
             </p>
           </div>
         </div>
@@ -134,10 +134,10 @@ export default function Troubleshooting() {
                     <ShieldCheck size={12} className="text-clay" />
                     {source?.sourceType ?? item.sourceType}
                   </div>
-                  <span className="link-claude">
-                    {item.escalation === 'self-serve' ? '可自助处理' : item.escalation === 'ask-campus-helper' ? '建议找同学协助' : '看官方支持'}
+                  <Link to={`/troubleshooting/${item.id}`} className="link-claude">
+                    打开详情
                     <ArrowRight size={14} />
-                  </span>
+                  </Link>
                 </div>
               </motion.div>
             );

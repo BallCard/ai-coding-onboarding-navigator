@@ -1,6 +1,9 @@
 .claude/
 .playwright-cli/
 .superpowers/
+.chrome-post*/
+.edge-post*/
+.pw-post-screenshots/
 
 node_modules/
 dist/

@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, ShieldCheck, AlertCircle } from 'lucide-react';
-import { ROADMAP_NODES, TROUBLESHOOTING_DATA, getSource } from '../constants';
+import { PROJECT_LEARNING_SCENES, ROADMAP_NODES, TROUBLESHOOTING_DATA, getSource } from '../constants';
 
 export default function RoadmapDetail() {
   const { nodeId } = useParams();
@@ -19,6 +19,150 @@ export default function RoadmapDetail() {
   const sources = node.sourceIds.map(getSource).filter(Boolean);
   const issues = TROUBLESHOOTING_DATA.filter((issue) => issue.category === node.stuckCategory || issue.os === node.stuckCategory).slice(0, 4);
   const nextNode = node.nextStepId ? ROADMAP_NODES.find((item) => item.id === node.nextStepId) : undefined;
+  const detailLabels = {
+    main: node.level === 'starter' ? '直接照做' : node.level === 'project' ? '项目工作流' : '系统设计练习',
+    preflight: node.level === 'starter' ? '操作前检查' : node.level === 'project' ? '开工前约束' : '设计前判断',
+    differences: node.level === 'starter' ? '按工具/系统区分' : node.level === 'project' ? '场景差异' : '结构差异',
+    prompt: node.level === 'starter' ? '示例 Prompt' : node.level === 'project' ? '任务契约 Prompt' : '设计练习 Prompt',
+    doNotDo: node.level === 'starter' ? '先不要做' : node.level === 'project' ? '不要让 AI 这样做' : '系统边界',
+  };
+  const projectScene = PROJECT_LEARNING_SCENES.find((scene) => scene.nodeId === node.id);
+
+  if (node.level === 'project' && projectScene) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32">
+        <Link to="/project" className="link-claude mb-12">
+          <ArrowLeft size={14} /> 回到项目层图谱
+        </Link>
+
+        <header className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 items-end mb-14">
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-[1px] bg-sage" />
+              <span className="tertiary-text !tracking-[0.3em] !text-sage">Project Prompt Lab</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-serif tracking-tighter mb-8 text-ink leading-none">{node.title}</h1>
+            <p className="text-xl !text-ink/75 leading-relaxed font-medium max-w-3xl">
+              这页不先讲概念。先看一次 AI 在真实项目里怎么翻车，再把可复制的 Prompt 丢给 Claude Code 或 Codex，最后判断要不要沉淀成规则、Skill 或工具。
+            </p>
+          </div>
+
+          <aside className="step-card !rounded-[8px] !p-8">
+            <span className="tertiary-text">本页目标</span>
+            <h2 className="text-3xl font-serif font-bold mt-5 mb-5">{node.userGoal}</h2>
+            <p className="text-sm !text-ink/70 leading-relaxed">{node.successCriteria[0]}</p>
+          </aside>
+        </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <section className="lg:col-span-8 space-y-8">
+            <div className="step-card !rounded-[8px] !p-8 md:!p-10">
+              <div className="flex items-center gap-3 mb-6">
+                <AlertCircle size={20} className="text-sage" />
+                <span className="tertiary-text">先看翻车现场</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight mb-6">{projectScene.sceneTitle}</h2>
+              <p className="text-xl !text-ink/78 leading-relaxed font-medium">{projectScene.painScene}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-6">
+              <div className="bg-oat/60 border border-clay/70 rounded-[8px] p-6">
+                <span className="tertiary-text">真正的问题</span>
+                <p className="mt-4 !text-ink/76 leading-relaxed font-medium">{projectScene.whatBreaks}</p>
+              </div>
+              <div className="bg-white border border-clay/70 rounded-[8px] p-6">
+                <span className="tertiary-text">怎么知道有用</span>
+                <div className="space-y-3 mt-4">
+                  {node.successCriteria.slice(0, 2).map((criterion) => (
+                    <div key={criterion} className="flex items-start gap-3">
+                      <CheckCircle2 size={17} className="text-sage mt-1 flex-shrink-0" />
+                      <p className="!text-ink/76 text-sm leading-relaxed font-medium">{criterion}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="step-card !rounded-[8px] !p-8 md:!p-10">
+              <span className="tertiary-text">复制给 AI</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mt-5 mb-6">{projectScene.promptTitle}</h2>
+              <div className="terminal-box !rounded-[8px] !p-5 md:!p-6">
+                <pre className="whitespace-pre-wrap text-[13px] leading-relaxed select-all">{projectScene.prompt}</pre>
+              </div>
+            </div>
+
+            <div className="step-card !rounded-[8px] !p-8 md:!p-10">
+              <span className="tertiary-text">别每次都手打</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mt-5 mb-6">{projectScene.solidifyTitle}</h2>
+              <p className="text-lg !text-ink/76 leading-relaxed font-medium">{projectScene.solidify}</p>
+            </div>
+          </section>
+
+          <aside className="lg:col-span-4 space-y-6">
+            <div className="step-card !rounded-[8px] !p-7">
+              <h2 className="text-2xl font-serif font-bold mb-6">这页怎么用</h2>
+              <div className="space-y-5">
+                {['打开 Claude Code 或 Codex，并进入你的项目目录。', '复制左侧 Prompt，让 AI 先输出判断或草稿。', '你只改目标和边界，不急着让它写代码。', '同类问题重复出现，再固化到规则文件或 Skill。'].map((item, index) => (
+                  <div key={item} className="flex gap-4">
+                    <div className="w-7 h-7 rounded-full bg-ink text-paper flex items-center justify-center text-[11px] font-black flex-shrink-0">
+                      {index + 1}
+                    </div>
+                    <p className="!text-ink/75 text-sm leading-relaxed font-medium">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="step-card !rounded-[8px] !p-7">
+              <h2 className="text-2xl font-serif font-bold mb-6">参考来源</h2>
+              <div className="space-y-4">
+                {sources.map((source) => source && (
+                  <a key={source.id} href={source.url} target={source.url.startsWith('http') ? '_blank' : undefined} rel={source.url.startsWith('http') ? 'noreferrer' : undefined} className="block border border-clay/40 rounded-[8px] p-4 hover:border-ink transition-colors">
+                    <div className="tertiary-text mb-3">{source.sourceType}</div>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-sm text-sage/80">{source.title}</span>
+                      {source.url.startsWith('http') && <ExternalLink size={14} className="text-sage/40 flex-shrink-0" />}
+                    </div>
+                    {source.sourceType === 'Personal Note' && (
+                      <p className="text-xs text-sage/65 mt-3 leading-relaxed">
+                        Verified {source.lastCheckedAt} · 个人经验，只作场景补充。
+                      </p>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="step-card !rounded-[8px] !p-7">
+              <h2 className="text-2xl font-serif font-bold mb-6">卡住时</h2>
+              {issues.length > 0 ? (
+                <div className="space-y-4">
+                  {issues.slice(0, 2).map((issue) => (
+                    <Link key={issue.id} to={`/troubleshooting?node=${node.id}&category=${issue.category}`} className="block bg-oat/35 border border-clay/40 rounded-[8px] p-4 hover:border-ink transition-colors">
+                      <span className="tertiary-text">{issue.category}</span>
+                      <p className="font-serif font-bold text-lg mt-3 mb-2">{issue.symptom}</p>
+                      <p className="text-sm text-sage/70">{issue.firstActions[0]}</p>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-sage/70 leading-relaxed">复制 AI 的原始回复和报错，到排障页按症状搜索。</p>
+              )}
+            </div>
+
+            {nextNode && (
+              <div className="step-card !rounded-[8px] !p-7">
+                <h2 className="text-2xl font-serif font-bold mb-6">继续补能力</h2>
+                <Link to={`/roadmap/${nextNode.id}`} className="btn-claude w-fit">
+                  {nextNode.title} <ArrowRight size={16} />
+                </Link>
+              </div>
+            )}
+          </aside>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32">
@@ -186,7 +330,7 @@ export default function RoadmapDetail() {
             </div>
           ) : (
             <div className="step-card !p-8 md:!p-10">
-              <h2 className="text-3xl font-serif font-bold mb-8">{node.level === 'starter' ? '直接照做' : '执行逻辑'}</h2>
+              <h2 className="text-3xl font-serif font-bold mb-8">{detailLabels.main}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {(node.detail?.steps ?? node.tasks).map((task, index) => (
                   <div key={task} className="bg-oat/55 border border-clay/70 rounded-[24px] p-5 shadow-sm">
@@ -205,7 +349,7 @@ export default function RoadmapDetail() {
 
           {node.detail && !node.detail.tracks && (
             <div className="step-card !p-8 md:!p-10">
-              <h2 className="text-3xl font-serif font-bold mb-8">操作前检查</h2>
+              <h2 className="text-3xl font-serif font-bold mb-8">{detailLabels.preflight}</h2>
               <div className="space-y-4 mb-10">
                 {node.detail.preflight.map((item) => (
                   <div key={item} className="flex items-start gap-4">
@@ -234,7 +378,7 @@ export default function RoadmapDetail() {
                 </>
               )}
 
-              <h3 className="tertiary-text mb-4">按工具/系统区分</h3>
+              <h3 className="tertiary-text mb-4">{detailLabels.differences}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
                 {node.detail.differences.map((item) => (
                   <div key={item} className="bg-oat/55 border border-clay/60 rounded-2xl p-4 text-sm !text-ink/75 leading-relaxed font-medium">
@@ -245,14 +389,14 @@ export default function RoadmapDetail() {
 
               {node.detail.prompt && (
                 <>
-                  <h3 className="tertiary-text mb-4">示例 Prompt</h3>
+                  <h3 className="tertiary-text mb-4">{detailLabels.prompt}</h3>
                   <div className="terminal-box !p-5 !rounded-[20px] mb-10">
                     <pre className="whitespace-pre-wrap text-[12px]">{node.detail.prompt}</pre>
                   </div>
                 </>
               )}
 
-              <h3 className="tertiary-text mb-4">先不要做</h3>
+              <h3 className="tertiary-text mb-4">{detailLabels.doNotDo}</h3>
               <div className="space-y-3">
                 {node.detail.doNotDo.map((item) => (
                   <div key={item} className="bg-white border border-clay/60 rounded-2xl p-4 text-sm !text-ink/75 leading-relaxed font-medium">
@@ -298,15 +442,20 @@ export default function RoadmapDetail() {
 
         <aside className="lg:col-span-4 space-y-8">
           <div className="step-card !p-8">
-            <h2 className="text-2xl font-serif font-bold mb-6">官方来源</h2>
+            <h2 className="text-2xl font-serif font-bold mb-6">参考来源</h2>
             <div className="space-y-4">
               {sources.map((source) => source && (
-                <a key={source.id} href={source.url} target={source.url === '#' ? undefined : '_blank'} rel="noreferrer" className="block border border-clay/40 rounded-2xl p-4 hover:border-ink transition-colors">
+                <a key={source.id} href={source.url} target={source.url.startsWith('http') ? '_blank' : undefined} rel={source.url.startsWith('http') ? 'noreferrer' : undefined} className="block border border-clay/40 rounded-2xl p-4 hover:border-ink transition-colors">
                   <div className="tertiary-text mb-3">{source.sourceType}</div>
                   <div className="flex items-center justify-between gap-4">
                     <span className="text-sm text-sage/80">{source.title}</span>
-                    {source.url !== '#' && <ExternalLink size={14} className="text-sage/40 flex-shrink-0" />}
+                    {source.url.startsWith('http') && <ExternalLink size={14} className="text-sage/40 flex-shrink-0" />}
                   </div>
+                  {source.sourceType === 'Personal Note' && (
+                    <p className="text-xs text-sage/65 mt-3 leading-relaxed">
+                      Verified {source.lastCheckedAt} · 个人经验，只作场景补充。
+                    </p>
+                  )}
                 </a>
               ))}
             </div>

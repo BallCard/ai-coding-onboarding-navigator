@@ -18,7 +18,9 @@ import Home from './pages/Home';
 import ToolSelection from './pages/ToolSelection';
 import SetupVerification from './pages/SetupVerification';
 import Troubleshooting from './pages/Troubleshooting';
+import TroubleshootingDetail from './pages/TroubleshootingDetail';
 import FirstTask from './pages/FirstTask';
+import PracticeDetail from './pages/PracticeDetail';
 import Updates from './pages/Updates';
 import Advanced from './pages/Advanced';
 import RoadmapDetail from './pages/RoadmapDetail';
@@ -144,7 +146,9 @@ export default function App() {
           <Route path="/tools" element={<ToolSelection />} />
           <Route path="/setup" element={<SetupVerification />} />
           <Route path="/troubleshooting" element={<Troubleshooting />} />
+          <Route path="/troubleshooting/:issueId" element={<TroubleshootingDetail />} />
           <Route path="/practice" element={<FirstTask />} />
+          <Route path="/practice/:taskId" element={<PracticeDetail />} />
           <Route path="/updates" element={<Updates />} />
           <Route path="/advanced" element={<Advanced />} />
         </Routes>

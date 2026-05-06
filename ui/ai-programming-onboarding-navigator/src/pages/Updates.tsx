@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { History, ExternalLink, ShieldCheck, BookOpen, Calendar, CheckCircle2, ChevronRight } from 'lucide-react';
-import { SOURCES, UPDATES, getSource } from '../constants';
+import { SOURCES, UPDATES, getSource, type Source } from '../constants';
 
 const SOURCE_TYPE_DESCRIPTIONS = [
   { id: 'Official', desc: '官方文档、changelog、release 或产品说明。事实优先引用这一层。' },
@@ -8,6 +8,29 @@ const SOURCE_TYPE_DESCRIPTIONS = [
   { id: 'Personal Note', desc: '校内实际使用经验，只作为场景补充，不替代官方事实。' },
   { id: 'Community Signal', desc: '社区内容只作为痛点线索，未核验前不能进入正式指导。' },
 ];
+
+const SOURCE_TYPE_ORDER = ['Official', 'Official-Derived', 'Personal Note', 'Learning Reference', 'Community Signal'];
+
+function sourceHref(source: Source) {
+  return source.url.startsWith('#') ? source.url : source.url;
+}
+
+function isExternalSource(source: Source) {
+  return source.url.startsWith('http://') || source.url.startsWith('https://');
+}
+
+function sourceTarget(source: Source) {
+  return isExternalSource(source) ? '_blank' : undefined;
+}
+
+function sourceRel(source: Source) {
+  return isExternalSource(source) ? 'noreferrer' : undefined;
+}
+
+const sourceGroups = SOURCE_TYPE_ORDER.map((sourceType) => ({
+  sourceType,
+  sources: SOURCES.filter((source) => source.sourceType === sourceType),
+})).filter((group) => group.sources.length > 0);
 
 export default function Updates() {
   return (
@@ -62,19 +85,37 @@ export default function Updates() {
           <div className="w-16 h-16 rounded-[24px] bg-oat border border-clay/40 text-sage flex items-center justify-center shadow-inner">
             <BookOpen size={28} />
           </div>
-          <h2 className="text-4xl font-serif font-bold tracking-tight text-ink italic">首批官方来源</h2>
+          <h2 className="text-4xl font-serif font-bold tracking-tight text-ink italic">来源记录</h2>
         </div>
 
-        <div className="overflow-hidden rounded-[32px] border border-clay/40 bg-white">
-          {SOURCES.map((source) => (
-            <a key={source.id} href={source.url} target={source.url === '#' ? undefined : '_blank'} rel="noreferrer" className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 px-6 py-5 border-b border-clay/30 last:border-b-0 hover:bg-oat/30 transition-colors">
-              <div>
-                <h3 className="font-serif font-bold text-lg">{source.title}</h3>
-                <p className="text-sm text-sage/60 mt-1">{source.owner} · {source.topicTags.join(', ')}</p>
+        <div className="space-y-10">
+          {sourceGroups.map((group) => (
+            <div key={group.sourceType}>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="tertiary-text px-4 py-2 rounded-full border border-clay/40 bg-oat/40">{group.sourceType}</span>
+                <span className="text-sm text-sage/60">
+                  {group.sourceType === 'Official' ? '产品事实优先引用这一层。' : '用于解释、经验或痛点线索，不替代官方事实。'}
+                </span>
               </div>
-              <span className="tertiary-text px-3 py-2 rounded-full border border-clay/40 h-fit w-fit">{source.sourceType}</span>
-              <span className="tertiary-text h-fit w-fit">Checked {source.lastCheckedAt}</span>
-            </a>
+
+              <div className="overflow-hidden rounded-[32px] border border-clay/40 bg-white">
+                {group.sources.map((source) => (
+                  <a id={source.id} key={source.id} href={sourceHref(source)} target={sourceTarget(source)} rel={sourceRel(source)} className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 px-6 py-5 border-b border-clay/30 last:border-b-0 hover:bg-oat/30 transition-colors">
+                    <div>
+                      <h3 className="font-serif font-bold text-lg">{source.title}</h3>
+                      <p className="text-sm text-sage/60 mt-1">{source.owner} · {source.topicTags.join(', ')}</p>
+                      {source.sourceType === 'Personal Note' && (
+                        <p className="text-sm text-sage/70 mt-3 leading-relaxed">
+                          Verified {source.lastCheckedAt} · 校园个人使用记录，只说明本地场景经验，不作为产品事实来源。
+                        </p>
+                      )}
+                    </div>
+                    <span className="tertiary-text px-3 py-2 rounded-full border border-clay/40 h-fit w-fit">{source.sourceType}</span>
+                    <span className="tertiary-text h-fit w-fit">Checked {source.lastCheckedAt}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>

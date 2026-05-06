@@ -8,6 +8,8 @@ const ICONS = {
   'fix-bug': Bug,
   'explain-code': FileSearch,
   'add-tests': TestTube2,
+  'repo-rules': FileText,
+  'review-pr': ShieldCheck,
 };
 
 export default function FirstTask() {
@@ -20,7 +22,7 @@ export default function FirstTask() {
         </div>
         <h1 className="text-5xl font-serif tracking-tight mb-6">装好后，马上做一个小任务</h1>
         <p className="text-sage/70 max-w-2xl leading-relaxed font-medium">
-          先在测试目录里做。要求 AI 先给计划，再小步修改，最后用运行结果或测试结果验收。
+          先在测试目录里做。这里的项目参考 Claude Code 开源学习项目的练习组织方式，但事实性操作仍回到官方文档。每个项目都有详情页，按交付物验收。
         </p>
       </header>
 
@@ -134,9 +136,9 @@ export default function FirstTask() {
                 </div>
 
                 <div className="mt-auto pt-8 border-t border-clay/30 flex items-center justify-between">
-                  <button className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest text-ink group/btn transition-colors hover:text-sage">
-                    按这题开始 <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
-                  </button>
+                  <Link to={`/practice/${task.id}`} className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest text-ink group/btn transition-colors hover:text-sage">
+                    查看详情 <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
+                  </Link>
                   <Link to={`/troubleshooting?node=task-one&category=workflow`} className="tertiary-text hover:text-ink">
                     卡住了
                   </Link>
