@@ -7,13 +7,13 @@ Last updated: 2026-05-05
 Workspace root:
 
 ```powershell
-D:\ClaudeCode教学
+D:\Workspace\projects\ai-coding-onboarding-navigator
 ```
 
 Frontend app:
 
 ```powershell
-D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator
+D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
 ```
 
 ## 2. Tech Stack
@@ -31,7 +31,7 @@ D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator
 ## 3. Install
 
 ```powershell
-cd D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator
+cd D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
 npm install
 ```
 
@@ -115,7 +115,7 @@ Rules:
 Run in:
 
 ```powershell
-D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator
+D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
 ```
 
 ### Development
@@ -474,4 +474,4 @@ Project policy:
 - Commit messages should be English if commits are requested.
 - Deployment should follow project commands, not implicit `git push`.
 
-No production deployment pipeline is currently documented.
+静态前端部署配置位于 `vercel.json`：构建命令为 `npm run build`，输出目录为 `dist`，并将 BrowserRouter 深层路由回退到 `index.html`。部署默认使用 Vercel preview；需要先完成 `vercel login` 或设置 `VERCEL_TOKEN`。

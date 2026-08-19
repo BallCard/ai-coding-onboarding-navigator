@@ -57,6 +57,19 @@ node scripts\api-smoke-test.mjs
 powershell.exe -ExecutionPolicy Bypass -File scripts\browser-smoke.ps1
 ```
 
+## Deploy Preview
+
+This is a Vite static deployment. `vercel.json` pins the build output to `dist`
+and rewrites deep links to `index.html` so BrowserRouter routes work after refresh.
+
+```powershell
+vercel login
+vercel --yes
+```
+
+The reserved Express assistant API is for local development; the static preview
+does not run `server/index.ts` unless a separate server deployment is configured.
+
 ## Main Files
 
 - `src/constants.ts`: all route, source, troubleshooting, task, rule, and safety data

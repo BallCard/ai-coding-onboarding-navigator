@@ -9,3 +9,4 @@ coverage/
 
 # Chrome smoke test artifacts
 .chrome-smoke/
+.vercel

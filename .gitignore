@@ -1,6 +1,9 @@
 .claude/
 .playwright-cli/
 .superpowers/
+.vite/
+**/.vite/
+*.zip
 .chrome-post*/
 .edge-post*/
 .pw-post-screenshots/

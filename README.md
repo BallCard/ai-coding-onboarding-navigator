@@ -30,7 +30,7 @@
 进入前端项目：
 
 ```powershell
-cd D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator
+cd D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
 ```
 
 安装依赖：
