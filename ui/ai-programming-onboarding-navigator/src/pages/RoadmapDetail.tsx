@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, ShieldCheck, AlertCircle } from 'lucide-react';
-import { PROJECT_LEARNING_SCENES, ROADMAP_NODES, TROUBLESHOOTING_DATA, getSource } from '../constants';
+import { PROJECT_LEARNING_SCENES, ROADMAP_NODES, getSource } from '../constants';
 
 export default function RoadmapDetail() {
   const { nodeId } = useParams();
@@ -17,7 +17,6 @@ export default function RoadmapDetail() {
   }
 
   const sources = node.sourceIds.map(getSource).filter(Boolean);
-  const issues = TROUBLESHOOTING_DATA.filter((issue) => issue.category === node.stuckCategory || issue.os === node.stuckCategory).slice(0, 4);
   const nextNode = node.nextStepId ? ROADMAP_NODES.find((item) => item.id === node.nextStepId) : undefined;
   const detailLabels = {
     main: node.level === 'starter' ? '直接照做' : node.level === 'project' ? '项目工作流' : '系统设计练习',
@@ -134,20 +133,8 @@ export default function RoadmapDetail() {
             </div>
 
             <div className="step-card !rounded-[8px] !p-7">
-              <h2 className="text-2xl font-serif font-bold mb-6">卡住时</h2>
-              {issues.length > 0 ? (
-                <div className="space-y-4">
-                  {issues.slice(0, 2).map((issue) => (
-                    <Link key={issue.id} to={`/troubleshooting?node=${node.id}&category=${issue.category}`} className="block bg-oat/35 border border-clay/40 rounded-[8px] p-4 hover:border-ink transition-colors">
-                      <span className="tertiary-text">{issue.category}</span>
-                      <p className="font-serif font-bold text-lg mt-3 mb-2">{issue.symptom}</p>
-                      <p className="text-sm text-sage/70">{issue.firstActions[0]}</p>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-sage/70 leading-relaxed">复制 AI 的原始回复和报错，到排障页按症状搜索。</p>
-              )}
+              <h2 className="text-2xl font-serif font-bold mb-5">遇到问题时</h2>
+              <p className="text-sm text-sage/70 leading-relaxed">把当前目标、AI 的原始回复、完整报错或截图直接交给 Codex、豆包或你手边可用的 AI，请它先解释原因，再给最小解决步骤。</p>
             </div>
 
             {nextNode && (
@@ -420,23 +407,11 @@ export default function RoadmapDetail() {
           </div>
 
           <div className="step-card !p-8 md:!p-10">
-            <h2 className="text-3xl font-serif font-bold mb-8">卡住先看这里</h2>
-            {issues.length > 0 ? (
-              <div className="space-y-5">
-                {issues.map((issue) => (
-                  <Link key={issue.id} to={`/troubleshooting?node=${node.id}&category=${issue.category}`} className="block bg-oat/35 border border-clay/30 rounded-[24px] p-5 hover:border-ink transition-colors">
-                    <div className="flex items-center gap-3 mb-3">
-                      <AlertCircle size={16} className="text-sage" />
-                      <span className="tertiary-text">{issue.category}</span>
-                    </div>
-                    <p className="font-serif font-bold text-lg mb-2">{issue.symptom}</p>
-                    <p className="text-sm text-sage/70">{issue.firstActions[0]}</p>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sage/70">这一步暂时没有单独卡点。复制报错原文，到排障数据库搜索症状。</p>
-            )}
+            <h2 className="text-3xl font-serif font-bold mb-6">遇到问题时</h2>
+            <p className="text-sage/70 leading-relaxed mb-5">不必在本站查错误百科。把当前目标、完整报错或截图发给 Codex、豆包或你手边可用的 AI，让它先判断原因，再给最小解决步骤。</p>
+            <div className="rounded-2xl bg-oat/35 border border-clay/40 p-5 text-sm text-sage/75 leading-relaxed">
+              我想完成……，现在出现……。这是完整报错或截图。请先解释最可能的原因，再告诉我应该先做哪一步。
+            </div>
           </div>
         </section>
 

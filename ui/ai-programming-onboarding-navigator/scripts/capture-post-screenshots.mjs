@@ -35,7 +35,6 @@ const shots = [
   ['/advanced', 'layer-advanced.png'],
   ['/tools', 'tool-selection.png'],
   ['/setup', 'setup-verification.png'],
-  ['/troubleshooting', 'troubleshooting.png'],
   ['/practice', 'first-practice.png'],
 ];
 

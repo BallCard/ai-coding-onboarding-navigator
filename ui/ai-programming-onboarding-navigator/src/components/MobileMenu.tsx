@@ -5,7 +5,7 @@
 
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Compass, AlertCircle, FileCode, Settings, Monitor, Layers, Network, Route } from 'lucide-react';
+import { Compass, FileCode, Settings, Monitor, Layers, Network, Route, BookOpen } from 'lucide-react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -17,8 +17,8 @@ const NAV_ITEMS = [
   { to: '/starter', label: '入门层', icon: Route },
   { to: '/project', label: '项目层', icon: Layers },
   { to: '/advanced', label: '工作流层', icon: Network },
-  { to: '/troubleshooting', label: '卡点排障', icon: AlertCircle },
   { to: '/practice', label: '首次实践', icon: FileCode },
+  { to: '/updates', label: '来源与更新', icon: BookOpen },
 ];
 
 const SECONDARY_ITEMS = [

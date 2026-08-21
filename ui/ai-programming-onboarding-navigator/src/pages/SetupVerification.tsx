@@ -54,7 +54,7 @@ export default function SetupVerification() {
     {
       id: 'install',
       title: '执行安装命令',
-      content: '只在官方文档确认后执行安装。遇到报错不要换随机教程，先进入排障页按症状处理。',
+      content: '只在官方文档确认后执行安装。遇到报错时，保留完整原文或截图，直接交给可用的 AI 判断原因和下一步。',
       command: current.command,
       sourceType: source?.sourceType ?? 'Official',
     },
@@ -77,7 +77,7 @@ export default function SetupVerification() {
           </div>
           <h1 className="text-5xl font-serif tracking-tight text-ink mb-6">看到版本号，才算装好</h1>
           <p className="text-sage/70 max-w-2xl leading-relaxed">
-            先选系统和工具，再按官方入口安装。任何一步报错，都先复制原文去排障，不要换随机教程。
+            先选系统和工具，再按官方入口安装。任何一步报错，都保留完整原文或截图，直接交给可用的 AI 判断原因。
           </p>
         </div>
 
@@ -132,9 +132,9 @@ export default function SetupVerification() {
                         官方文档 <ExternalLink size={14} />
                       </a>
                     )}
-                    <a href={`/troubleshooting?category=${step.id === 'install' ? 'node-npm' : 'terminal'}`} className="flex items-center gap-2 tertiary-text hover:text-sage/90 transition-colors">
-                      <AlertCircle size={14} /> 我卡住了
-                    </a>
+                    <span className="flex items-center gap-2 tertiary-text">
+                      <AlertCircle size={14} /> 出错时把原文或截图交给 AI
+                    </span>
                   </div>
                 </div>
               </div>
@@ -146,7 +146,7 @@ export default function SetupVerification() {
           <div className="step-card !p-8">
             <h4 className="tertiary-text mb-5">完成标准</h4>
             <div className="space-y-5">
-              {['命令能输出版本号', '登录或认证能进入下一步', '测试目录能启动一次任务', '出错时知道搜索哪个症状'].map((item) => (
+              {['命令能输出版本号', '登录或认证能进入下一步', '测试目录能启动一次任务', '出错时知道把完整信息交给 AI'].map((item) => (
                 <div key={item} className="flex items-start gap-3 text-sm text-sage/80">
                   <CheckCircle2 size={16} className="text-sage mt-0.5 flex-shrink-0" />
                   <span>{item}</span>

@@ -7,9 +7,9 @@ import {
   RULE_TEMPLATES,
   SAFETY_GUIDES,
   SOURCES,
+  SOURCE_RECORDS,
+  SOURCE_SITES,
   TOOLS,
-  TROUBLESHOOTING_DATA,
-  TROUBLESHOOTING_DETAILS,
   UPDATES,
 } from './constants';
 
@@ -21,7 +21,7 @@ function testToolSelectionScope() {
 }
 
 function testRoadmapContract() {
-  assert.equal(ROADMAP_NODES.filter((node) => node.level === 'starter').length, 8);
+  assert.equal(ROADMAP_NODES.filter((node) => node.level === 'starter').length, 7);
   assert.ok(ROADMAP_NODES.filter((node) => node.level === 'project').length >= 4);
   assert.ok(ROADMAP_NODES.filter((node) => node.level === 'advanced').length >= 4);
 
@@ -126,7 +126,6 @@ function testUserFacingCopyDoesNotExposeInternalPolicyVoice() {
   const visiblePayload = JSON.stringify({
     ROADMAP_NODES,
     TOOLS,
-    TROUBLESHOOTING_DATA,
     PRACTICE_TASKS,
     RULE_TEMPLATES,
     SAFETY_GUIDES,
@@ -161,11 +160,29 @@ function testKnownSources() {
   };
 
   for (const node of ROADMAP_NODES) assertKnownSources(node.sourceIds, node.id);
-  for (const issue of TROUBLESHOOTING_DATA) assertKnownSources(issue.sourceIds, issue.id);
   for (const task of PRACTICE_TASKS) assertKnownSources(task.sourceIds, task.id);
   for (const update of UPDATES) assertKnownSources([update.sourceId], update.id);
   for (const template of RULE_TEMPLATES) assertKnownSources(template.sourceIds, template.id);
   for (const guide of SAFETY_GUIDES) assertKnownSources(guide.sourceIds, guide.id);
+}
+
+function testSourceAggregationContract() {
+  assert.equal(SOURCE_RECORDS.length, SOURCES.length, 'every source needs a review record');
+  assert.ok(SOURCE_SITES.length >= 3, 'sources should be grouped into a small number of sites');
+
+  for (const source of SOURCE_RECORDS) {
+    assert.ok(source.evidenceUse.length >= 8, `${source.id} needs an evidence use`);
+    assert.ok(source.applicableScope.length >= 8, `${source.id} needs an applicable scope`);
+    assert.ok(source.reviewStatus, `${source.id} needs a review status`);
+    assert.ok(SOURCE_SITES.some((site) => site.ownerIds.includes(source.owner)), `${source.id} needs a site group`);
+  }
+}
+
+function testInstallationFoundationSources() {
+  const sourceIds = new Set(SOURCES.map((source) => source.id));
+  assert.ok(sourceIds.has('claude-code-setup'), 'installation gate needs the official Claude Code setup source');
+  assert.ok(sourceIds.has('khazix-codex-wechat-guide'), 'installation gate needs the supplied Codex guide');
+  assert.ok(sourceIds.has('khazix-workbuddy-wechat-guide'), 'installation gate needs the supplied WorkBuddy guide');
 }
 
 function testPracticeProjectsHaveDetails() {
@@ -174,32 +191,13 @@ function testPracticeProjectsHaveDetails() {
   for (const task of PRACTICE_TASKS) {
     assert.ok(task.projectBrief.length >= 20, `${task.id} needs a concrete project brief`);
     assert.ok(task.deliverables.length >= 2, `${task.id} needs deliverables`);
+    assert.ok(task.successCriteria.length >= 3, `${task.id} needs at least three observable acceptance criteria`);
     assert.ok(task.detailSteps.length >= 3, `${task.id} needs a detail page execution path`);
     assert.ok(task.reflectionPrompts.length >= 2, `${task.id} needs reflection prompts`);
 
     for (const step of task.detailSteps) {
       assert.ok(step.actions.length >= 2, `${task.id}/${step.title} needs concrete actions`);
       assert.ok(step.check.length >= 10, `${task.id}/${step.title} needs an observable check`);
-    }
-  }
-}
-
-function testTroubleshootingIssuesHaveDetails() {
-  assert.ok(TROUBLESHOOTING_DATA.length >= 15, 'troubleshooting layer should cover common install, auth, network, permission, and workflow issues');
-
-  for (const issue of TROUBLESHOOTING_DATA) {
-    const detail = TROUBLESHOOTING_DETAILS[issue.id];
-    assert.ok(detail, `${issue.id} needs a troubleshooting detail page`);
-    assert.ok(detail.diagnosticGoal.length >= 12, `${issue.id} needs a diagnostic goal`);
-    assert.ok(detail.evidenceToCollect.length >= 3, `${issue.id} needs evidence collection`);
-    assert.ok(detail.checks.length >= 3, `${issue.id} needs at least three checks`);
-    assert.ok(detail.decisionRule.length >= 10, `${issue.id} needs a decision rule`);
-    assert.ok(detail.prevention.length >= 2, `${issue.id} needs prevention notes`);
-
-    for (const check of detail.checks) {
-      assert.ok(check.action.length >= 10, `${issue.id}/${check.title} needs a concrete action`);
-      assert.ok(check.expected.length >= 8, `${issue.id}/${check.title} needs expected output`);
-      assert.ok(check.ifFailed.length >= 8, `${issue.id}/${check.title} needs failure branch`);
     }
   }
 }
@@ -222,8 +220,9 @@ testStarterDetailPlaybooksAreActionable();
 testProjectAndAdvancedDetailsAreSubstantial();
 testUserFacingCopyDoesNotExposeInternalPolicyVoice();
 testKnownSources();
+testSourceAggregationContract();
+testInstallationFoundationSources();
 testPracticeProjectsHaveDetails();
-testTroubleshootingIssuesHaveDetails();
 testMvpRuleAndSafetyCoverage();
 
 console.log('content contract checks passed');

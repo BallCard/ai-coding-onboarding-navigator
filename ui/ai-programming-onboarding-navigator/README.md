@@ -1,50 +1,20 @@
-# AI Programming Onboarding Navigator
+# Frontend App
 
-This is the Vite/React frontend and reserved API server for the campus AI coding onboarding site.
+React + Vite implementation for AI Coding Onboarding Navigator.
 
-## Run Frontend
+## Run
 
 ```powershell
 npm install
 npm run dev
 ```
 
-Open:
+Open <http://localhost:3000>.
 
-```text
-http://localhost:3000
-```
+## Contact and feedback
 
-## Run Reserved API Server
-
-```powershell
-npm run build
-npm run dev:full
-```
-
-Open:
-
-```text
-http://localhost:3001
-```
-
-API:
-
-```text
-POST /api/troubleshooting-assistant
-```
-
-## Environment
-
-Copy `.env.example` and fill later:
-
-```text
-OPENAI_API_KEY=""
-OPENAI_MODEL="gpt-5.4-mini"
-ASSISTANT_RATE_LIMIT_MAX="12"
-```
-
-The API key must stay server-side.
+- GitHub: [@BallCard](https://github.com/BallCard)
+- Feedback: [open a repository issue](https://github.com/BallCard/ai-coding-onboarding-navigator/issues/new)
 
 ## Verify
 
@@ -53,48 +23,17 @@ The API key must stay server-side.
 npm run lint
 npm run build
 node scripts\smoke-test.mjs
-node scripts\api-smoke-test.mjs
 powershell.exe -ExecutionPolicy Bypass -File scripts\browser-smoke.ps1
+node scripts\capture-visual-regression.mjs
 ```
 
-## Deploy Preview
+## Structure
 
-This is a Vite static deployment. `vercel.json` pins the build output to `dist`
-and rewrites deep links to `index.html` so BrowserRouter routes work after refresh.
+- `src/App.tsx`: routes, header, footer
+- `src/constants.ts`: current content source of truth
+- `src/components/InstallationGate.tsx`: opening installation confirmation
+- `src/components/WorkflowNotebook.tsx`: local reflection notes and Markdown export
+- `src/pages/`: home, layer routes, task pages, setup, tools, sources and updates
+- `scripts/`: route smoke checks and visual regression captures
 
-```powershell
-vercel login
-vercel --yes
-```
-
-The reserved Express assistant API is for local development; the static preview
-does not run `server/index.ts` unless a separate server deployment is configured.
-
-## Main Files
-
-- `src/constants.ts`: all route, source, troubleshooting, task, rule, and safety data
-- `src/pages/Home.tsx`: three-layer route selector
-- `src/pages/RoadmapDetail.tsx`: per-node detail page
-- `src/components/FloatingAssistant.tsx`: floating troubleshooting assistant
-- `server/index.ts`: reserved API endpoint
-
-## Assistant Status
-
-Current assistant is local-first and API-backed:
-
-- Frontend calls `/api/troubleshooting-assistant`
-- If API is unavailable, frontend falls back to local matching
-- Without `OPENAI_API_KEY`, server returns local matches
-- With `OPENAI_API_KEY`, server calls the OpenAI Responses API from the backend only
-- If OpenAI fails or times out, server returns local fallback results
-
-## Assistant Safety
-
-- API key is read only from server environment variables.
-- User input is limited to 800 characters.
-- Request body is limited to 12kb.
-- API keys, bearer tokens, and JWT-like strings are redacted before processing.
-- Rate limiting is enabled per IP. Default: 12 requests per minute.
-- The model only receives matched troubleshooting context from the site.
-- The assistant is instructed not to provide credential handling, account bypass, or network bypass guidance.
-- User-facing errors do not expose stack traces or secrets.
+The app intentionally has no troubleshooting database, embedded AI assistant, or assistant backend. Error states should briefly tell users to give complete error text or screenshots to an available AI after removing sensitive information.

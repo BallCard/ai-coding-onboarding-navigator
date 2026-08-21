@@ -1,6 +1,6 @@
 # AI Coding Onboarding Navigator Project Guide
 
-Last updated: 2026-05-05
+Last updated: 2026-08-21
 
 ## 1. Project Summary
 
@@ -11,12 +11,20 @@ The product is not a copied tutorial collection. It is a guided operating layer:
 - It tells students which stage they are in.
 - It tells them what to do next.
 - It gives concrete success criteria.
-- It routes them to troubleshooting when they are stuck.
+- When they are stuck, it tells them to pass the complete error or screenshot to Codex, Doubao, or another available AI instead of maintaining a duplicate troubleshooting system.
 - It labels which claims come from official sources and which come from campus experience.
 
 The core promise:
 
 > A student should be able to go from zero to one verified AI coding task without hunting through scattered docs, videos, and forum posts.
+
+Current product direction:
+
+> The site provides the smallest useful scaffold for a student to move from a real interest or problem to an AI-assisted, verifiable result, then preserve a reusable personal workflow.
+
+The learning model, implementation sequence, and UI invariants for this direction are defined in `docs/product/learning-and-design-baseline.md`. The three route layers remain useful for organizing depth, but a new user should not have to understand or choose a cognitive layer before taking a first action.
+
+The sequence is deliberately asymmetric: the beginning remains prescriptive where a shared technical baseline is necessary. Students first confirm whether Claude Code, Codex, and WorkBuddy are already installed; students who have not installed them or are unsure are routed to the official Claude Code setup page and the selected Codex / WorkBuddy field guides. The site does not require an extra command-line proof at this checkpoint. After that fixed checkpoint, the product shifts toward growth-oriented guidance through real goals, bounded action, evidence, and reusable reflection.
 
 ## 2. Target Users
 
@@ -156,7 +164,6 @@ Implemented routes:
 - `/roadmap/:nodeId` - detail page for each route node.
 - `/tools` - Claude Code / Codex selection.
 - `/setup` - Windows/macOS install and verification flow.
-- `/troubleshooting` - structured troubleshooting database.
 - `/practice` - first task, rule templates, and safety guide.
 - `/updates` - source map and update radar.
 
@@ -167,10 +174,6 @@ Implemented core features:
 - Starter-layer playbooks and OS-specific tracks.
 - Tool selection.
 - Setup verification.
-- Troubleshooting search and filtering.
-- Floating troubleshooting assistant.
-- Local-first assistant fallback.
-- Reserved API endpoint for future OpenAI integration.
 - Source badges and update records.
 
 ## 5. Route Layers
@@ -191,7 +194,7 @@ Starter nodes:
 6. Create test project.
 7. Configure project rules.
 8. Complete first task.
-9. Troubleshoot.
+9. Give complete error information or a screenshot to an available AI when needed.
 
 Expected user outcome:
 
@@ -267,7 +270,7 @@ Purpose:
 - Choose user layer.
 - Show route nodes.
 - Track completed nodes in local storage.
-- Route stuck users to troubleshooting.
+- Remind stuck users to give complete error information or screenshots to an available AI.
 - Provide links to independent layer entries for collaboration.
 
 ### Independent Layer Entries
@@ -325,16 +328,6 @@ Purpose:
 - Show official install entry and verification command.
 - Clarify install is not complete until a version command works.
 
-### Troubleshooting
-
-File: `src/pages/Troubleshooting.tsx`
-
-Purpose:
-
-- Search symptoms.
-- Filter by category or OS.
-- Show likely cause, first actions, source type, and escalation route.
-
 ### First Practice
 
 File: `src/pages/FirstTask.tsx`
@@ -365,17 +358,6 @@ Purpose:
 - Show official sources and update records.
 - Keep update radar separate from regular content.
 
-### Floating Assistant
-
-File: `src/components/FloatingAssistant.tsx`
-
-Purpose:
-
-- Provide local-first troubleshooting support.
-- Use route context when available.
-- Call reserved API when available.
-- Fall back to local matching when API is unavailable.
-
 ## 7. Content Model
 
 Current source of truth:
@@ -388,7 +370,6 @@ Main exported data:
 - `SOURCES`
 - `ROADMAP_NODES`
 - `TOOLS`
-- `TROUBLESHOOTING_DATA`
 - `PRACTICE_TASKS`
 - `RULE_TEMPLATES`
 - `SAFETY_GUIDES`
@@ -402,26 +383,9 @@ Important route detail structures:
 - `detail.commands`: copyable command snippets.
 - `successCriteria`: acceptance criteria shown across pages.
 - `sourceIds`: source linkage.
-- `stuckCategory`: troubleshooting link target.
+## 8. Error-Handling Boundary
 
-## 8. Assistant Boundary
-
-The assistant is a troubleshooting assistant, not a general chatbot.
-
-It should:
-
-- Diagnose stage and symptom.
-- Return first actions.
-- Link related issue IDs and source IDs.
-- Stay inside local content and official source boundaries.
-
-It should not:
-
-- Execute commands.
-- Ask for secrets.
-- Accept API keys from users.
-- Invent install commands.
-- Recommend network circumvention services.
+The site does not provide a troubleshooting database or an embedded AI assistant. When a student encounters an error, the site only recommends giving the goal, complete error text, or screenshot to Codex, Doubao, or another available AI. Students should remove secrets, passwords, cookies, and private data before sharing.
 
 ## 9. Success Criteria for MVP
 
@@ -435,7 +399,7 @@ The MVP is useful only if a real student can:
 6. Create a safe test project.
 7. Add a rule file.
 8. Complete one small AI coding task.
-9. Use troubleshooting when stuck.
+9. Use an available AI with complete error context when stuck.
 
 Suggested user test:
 
@@ -458,7 +422,7 @@ Recommended order:
 
 1. User test starter layer.
 2. Rewrite weak starter pages based on observed confusion.
-3. Expand troubleshooting database from real failures.
+3. Improve task prompts and evidence checks from real user failures without building an error database.
 4. Add richer project-layer examples.
 5. Implement real assistant API with current official OpenAI docs.
 6. Add rate limiting and logging redaction.

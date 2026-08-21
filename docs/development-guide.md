@@ -1,258 +1,64 @@
 # Development Guide
 
-Last updated: 2026-05-05
+Last updated: 2026-08-21
 
-## 1. Project Location
+## Project Location
 
-Workspace root:
-
-```powershell
-D:\Workspace\projects\ai-coding-onboarding-navigator
-```
-
-Frontend app:
-
-```powershell
+```text
 D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
 ```
 
-## 2. Tech Stack
+## Stack
 
-- Vite 6
 - React 19
-- TypeScript 5
-- React Router 7
+- React Router
+- Vite 6
+- TypeScript
 - Tailwind CSS 4
-- motion/react
-- lucide-react
-- Express API reserve
-- tsx for the local server
+- Motion
+- Lucide icons
 
-## 3. Install
+The current product is a static frontend. It has no application server, embedded AI assistant, or assistant API.
+
+## Install and Run
 
 ```powershell
-cd D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
 npm install
-```
-
-## 4. Run Frontend
-
-```powershell
 npm run dev
 ```
 
-Default URL:
+Development URL: <http://localhost:3000>
 
-```text
-http://localhost:3000
-```
-
-The script binds to `0.0.0.0`:
-
-```json
-"dev": "vite --port=3000 --host=0.0.0.0"
-```
-
-## 5. Run Reserved API Server
+Production build:
 
 ```powershell
 npm run build
-npm run dev:full
+npm run preview
 ```
 
-Default server:
-
-```text
-http://localhost:3001
-```
-
-API endpoint:
-
-```text
-POST /api/troubleshooting-assistant
-```
-
-Request example:
-
-```json
-{
-  "question": "npm 装不上",
-  "stageId": "install-tool"
-}
-```
-
-Current behavior:
-
-- Without `OPENAI_API_KEY`: returns local troubleshooting matches.
-- With `OPENAI_API_KEY`: returns `501 openai_assistant_not_enabled`.
-
-This is intentional. The real OpenAI integration has not been implemented yet.
-
-## 6. Environment Variables
-
-File:
-
-```text
-.env.example
-```
-
-Variables:
-
-```text
-OPENAI_API_KEY=""
-OPENAI_MODEL="gpt-5.4-mini"
-```
-
-Rules:
-
-- API key stays server-side.
-- Never expose key to frontend.
-- Never log user secrets.
-- Do not accept API keys through the assistant chat.
-
-## 7. Scripts
-
-Run in:
+## Validation
 
 ```powershell
-D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
-```
-
-### Development
-
-```powershell
-npm run dev
-```
-
-### Full Local Server
-
-```powershell
-npm run build
-npm run dev:full
-```
-
-### Type Check
-
-```powershell
-npm run lint
-```
-
-Note: despite the script name, this is TypeScript checking:
-
-```json
-"lint": "tsc --noEmit"
-```
-
-### Build
-
-```powershell
-npm run build
-```
-
-Known warning:
-
-- Vite reports chunks larger than 500 kB after minification.
-- This is not a functional failure.
-- Consider route-level code splitting before public launch.
-
-### Content Contract Test
-
-```powershell
+# Content contracts
 .\node_modules\.bin\tsx.cmd src\content.test.ts
-```
 
-Checks include:
+# TypeScript
+npm run lint
 
-- Route node source IDs exist.
-- Troubleshooting issue source IDs exist.
-- Practice task fallback issue IDs exist.
-- Source IDs are resolvable.
+# Production bundle
+npm run build
 
-### HTTP Smoke Test
-
-```powershell
+# HTTP routes; requires local dev server
 node scripts\smoke-test.mjs
-```
 
-Checks main routes at:
-
-```text
-http://localhost:3000
-```
-
-### Browser Smoke Test
-
-```powershell
+# Rendered DOM; requires Chrome and local dev server
 powershell.exe -ExecutionPolicy Bypass -File scripts\browser-smoke.ps1
+
+# 1440px and 390px screenshots plus overflow checks
+node scripts\capture-visual-regression.mjs
 ```
 
-Use before serious handoff or release.
-
-## 8. Directory Structure
-
-```text
-ui/ai-programming-onboarding-navigator/
-  src/
-    App.tsx
-    constants.ts
-    content.test.ts
-    index.css
-    main.tsx
-    components/
-      FloatingAssistant.tsx
-    pages/
-      Advanced.tsx
-      FirstTask.tsx
-      Home.tsx
-      RoadmapDetail.tsx
-      SetupVerification.tsx
-      ToolSelection.tsx
-      Troubleshooting.tsx
-      Updates.tsx
-  server/
-    index.ts
-  scripts/
-    browser-smoke.ps1
-    smoke-test.mjs
-```
-
-## 9. Architecture
-
-### 9.1 Content-First Architecture
-
-Most product content lives in:
-
-```text
-src/constants.ts
-```
-
-Pages are mostly renderers:
-
-- `Home.tsx` renders route levels and roadmap nodes.
-- `RoadmapDetail.tsx` renders node detail structures.
-- `Troubleshooting.tsx` renders `TROUBLESHOOTING_DATA`.
-- `FirstTask.tsx` renders practice tasks, rule templates, and safety guides.
-- `Updates.tsx` renders source and update records.
-
-This makes content iteration faster, but `constants.ts` can grow large. If the project expands, split it into:
-
-```text
-src/content/sources.ts
-src/content/roadmap.ts
-src/content/troubleshooting.ts
-src/content/practice.ts
-src/content/updates.ts
-```
-
-### 9.2 Routing
-
-Routes are defined in:
-
-```text
-src/App.tsx
-```
-
-Current routes:
+## Current Routes
 
 ```text
 /
@@ -262,216 +68,58 @@ Current routes:
 /roadmap/:nodeId
 /tools
 /setup
-/troubleshooting
 /practice
+/practice/:taskId
 /updates
 ```
 
-Route meaning:
+Legacy `/troubleshooting/*` URLs redirect to `/`; they are not a product surface.
 
-- `/` is the unified interface.
-- `/starter`, `/project`, and `/advanced` are collaboration entries for the three teaching layers.
-- `/advanced` is the architecture-layer topic interface; do not recreate `/architecture` as a parallel route.
+## Architecture
 
-### 9.3 Roadmap Detail Rendering
+`src/App.tsx` owns the shell and route map.
 
-File:
+`src/constants.ts` remains the current content source of truth for:
 
-```text
-src/pages/RoadmapDetail.tsx
-```
+- route levels and roadmap nodes
+- source records and site groups
+- tool choices
+- practice tasks
+- rule templates and safety guides
+- update records
 
-Rendering priority:
+Page components read those structures directly. New facts must include official sources or an explicit non-official source label.
 
-1. `detail.tracks`
-   - Used for OS-specific starter guidance.
-   - Example: Windows/macOS environment checks.
+Key components:
 
-2. `detail.playbook`
-   - Used for starter pages without OS split.
-   - Blocks show actions, optional command, expected output, and failure handling.
+- `InstallationGate.tsx`: asks whether Claude Code, Codex, and WorkBuddy are installed; expands source links only when needed.
+- `WorkflowNotebook.tsx`: saves a reflection locally and exports Markdown.
+- `MobileMenu.tsx`: responsive navigation.
 
-3. `detail.steps`
-   - Fallback for project/architecture nodes.
+## Error-Handling Boundary
 
-### 9.4 Independent Layer Entry Rendering
+Do not add troubleshooting cards, a troubleshooting route, or an embedded AI assistant. A failure note should only tell the user to preserve the goal, complete error text, or screenshot and give it to Codex, Doubao, or another available AI after removing sensitive information.
 
-File:
+## Styling
 
-```text
-src/pages/LayerRoute.tsx
-```
+Design tokens live in `src/index.css`:
 
-Routes:
+- paper / ink / sage / clay / oat palette
+- Libre Baskerville headings
+- Inter body text
+- JetBrains Mono code
+- paper noise and technical dot grid
+- large whitespace, soft borders, rounded cards, restrained motion
 
-```text
-/starter
-/project
-/advanced
-```
+Preserve these invariants during content or layout work. Validate at 1440px and 390px.
 
-Purpose:
+## Deployment
 
-- Keep a unified route map at `/`.
-- Give each teaching layer an independent collaboration entry.
-- Reuse `ROUTE_LEVELS` and `ROADMAP_NODES`.
-- Avoid maintaining three separate copies of the same content.
+`vercel.json` configures the project as a Vite SPA and rewrites routes to `index.html`.
 
-Current implementation notes:
+Before publishing:
 
-- `project` renders a custom capability-map layout in `LayerRoute.tsx`.
-- `starter` uses the regular layer entry layout.
-- `advanced` is implemented through `Advanced.tsx`.
-- Do not add `/architecture` unless the product route system is redesigned deliberately.
-
-### 9.5 Floating Assistant
-
-File:
-
-```text
-src/components/FloatingAssistant.tsx
-```
-
-Behavior:
-
-1. Reads route context when on `/roadmap/:nodeId`.
-2. Sends question to `/api/troubleshooting-assistant`.
-3. If API fails, uses local matching against `TROUBLESHOOTING_DATA`.
-4. Shows first actions and related issues.
-
-## 10. API Reserve
-
-File:
-
-```text
-server/index.ts
-```
-
-Endpoint:
-
-```text
-POST /api/troubleshooting-assistant
-```
-
-Current server responsibilities:
-
-- Parse request.
-- Match local troubleshooting data.
-- Return local mode response.
-- Return `501` when an API key exists but real integration is not enabled.
-
-Before real API launch:
-
-- Verify current OpenAI Responses API official docs.
-- Add request validation.
-- Add rate limiting.
-- Add prompt boundary.
-- Add source-grounded answer format.
-- Redact secrets from logs.
-- Add server tests.
-
-## 11. Styling System
-
-File:
-
-```text
-src/index.css
-```
-
-Global design tokens:
-
-- `paper`
-- `ink`
-- `clay`
-- `oat`
-- `sage`
-
-Core utility classes:
-
-- `.step-card`
-- `.terminal-box`
-- `.tertiary-text`
-- `.btn-claude`
-- `.link-claude`
-- `.technical-grid`
-
-Current visual direction:
-
-- Anthropic-inspired restrained UI.
-- Stronger contrast than the initial version.
-- Starter pages should feel like a working manual.
-- Project/architecture pages can remain more editorial.
-
-When adjusting UI:
-
-- Do not make text too pale.
-- Do not overuse italic for action text.
-- Keep command blocks highly visible.
-- Keep starter actions heavier than secondary labels.
-
-## 12. Verification Workflow
-
-Before saying a change is done, run:
-
-```powershell
-.\node_modules\.bin\tsx.cmd src\content.test.ts
-npm run lint
-npm run build
-node scripts\smoke-test.mjs
-```
-
-Run browser smoke test for visual/layout changes:
-
-```powershell
-powershell.exe -ExecutionPolicy Bypass -File scripts\browser-smoke.ps1
-```
-
-## 13. Common Development Tasks
-
-### Add a Roadmap Node
-
-1. Add item to `ROADMAP_NODES`.
-2. Choose `level`.
-3. Add `sourceIds`.
-4. Add `stuckCategory`.
-5. Add `successCriteria`.
-6. For starter nodes, add `detail.playbook` or `detail.tracks`.
-7. Run content test.
-
-### Add a Troubleshooting Issue
-
-1. Add item to `TROUBLESHOOTING_DATA`.
-2. Use a clear symptom.
-3. Add likely cause.
-4. Add first actions.
-5. Add source IDs.
-6. Set escalation.
-7. Run content test.
-
-### Add a Source
-
-1. Add item to `SOURCES`.
-2. Label source type.
-3. Add owner.
-4. Add topic tags.
-5. Add `lastCheckedAt`.
-6. Link from content through `sourceIds`.
-
-### Change UI Copy
-
-1. Prefer editing `src/constants.ts`.
-2. For page chrome or headings, edit relevant page file.
-3. Check if the layer needs starter/manual tone or project/architecture tone.
-4. Run content and type checks.
-
-## 14. Git and Deployment Notes
-
-This workspace may not be a Git repository. Do not assume git commands work at root.
-
-Project policy:
-
-- Do not auto-push.
-- Commit messages should be English if commits are requested.
-- Deployment should follow project commands, not implicit `git push`.
-
-静态前端部署配置位于 `vercel.json`：构建命令为 `npm run build`，输出目录为 `dist`，并将 BrowserRouter 深层路由回退到 `index.html`。部署默认使用 Vercel preview；需要先完成 `vercel login` 或设置 `VERCEL_TOKEN`。
+1. Run all validation commands.
+2. Inspect desktop and mobile screenshots.
+3. Check every factual link and review date.
+4. Confirm community material is not presented as product fact.

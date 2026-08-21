@@ -12,12 +12,15 @@ ui/ai-programming-onboarding-navigator/src/constants.ts
 
 Current docs that matter most:
 
+- `docs/product/learning-and-design-baseline.md`
 - `docs/project-guide.md`
 - `docs/development-guide.md`
 - `docs/operations/source-policy.md`
 - `docs/sources/official-sources.md`
 
 Older docs under `docs/product/` may describe earlier designs. Use them as history unless they match current code.
+
+Before adding content, read `docs/product/learning-and-design-baseline.md`. Its ability-compounding loop is the primary test for new content: it must help the user move from a real interest or problem, through a bounded AI-assisted action and observable evidence, to a reusable personal rule or reflection. Do not add material merely because it explains a tool feature.
 
 ## 2. Writing Standard by User Layer
 
@@ -172,7 +175,7 @@ Rules:
 - Official docs decide product facts.
 - Open-source learning projects can inform learning path design and examples, but must not override official facts.
 - Bloggers can provide framing and teaching inspiration, but do not become source of truth.
-- Community experience can reveal pain points and missing troubleshooting cases.
+- Community experience can reveal pain points and places where the learning path needs clearer context.
 - Any non-official claim must be labeled as `Personal Note`, `Community Signal`, or checked back against official docs before becoming instruction.
 
 ## 4. Source Types
@@ -216,7 +219,6 @@ interface RoadmapNode {
   commonPitfalls: number;
   sourceIds: string[];
   route: string;
-  stuckCategory: TroubleshootingCategory;
   detail?: {
     preflight: string[];
     steps: string[];
@@ -301,56 +303,15 @@ Use as fallback, mainly for project and architecture layers.
 
 Do not rely only on `steps` for starter layer unless the step is very simple.
 
-## 6. Troubleshooting Card Guide
+## 6. Error-Handling Copy
 
-Current shape:
-
-```ts
-interface TroubleshootingItem {
-  id: string;
-  category: TroubleshootingCategory;
-  os: 'all' | 'windows' | 'macos';
-  symptom: string;
-  cause: string;
-  firstActions: string[];
-  escalation: 'self-serve' | 'ask-campus-helper' | 'official-support';
-  sourceIds: string[];
-  sourceType: SourceType;
-  lastVerifiedAt: string;
-}
-```
-
-Good symptom:
+The site does not maintain troubleshooting cards or an embedded assistant. When a page needs a failure note, keep it to one transferable instruction:
 
 ```text
-PowerShell 提示禁止运行脚本或无法加载 .ps1 文件
+把你原本想完成的目标、完整报错原文或截图交给 Codex、豆包或手边可用的 AI，请它先解释原因，再给最小解决步骤。
 ```
 
-Bad symptom:
-
-```text
-安装失败
-```
-
-Good first actions:
-
-```text
-1. 优先换用 PowerShell 7 或 Windows Terminal
-2. 查看当前执行策略
-3. 确认风险后再调整执行策略
-```
-
-Bad first actions:
-
-```text
-检查系统环境
-```
-
-Escalation rules:
-
-- `self-serve`: user can follow instructions safely.
-- `ask-campus-helper`: likely needs a more experienced peer.
-- `official-support`: account, subscription, product access, billing, or official platform issue.
+Also remind users to remove passwords, API keys, cookies, private paths, and sensitive project data before sharing.
 
 ## 7. Tool Selection Guide
 
@@ -415,12 +376,17 @@ When updating versions:
 
 Practice tasks should be small and verifiable.
 
+Tasks are not miniature tutorials. Their job is to give the student one bounded opportunity to practise the full loop: describe a goal, ask AI for a plan, act within a boundary, inspect evidence, and record one reusable lesson.
+
 Good practice task:
 
 - Can complete in 15-25 minutes.
 - Has visible output or a test result.
 - Can be done in a test directory.
 - Has fallback issue IDs.
+- States the editing or data boundary.
+- Includes at least three observable acceptance criteria.
+- Ends with one reflection prompt that can become a personal Markdown note, rule, or template.
 
 Avoid:
 
@@ -473,29 +439,9 @@ Statuses:
 - `published`: visible or reflected in content.
 - `ignored`: not relevant.
 
-## 13. Assistant Content Boundary
+## 13. No Embedded Assistant
 
-The assistant should answer from:
-
-- `TROUBLESHOOTING_DATA`
-- Current route node
-- Source records
-- Official source policy
-
-The assistant should not:
-
-- Make up commands.
-- Tell users to paste secrets.
-- Recommend circumvention services.
-- Turn into general coding chat.
-
-When adding assistant API:
-
-- Keep answers structured.
-- Return next actions.
-- Include related issue IDs.
-- Include source IDs.
-- Refuse secret-handling requests.
+Do not add a site-specific troubleshooting assistant or API. General AI products already handle error interpretation more efficiently. The site should focus on learning paths, task boundaries, evidence, and reflection.
 
 ## 14. Review Checklist Before Publishing Content
 
@@ -504,7 +450,7 @@ Before a content change is done:
 - Does each factual instruction have a source?
 - Does each starter instruction say what to click/open/copy?
 - Does each command have expected output?
-- Does each failure state say what to do next?
+- Does each failure state tell the user to preserve complete evidence and ask an available AI without exposing secrets?
 - Are Windows and macOS separated when needed?
 - Is community content kept as signal only?
 - Are there no VPN/proxy/node/airport recommendations?
@@ -516,7 +462,7 @@ Before a content change is done:
 Known items to improve:
 
 - Rewrite all starter detail pages with the same hard-action tone as `select-tool` and `check-env`.
-- Expand real troubleshooting cards after user testing.
+- Remove remaining legacy troubleshooting data when the content model is next split out of `constants.ts`.
 - Update old `docs/product/content-model.md` or archive it.
 - Add more project-layer examples for PR and CI workflows.
 - Add architecture-layer diagrams or concrete sample pipelines.

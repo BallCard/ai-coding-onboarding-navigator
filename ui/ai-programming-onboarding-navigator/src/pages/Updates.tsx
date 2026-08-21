@@ -1,164 +1,138 @@
 import { motion } from 'motion/react';
-import { History, ExternalLink, ShieldCheck, BookOpen, Calendar, CheckCircle2, ChevronRight } from 'lucide-react';
-import { SOURCES, UPDATES, getSource, type Source } from '../constants';
+import { BookOpen, Calendar, CheckCircle2, ChevronDown, ExternalLink, History, ShieldCheck } from 'lucide-react';
+import { SOURCE_RECORDS, SOURCE_SITES, UPDATES, getSource, type SourceRecord } from '../constants';
 
-const SOURCE_TYPE_DESCRIPTIONS = [
-  { id: 'Official', desc: '官方文档、changelog、release 或产品说明。事实优先引用这一层。' },
-  { id: 'Official-Derived', desc: '基于官方事实写成的中文路径、检查清单和完成标准，必须链接官方来源。' },
-  { id: 'Personal Note', desc: '校内实际使用经验，只作为场景补充，不替代官方事实。' },
-  { id: 'Community Signal', desc: '社区内容只作为痛点线索，未核验前不能进入正式指导。' },
+const LAYER_DESCRIPTIONS = [
+  { id: '官方资料', desc: '产品事实、安装、权限、安全和变更的唯一事实依据。' },
+  { id: '研究与社区', desc: '用于发现痛点、观点与练习灵感，结论仍需回到官方或本地证据。' },
+  { id: '校园记录', desc: '只说明标注日期与场景的本站路径或个人经验。' },
 ];
 
-const SOURCE_TYPE_ORDER = ['Official', 'Official-Derived', 'Personal Note', 'Learning Reference', 'Community Signal'];
-
-function sourceHref(source: Source) {
-  return source.url.startsWith('#') ? source.url : source.url;
-}
-
-function isExternalSource(source: Source) {
+function isExternal(source: SourceRecord) {
   return source.url.startsWith('http://') || source.url.startsWith('https://');
 }
-
-function sourceTarget(source: Source) {
-  return isExternalSource(source) ? '_blank' : undefined;
-}
-
-function sourceRel(source: Source) {
-  return isExternalSource(source) ? 'noreferrer' : undefined;
-}
-
-const sourceGroups = SOURCE_TYPE_ORDER.map((sourceType) => ({
-  sourceType,
-  sources: SOURCES.filter((source) => source.sourceType === sourceType),
-})).filter((group) => group.sources.length > 0);
 
 export default function Updates() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32">
-      <header className="mb-24 max-w-3xl">
+      <header className="mb-20 max-w-4xl">
         <div className="flex items-center gap-4 mb-8">
-          <div className="w-12 h-[1px] bg-sage" />
+          <div className="w-12 h-px bg-sage" />
           <span className="tertiary-text !tracking-[0.3em] !text-sage">Sources & Updates</span>
         </div>
-        <h1 className="text-5xl md:text-6xl font-serif tracking-tighter mb-8 text-ink leading-none">
-          信息可信度，<br /><span className="opacity-40 italic">必须可追溯</span>
+        <h1 className="text-[42px] md:text-7xl font-serif tracking-tighter mb-8 text-ink leading-[1.02] md:leading-[0.98] break-words">
+          先知道去哪里核对，<br /><span className="opacity-40 italic">再打开具体文档</span>
         </h1>
-        <div className="flex items-center gap-4">
-          <div className="p-2 rounded-full bg-oat border border-clay/30">
-            <History size={16} className="text-sage" />
-          </div>
-          <p className="text-lg text-sage/60 font-serif italic font-medium">首批来源检查于 2026-05-04。</p>
-        </div>
+        <p className="text-lg text-sage/75 leading-relaxed max-w-3xl">
+          来源不是资源墙。先按站点判断它适合回答什么，再按需展开具体页面；每条记录都保留用途、适用范围、核查日期与审核状态。
+        </p>
       </header>
 
-      <section className="mb-24">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 mb-16 border-b border-clay/30 pb-12">
-          <div className="flex items-center gap-8">
-            <div className="w-20 h-20 rounded-[32px] bg-ink text-paper flex items-center justify-center shadow-2xl relative">
-              <div className="absolute inset-2 border border-paper/10 rounded-[24px]" />
-              <ShieldCheck size={34} />
-            </div>
-            <div>
-              <h2 className="text-4xl font-serif font-bold tracking-tight text-ink mb-2 italic">来源分层</h2>
-              <p className="text-lg text-sage/50 font-medium font-serif italic">官方事实、个人经验和待验证线索不能混在一起。</p>
-            </div>
-          </div>
-          <button className="btn-claude h-12 px-8 text-[10px]">
-            查看规范 <ChevronRight size={14} />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {SOURCE_TYPE_DESCRIPTIONS.map((type) => (
-            <div key={type.id} className="step-card !p-8">
-              <div className="tertiary-text !text-ink px-4 py-1.5 rounded-full inline-block mb-8 border border-clay/50 bg-paper">
-                {type.id}
-              </div>
-              <p className="text-[15px] text-sage/70 leading-relaxed font-medium">{type.desc}</p>
-            </div>
-          ))}
-        </div>
+      <section className="mb-20 grid grid-cols-1 md:grid-cols-3 gap-5">
+        {LAYER_DESCRIPTIONS.map((layer, index) => (
+          <article key={layer.id} className={`step-card !p-7 ${index === 0 ? '!border-ink/25' : ''}`}>
+            <span className="tertiary-text">0{index + 1}</span>
+            <h2 className="text-2xl font-serif font-bold mt-5 mb-4">{layer.id}</h2>
+            <p className="text-sm leading-relaxed">{layer.desc}</p>
+          </article>
+        ))}
       </section>
 
       <section className="mb-24">
-        <div className="flex items-center gap-6 mb-12">
-          <div className="w-16 h-16 rounded-[24px] bg-oat border border-clay/40 text-sage flex items-center justify-center shadow-inner">
-            <BookOpen size={28} />
+        <div className="flex items-center gap-5 mb-10">
+          <div className="w-14 h-14 rounded-[22px] bg-ink text-paper flex items-center justify-center"><BookOpen size={24} /></div>
+          <div>
+            <span className="tertiary-text">By Site</span>
+            <h2 className="text-4xl font-serif font-bold mt-2">按站点聚合</h2>
           </div>
-          <h2 className="text-4xl font-serif font-bold tracking-tight text-ink italic">来源记录</h2>
         </div>
 
-        <div className="space-y-10">
-          {sourceGroups.map((group) => (
-            <div key={group.sourceType}>
-              <div className="flex items-center gap-4 mb-4">
-                <span className="tertiary-text px-4 py-2 rounded-full border border-clay/40 bg-oat/40">{group.sourceType}</span>
-                <span className="text-sm text-sage/60">
-                  {group.sourceType === 'Official' ? '产品事实优先引用这一层。' : '用于解释、经验或痛点线索，不替代官方事实。'}
-                </span>
-              </div>
-
-              <div className="overflow-hidden rounded-[32px] border border-clay/40 bg-white">
-                {group.sources.map((source) => (
-                  <a id={source.id} key={source.id} href={sourceHref(source)} target={sourceTarget(source)} rel={sourceRel(source)} className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-4 px-6 py-5 border-b border-clay/30 last:border-b-0 hover:bg-oat/30 transition-colors">
-                    <div>
-                      <h3 className="font-serif font-bold text-lg">{source.title}</h3>
-                      <p className="text-sm text-sage/60 mt-1">{source.owner} · {source.topicTags.join(', ')}</p>
-                      {source.sourceType === 'Personal Note' && (
-                        <p className="text-sm text-sage/70 mt-3 leading-relaxed">
-                          Verified {source.lastCheckedAt} · 校园个人使用记录，只说明本地场景经验，不作为产品事实来源。
-                        </p>
-                      )}
+        <div className="space-y-5">
+          {SOURCE_SITES.map((site, index) => {
+            const records = SOURCE_RECORDS.filter((source) => site.ownerIds.includes(source.owner));
+            if (records.length === 0) return null;
+            const latestCheck = records.map((source) => source.lastCheckedAt).sort().at(-1);
+            return (
+              <details key={site.id} className="group rounded-[32px] border border-clay/60 bg-white shadow-[0_18px_55px_-38px_rgba(18,17,16,0.4)]" open={index < 2}>
+                <summary className="list-none cursor-pointer p-7 md:p-9 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="max-w-3xl">
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                      <span className="tertiary-text px-3 py-1.5 rounded-full border border-clay/50 bg-oat/30">{site.layer}</span>
+                      <span className="text-xs text-sage/60">{records.length} 条记录 · 最近核查 {latestCheck}</span>
                     </div>
-                    <span className="tertiary-text px-3 py-2 rounded-full border border-clay/40 h-fit w-fit">{source.sourceType}</span>
-                    <span className="tertiary-text h-fit w-fit">Checked {source.lastCheckedAt}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
+                    <h3 className="text-2xl md:text-3xl font-serif font-bold mb-3">{site.title}</h3>
+                    <p className="text-sm text-sage/75 leading-relaxed">{site.purpose}</p>
+                  </div>
+                  <div className="w-11 h-11 rounded-full border border-clay/60 flex items-center justify-center text-sage group-open:rotate-180 transition-transform">
+                    <ChevronDown size={18} />
+                  </div>
+                </summary>
+
+                <div className="border-t border-clay/40 px-7 md:px-9 pb-4">
+                  {records.map((source) => (
+                    <a
+                      id={source.id}
+                      key={source.id}
+                      href={source.url}
+                      target={isExternal(source) ? '_blank' : undefined}
+                      rel={isExternal(source) ? 'noreferrer' : undefined}
+                      className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.9fr_auto] gap-5 py-6 border-b border-clay/35 last:border-b-0 hover:pl-2 transition-all"
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <h4 className="font-serif font-bold text-lg">{source.title}</h4>
+                          {isExternal(source) && <ExternalLink size={14} className="text-sage/50" />}
+                        </div>
+                        <p className="text-sm text-sage/70">{source.evidenceUse}</p>
+                      </div>
+                      <div>
+                        <span className="tertiary-text">适用范围</span>
+                        <p className="text-sm text-sage/70 mt-2">{source.applicableScope}</p>
+                      </div>
+                      <div className="lg:text-right">
+                        <span className="tertiary-text px-3 py-1.5 rounded-full border border-clay/50">{source.reviewStatus}</span>
+                        <p className="text-xs text-sage/55 mt-3">Checked {source.lastCheckedAt}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </details>
+            );
+          })}
         </div>
       </section>
 
       <section>
-        <div className="flex items-center gap-6 mb-12">
-          <div className="w-16 h-16 rounded-[24px] bg-oat border border-clay/40 text-sage flex items-center justify-center shadow-inner">
-            <Calendar size={28} />
+        <div className="flex items-center gap-5 mb-10">
+          <div className="w-14 h-14 rounded-[22px] bg-oat border border-clay/40 text-sage flex items-center justify-center"><Calendar size={24} /></div>
+          <div>
+            <span className="tertiary-text">Change Log</span>
+            <h2 className="text-4xl font-serif font-bold mt-2">更新记录</h2>
           </div>
-          <h2 className="text-4xl font-serif font-bold tracking-tight text-ink italic">更新记录</h2>
         </div>
 
-        <div className="space-y-8">
-          {UPDATES.map((update, idx) => {
+        <div className="space-y-6">
+          {UPDATES.map((update, index) => {
             const source = getSource(update.sourceId);
             return (
-              <motion.div key={update.id} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.04 }} className="step-card !p-8">
-                <div className="flex flex-col md:flex-row md:items-center gap-5 mb-6">
-                  <div className="flex items-center gap-2 tertiary-text !text-sage/50">
-                    <CheckCircle2 size={14} /> {update.detectedAt}
-                  </div>
-                  <div className="px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-sage text-paper w-fit">
-                    {source?.sourceType ?? 'Source'}
-                  </div>
-                  <div className="px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-oat text-sage border border-clay/50 w-fit">
-                    {update.impactArea}
-                  </div>
+              <motion.article key={update.id} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.03 }} className="step-card !p-7 md:!p-9">
+                <div className="flex flex-wrap items-center gap-3 mb-5">
+                  <span className="tertiary-text flex items-center gap-2"><CheckCircle2 size={13} /> {update.detectedAt}</span>
+                  <span className="tertiary-text px-3 py-1 rounded-full bg-oat border border-clay/40">{update.impactArea}</span>
+                  <span className="tertiary-text px-3 py-1 rounded-full border border-clay/40">{source?.sourceType ?? 'Source'}</span>
                 </div>
-                <h3 className="text-3xl font-serif font-bold mb-5 tracking-tight text-ink">{update.title}</h3>
-                <p className="text-[16px] text-sage/70 leading-relaxed mb-8 font-medium max-w-3xl border-l-2 border-clay/30 pl-6">
-                  {update.impactSummary}
-                </p>
-                <div className="flex flex-wrap items-center gap-6">
+                <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4">{update.title}</h3>
+                <p className="text-sm md:text-base leading-relaxed max-w-4xl mb-6">{update.impactSummary}</p>
+                <div className="flex flex-wrap items-center gap-5">
                   {source && source.url !== '#' && (
-                    <a href={source.url} target="_blank" rel="noreferrer" className="link-claude text-sm">
-                      打开来源 <ExternalLink size={16} />
-                    </a>
+                    <a href={source.url} target="_blank" rel="noreferrer" className="link-claude">打开来源 <ExternalLink size={14} /></a>
                   )}
-                  <span className="tertiary-text">
-                    {update.userActionRequired ? '需要用户行动' : '暂不需要用户行动'}
+                  <span className="tertiary-text flex items-center gap-2">
+                    {update.userActionRequired ? <ShieldCheck size={13} /> : <History size={13} />}
+                    {update.userActionRequired ? '需要用户行动' : '暂不需要行动'}
                   </span>
                 </div>
-              </motion.div>
+              </motion.article>
             );
           })}
         </div>

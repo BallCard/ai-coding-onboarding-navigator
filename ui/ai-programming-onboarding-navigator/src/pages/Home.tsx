@@ -1,185 +1,158 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ROADMAP_NODES, ROUTE_LEVELS, getSource, type RouteLevel } from '../constants';
-import { ArrowRight, AlertCircle, CheckCircle2, Circle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Circle, Compass, Lightbulb, Wrench } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ROADMAP_NODES, ROUTE_LEVELS } from '../constants';
+import InstallationGate from '../components/InstallationGate';
 
 const STORAGE_KEY = 'ai-navigator-completed-nodes';
 
+const STARTING_POINTS = [
+  {
+    icon: Lightbulb,
+    eyebrow: '我想找一个真实方向',
+    title: '从能产生反馈的小产出开始',
+    description: '看看网页工具、课程自测、README、测试或代码解释，选一个与你有关的方向。',
+    to: '/practice',
+    action: '浏览小目标',
+  },
+];
+
+const LOOP_STEPS = [
+  ['说清目标', '写下你想得到什么，以及这次明确不做什么。'],
+  ['先看计划', '让 AI 复述问题、列出范围，再允许它执行一个小动作。'],
+  ['检查证据', '运行、测试、看 diff 或人工操作，确认结果不是“看起来完成”。'],
+  ['留下方法', '保存一条规则、Markdown、模板或复盘，供下一次复用。'],
+];
+
 export default function Home() {
   const [completed, setCompleted] = useState<string[]>([]);
-  const [activeLevel, setActiveLevel] = useState<RouteLevel>('starter');
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved) setCompleted(JSON.parse(saved));
+    if (!saved) return;
+    try {
+      setCompleted(JSON.parse(saved));
+    } catch {
+      window.localStorage.removeItem(STORAGE_KEY);
+    }
   }, []);
 
-  const toggleCompleted = (nodeId: string) => {
-    const next = completed.includes(nodeId)
-      ? completed.filter((id) => id !== nodeId)
-      : [...completed, nodeId];
-    setCompleted(next);
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  };
+  const starterNodes = ROADMAP_NODES.filter((node) => node.level === 'starter');
+  const starterCompleted = starterNodes.filter((node) => completed.includes(node.id)).length;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      className="max-w-6xl mx-auto px-6 md:px-10 py-24 md:py-32"
-    >
-      <header className="mb-16 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 items-end">
-        <div>
-          <div className="inline-flex items-center gap-4 px-6 py-2.5 rounded-full bg-oat/50 border border-clay/40 mb-10 shadow-sm">
-            <div className="w-2.5 h-2.5 rounded-full bg-sage animate-pulse" />
-            <span className="tertiary-text !text-sage !tracking-[0.3em]">Campus AI Coding Onboarding</span>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}>
+      <InstallationGate />
+
+      <section id="growth-start" className="max-w-7xl mx-auto px-6 md:px-10 pt-20 md:pt-24 pb-20 md:pb-28 scroll-mt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-20 items-end">
+          <div>
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-oat/55 border border-clay/50 mb-8">
+              <span className="w-2 h-2 rounded-full bg-sage animate-pulse" />
+              <span className="tertiary-text">从一个真实小目标开始</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-[82px] font-serif tracking-tighter leading-[0.98] mb-8">
+              你现在，<br /><span className="italic opacity-40">想解决什么？</span>
+            </h1>
+            <p className="text-lg md:text-xl text-sage/75 leading-relaxed max-w-2xl mb-10 font-serif">
+              不用先学完整套工具。选一个 20 分钟能看到结果的小目标，让 AI 帮你计划、行动和验证，再留下下一次能复用的一条经验。
+            </p>
+            <Link to="/practice/web-tool" className="btn-claude w-fit">
+              做一个 20 分钟小任务 <ArrowRight size={16} />
+            </Link>
           </div>
-          <h1 className="text-5xl md:text-7xl font-serif tracking-tighter mb-8 leading-[0.98] text-ink">
-            先选当前状态，<br />
-            <span className="italic opacity-40">再按步骤做</span>
-          </h1>
-          <p className="text-xl text-sage/70 max-w-2xl leading-relaxed font-serif italic">
-            先把一次任务跑通，再把经验带进真实项目。工具会变化，但目标、上下文、权限和验证这套闭环可以迁移。
-          </p>
-        </div>
 
-        <aside className="step-card !p-10">
-          <span className="tertiary-text">默认选择</span>
-          <h2 className="text-3xl font-serif font-bold mt-6 mb-6">先跑通第一次任务</h2>
-          <p className="text-sage/70 leading-relaxed mb-8">
-            还没完成第一次 AI 编程任务，先选一个入口、装好、登录、做一个小任务。MCP、Hooks 或多 Agent 都是遇到真实重复问题后再加的选项。
-          </p>
-          <button onClick={() => setActiveLevel('starter')} className="btn-claude w-fit">
-            查看入门路线 <ArrowRight size={16} />
-          </button>
-        </aside>
-      </header>
-
-      <section className="mb-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {ROUTE_LEVELS.map((level) => {
-          const layerPath = `/${level.id}`;
-          return (
-          <div
-            key={level.id}
-            onClick={() => setActiveLevel(level.id)}
-            role="button"
-            tabIndex={0}
-            className={`text-left step-card !p-8 transition-all cursor-pointer ${activeLevel === level.id ? '!border-ink shadow-[0_30px_70px_-20px_rgba(18,17,16,0.12)]' : ''}`}
-          >
-            <span className="tertiary-text">{level.subtitle}</span>
-            <h2 className="text-3xl font-serif font-bold mt-5 mb-4">{level.title}</h2>
-            <p className="text-sm text-sage/75 leading-relaxed mb-6">{level.description}</p>
-            <div className="flex flex-wrap gap-2">
-              {level.fitSignals.map((signal) => (
-                <span key={signal} className="text-[9px] font-black uppercase tracking-[0.16em] bg-oat/40 text-sage/70 border border-clay/30 px-2.5 py-1 rounded-md">
-                  {signal}
-                </span>
+          <aside className="step-card !p-8 md:!p-10">
+            <span className="tertiary-text">完成时应该留下</span>
+            <h2 className="text-3xl font-serif font-bold mt-5 mb-7">不是一段聊天，而是四样东西</h2>
+            <div className="space-y-4">
+              {['一个可打开、可运行或可复查的产物', '一份 AI 实际修改范围的说明', '至少三条你亲自检查过的证据', '一条下次可以直接复用的规则'].map((item) => (
+                <div key={item} className="flex gap-3 text-sm text-sage/80 leading-relaxed">
+                  <CheckCircle2 size={17} className="text-sage flex-shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </div>
               ))}
             </div>
-            <div className="mt-8 pt-6 border-t border-clay/40 flex items-center justify-between gap-4">
-              <span className="tertiary-text">协作入口</span>
-              <Link onClick={(event) => event.stopPropagation()} to={layerPath} className="link-claude">
-                打开独立入口 <ArrowRight size={14} />
-              </Link>
-            </div>
-          </div>
-        );
-        })}
+          </aside>
+        </div>
       </section>
 
-      <section className="relative">
-        <div className="absolute left-[31px] md:left-[63px] top-16 bottom-16 w-px bg-clay/30" />
-
-        <div className="space-y-16 md:space-y-24 relative z-10">
-          {ROADMAP_NODES.filter((node) => node.level === activeLevel).map((node, index) => {
-            const isCompleted = completed.includes(node.id);
-            const primarySource = getSource(node.sourceIds[0]);
-
+      <section className="max-w-7xl mx-auto px-6 md:px-10 pb-24">
+        <div className="border-t border-clay/50 pt-10 mb-8">
+          <span className="tertiary-text">真实问题本身就是入口</span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <article className="step-card !p-7 md:!p-9">
+            <div className="w-11 h-11 rounded-2xl bg-oat border border-clay/50 flex items-center justify-center text-sage mb-7"><Wrench size={20} /></div>
+            <span className="tertiary-text">我遇到了具体问题</span>
+            <h2 className="text-2xl md:text-3xl font-serif font-bold mt-4 mb-4">直接把报错或截图交给 AI</h2>
+            <p className="text-sm leading-relaxed mb-6">使用 Codex、豆包或你手边可用的 AI，说明你原本想做什么，并附上完整错误信息或截图，请它先解释原因，再给最小解决步骤。</p>
+            <div className="rounded-2xl bg-oat/35 border border-clay/40 p-4 text-sm text-sage/75 leading-relaxed">
+              可直接问：我想完成……，现在出现……。这是完整报错或截图。请判断原因，并告诉我先做哪一步。
+            </div>
+          </article>
+          {STARTING_POINTS.map((point) => {
+            const Icon = point.icon;
             return (
-              <motion.div
-                key={node.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-120px' }}
-                transition={{ delay: index * 0.04, duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-                className="flex gap-8 md:gap-16 group"
-              >
-                <div className="relative flex-shrink-0">
-                  <div className="w-16 md:w-32 flex justify-center pt-3">
-                    <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full border flex items-center justify-center transition-all duration-700 shadow-sm relative z-20 ${
-                      isCompleted ? 'bg-sage border-sage text-paper' : 'bg-paper border-clay/60 text-sage/50 group-hover:bg-ink group-hover:text-paper'
-                    }`}>
-                      {isCompleted ? <CheckCircle2 size={22} /> : <span className="text-lg font-serif font-bold">{index + 1}</span>}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex-1 step-card !p-8 md:!p-12">
-                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mb-10">
-                    <div className="max-w-3xl">
-                      <div className="flex flex-wrap items-center gap-4 mb-5">
-                        <h3 className="text-3xl md:text-5xl font-serif font-bold tracking-tight text-ink leading-none">{node.title}</h3>
-                        {node.commonPitfalls > 0 && (
-                          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-clay/20 text-sage/80 border border-clay/10">
-                            <AlertCircle size={15} />
-                            <span className="text-[10px] font-black uppercase tracking-[0.25em] leading-none whitespace-nowrap">{node.commonPitfalls} 个常见卡点</span>
-                          </div>
-                        )}
-                      </div>
-                      <p className="text-[18px] text-sage/70 leading-relaxed font-medium font-serif italic border-l-2 border-clay/40 pl-6 py-1">
-                        {node.description}
-                      </p>
-                    </div>
-                    {primarySource && (
-                      <span className="tertiary-text px-4 py-2 rounded-full border border-clay/40 bg-paper whitespace-nowrap">
-                        {primarySource.sourceType}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    <div>
-                      <h4 className="tertiary-text mb-4">当前任务</h4>
-                      <div className="flex flex-wrap gap-3">
-                        {node.tasks.map((task) => (
-                          <div key={task} className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-oat/20 border border-clay/10">
-                            <Circle size={9} className="text-sage/40 fill-current" />
-                            <span className="text-[12px] font-black text-sage/80 uppercase tracking-[0.2em]">{task}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="tertiary-text mb-4">完成标准</h4>
-                      <p className="text-sm text-sage/80 leading-relaxed">{node.successCriteria[0]}</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-8 border-t border-clay/30 flex flex-col lg:flex-row items-center justify-between gap-8">
-                    <Link to={`/roadmap/${node.id}`} className="link-claude text-sm">
-                      查看这一步 <ArrowRight size={16} />
-                    </Link>
-                    <div className="flex flex-wrap items-center gap-4">
-                      <button
-                        onClick={() => toggleCompleted(node.id)}
-                        className="h-12 px-7 rounded-full text-[11px] font-black uppercase tracking-[0.18em] border border-clay text-sage/70 hover:border-ink hover:text-ink transition-all active:scale-95 bg-transparent"
-                      >
-                        {isCompleted ? '取消完成' : '我完成了'}
-                      </button>
-                      <Link
-                        to={`/troubleshooting?node=${node.id}&category=${node.stuckCategory}`}
-                        className="h-12 px-7 rounded-full text-[11px] font-black uppercase tracking-[0.18em] bg-clay/30 text-sage border border-clay/20 hover:bg-clay/50 transition-all flex items-center active:scale-95"
-                      >
-                        我卡住了
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              <Link key={point.title} to={point.to} className="group step-card !p-7 md:!p-9">
+                <div className="w-11 h-11 rounded-2xl bg-oat border border-clay/50 flex items-center justify-center text-sage mb-7"><Icon size={20} /></div>
+                <span className="tertiary-text">{point.eyebrow}</span>
+                <h2 className="text-2xl md:text-3xl font-serif font-bold mt-4 mb-4">{point.title}</h2>
+                <p className="text-sm leading-relaxed mb-7">{point.description}</p>
+                <span className="link-claude">{point.action} <ArrowRight size={14} /></span>
+              </Link>
             );
           })}
+        </div>
+      </section>
+
+      <section className="bg-ink text-paper py-24 md:py-28">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="max-w-3xl mb-14">
+            <span className="tertiary-text !text-paper/45">A repeatable loop</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mt-5 mb-6">每次只练同一个闭环</h2>
+            <p className="text-paper/60 leading-relaxed">工具会变化，这四个动作可以迁移到课程作业、个人项目和真实仓库。</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10 border border-paper/10 rounded-[32px] overflow-hidden">
+            {LOOP_STEPS.map(([title, description], index) => (
+              <article key={title} className="bg-ink p-7 md:p-8">
+                <span className="font-mono text-xs text-paper/35">0{index + 1}</span>
+                <h3 className="text-xl font-serif font-bold mt-6 mb-4 text-paper">{title}</h3>
+                <p className="text-sm text-paper/55 leading-relaxed">{description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-28">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+          <div className="max-w-3xl">
+            <span className="tertiary-text">Progressive Depth</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mt-5 mb-5">完成一次后，再按需要走深</h2>
+            <p className="text-sage/70 leading-relaxed">三层路线仍然保留，但它们是进度与深度，不是开始前必须做出的选择。</p>
+          </div>
+          <div className="rounded-full border border-clay/50 bg-oat/30 px-5 py-3 text-xs text-sage/70">
+            入门进度 {starterCompleted} / {starterNodes.length}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {ROUTE_LEVELS.map((level, index) => (
+            <Link key={level.id} to={`/${level.id}`} className="step-card !p-7 md:!p-8 group">
+              <div className="flex items-center justify-between mb-7">
+                <div className="w-12 h-12 rounded-full border border-clay/60 flex items-center justify-center">
+                  {index === 0 ? <Compass size={19} className="text-sage" /> : <Circle size={16} className="text-sage/50" />}
+                </div>
+                <span className="tertiary-text">0{index + 1}</span>
+              </div>
+              <span className="tertiary-text">{level.subtitle}</span>
+              <h3 className="text-2xl font-serif font-bold mt-4 mb-4">{level.title}</h3>
+              <p className="text-sm leading-relaxed mb-7">{level.description}</p>
+              <span className="link-claude">查看这层 <ArrowRight size={14} /></span>
+            </Link>
+          ))}
         </div>
       </section>
     </motion.div>

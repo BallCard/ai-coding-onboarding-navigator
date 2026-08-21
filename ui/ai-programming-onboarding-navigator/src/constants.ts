@@ -61,6 +61,22 @@ export interface Source {
   lastCheckedAt: string;
 }
 
+export type SourceReviewStatus = 'Reviewed' | 'Local Record' | 'Signal Only';
+
+export interface SourceRecord extends Source {
+  evidenceUse: string;
+  applicableScope: string;
+  reviewStatus: SourceReviewStatus;
+}
+
+export interface SourceSite {
+  id: string;
+  title: string;
+  layer: '官方资料' | '研究与社区' | '校园记录';
+  purpose: string;
+  ownerIds: Source['owner'][];
+}
+
 export const SOURCES: Source[] = [
   {
     id: 'claude-code-overview',
@@ -159,15 +175,6 @@ export const SOURCES: Source[] = [
     sourceType: 'Official',
     owner: 'OpenAI',
     topicTags: ['codex', 'setup'],
-    lastCheckedAt: '2026-08-21',
-  },
-  {
-    id: 'codex-troubleshooting',
-    title: 'Codex Troubleshooting',
-    url: 'https://learn.chatgpt.com/docs/reference/troubleshooting',
-    sourceType: 'Official',
-    owner: 'OpenAI',
-    topicTags: ['codex', 'troubleshooting'],
     lastCheckedAt: '2026-08-21',
   },
   {
@@ -303,6 +310,24 @@ export const SOURCES: Source[] = [
     sourceType: 'Community Signal',
     owner: 'Community',
     topicTags: ['agent-system', 'context', 'tool-use'],
+    lastCheckedAt: '2026-08-21',
+  },
+  {
+    id: 'khazix-codex-wechat-guide',
+    title: '卡兹克：Codex 安装与使用指南',
+    url: 'https://mp.weixin.qq.com/s/5kgVdLNABViv8uAnD0M6Ag',
+    sourceType: 'Community Signal',
+    owner: 'Community',
+    topicTags: ['codex', 'setup', 'beginner', 'field-guide'],
+    lastCheckedAt: '2026-08-21',
+  },
+  {
+    id: 'khazix-workbuddy-wechat-guide',
+    title: '卡兹克：WorkBuddy 安装与使用指南',
+    url: 'https://mp.weixin.qq.com/s/nFSSzluc57xPv50Zbh4owg',
+    sourceType: 'Community Signal',
+    owner: 'Community',
+    topicTags: ['workbuddy', 'setup', 'beginner', 'field-guide'],
     lastCheckedAt: '2026-08-21',
   },
   {
@@ -956,7 +981,6 @@ const RAW_ROADMAP_NODES: RoadmapNode[] = [
     title: '完成第一次任务',
     description: '只做一个小任务：先让 AI 给计划，再批准修改，最后运行验证。',
     userGoal: '完成一次能验证、能回退、能复述的 AI 编程任务。',
-    nextStepId: 'troubleshoot',
     tasks: ['选择任务', '运行工具', '验证产物'],
     successCriteria: ['能得到一个可运行或可解释的结果，并能复述 AI 做了什么。'],
     commonPitfalls: 0,
@@ -996,52 +1020,6 @@ const RAW_ROADMAP_NODES: RoadmapNode[] = [
       differences: ['Claude Code 更适合连续项目修改。', 'Codex 更适合 OpenAI 生态用户快速上手。'],
       prompt: '请在当前测试项目中完成一个最小可运行任务。先给计划，说明会修改哪些文件和如何验证，等待我确认后再动手。',
       doNotDo: ['不要一次要求 AI 做大型项目。', '不要跳过验证步骤。'],
-    },
-  },
-  {
-    id: 'troubleshoot',
-    level: 'starter',
-    title: '遇到问题进入排障',
-    description: '把报错原文或症状贴进搜索框。先试前三个动作，再决定找谁帮忙。',
-    userGoal: '把当前卡点变成一个可执行的下一步。',
-    tasks: ['搜索症状', '尝试前 1-3 个动作', '判断是否需要人工帮助'],
-    successCriteria: ['能明确当前属于网络、登录、权限、终端或订阅/API 中的哪类问题。'],
-    commonPitfalls: 6,
-    sourceIds: ['codex-troubleshooting', 'campus-field-notes'],
-    route: '/troubleshooting',
-    stuckCategory: 'workflow',
-    detail: {
-      preflight: ['你已经在前面的步骤遇到具体问题。没有具体报错时，先回到当前步骤继续做。', '先准备三样东西：工具名、系统、报错原文。不要只写“它不行”。'],
-      steps: ['复制终端里最关键的 3-10 行报错。', '打开排障页。', '在搜索框输入报错关键词，例如 `command not found`、`not recognized`、`timeout`、`login`。', '先按卡片里的前 1-3 个动作做。', '做完后回到原步骤重新验证。'],
-      playbook: {
-        title: '把“卡住了”变成可执行排障输入',
-        badge: 'troubleshoot',
-        blocks: [
-          {
-            title: '先整理报错信息',
-            actions: ['看终端最后几行，不要截整屏。', '记录工具名：Claude Code 或 Codex。', '记录系统：Windows 或 macOS。', '复制最关键的报错关键词。'],
-            command: '工具：Claude Code / Codex\n系统：Windows / macOS\n报错关键词：把终端里的 command not found / not recognized / timeout / login / permission denied 等原文贴在这里',
-            expected: ['你手上有一段能搜索的报错原文。', '你知道问题发生在安装、登录、网络、权限还是第一次任务。'],
-            ifFailed: ['找不到报错：重新执行刚才失败的命令，让错误再出现一次。', '只有截图没有文字：优先手动抄关键词，不要让别人猜。'],
-          },
-          {
-            title: '搜索并执行前三个动作',
-            actions: ['打开排障页。', '把报错关键词粘贴进搜索框。', '只先执行卡片里的前 1-3 个动作。', '执行后回到原页面重新跑同一个验证命令。'],
-            expected: ['你能得到一个下一步动作，例如重开终端、检查 PATH、查 npm registry、确认账号权限。', '如果动作有效，原来的验证命令会从失败变成有输出。'],
-            ifFailed: ['没有匹配卡片：搜索更短的关键词，例如只搜 `timeout` 或 `login`。', '前三个动作都失败：把工具名、系统、报错原文和你试过的动作发给人工帮助者。'],
-          },
-        ],
-      },
-      commands: [
-        {
-          label: '排障输入模板',
-          command: '工具：Claude Code / Codex\n系统：Windows / macOS\n我正在做哪一步：安装 / 登录 / 网络 / 创建测试项目 / 第一次任务\n报错原文：\n我已经试过：',
-          note: '发给排障助手或人工帮助者',
-        },
-      ],
-      differences: ['Windows 常见关键词：`not recognized`、`.ps1`、PATH。', 'macOS 常见关键词：`command not found`、`permission denied`、zsh。'],
-      prompt: '请根据下面信息帮我定位问题类型。先判断属于终端、Node/npm、网络、登录、权限还是订阅/API，不要直接让我重装。\n\n工具：\n系统：\n当前步骤：\n报错原文：\n我已经试过：',
-      doNotDo: ['不要只说“报错了”，必须保留原文。', '不要反复重装 CLI 来解决账号、网络或权限问题。'],
     },
   },
   {
@@ -2555,7 +2533,7 @@ export const PRACTICE_TASKS: PracticeTask[] = [
     requiredInputs: ['一个小型项目目录', '你想弄清楚的问题'],
     steps: ['让 AI 先扫描目录', '要求它找入口文件', '要求输出三层摘要', '追问你不懂的模块'],
     deliverables: ['一张项目入口地图', '主要目录职责说明', '下一步阅读清单'],
-    successCriteria: ['能获得入口、模块和运行方式说明', '你能知道下一步该读哪个文件'],
+    successCriteria: ['能获得入口、模块和运行方式说明', '你能知道下一步该读哪个文件', '能标出至少一处 AI 的推断并用代码核对'],
     detailSteps: [
       {
         title: '先问结构',
@@ -2593,7 +2571,7 @@ export const PRACTICE_TASKS: PracticeTask[] = [
     requiredInputs: ['一个小函数', '你期望的输入输出'],
     steps: ['说明函数目标', '要求先写一个失败测试', '运行测试', '让 AI 修到通过'],
     deliverables: ['一个测试用例', '一次测试运行记录', '函数行为说明'],
-    successCriteria: ['至少一个测试通过', '测试能解释函数预期行为'],
+    successCriteria: ['至少一个测试通过', '测试能解释函数预期行为', '能说出一个尚未覆盖的边界情况'],
     detailSteps: [
       {
         title: '选小函数',
@@ -2631,7 +2609,7 @@ export const PRACTICE_TASKS: PracticeTask[] = [
     requiredInputs: ['一个已有项目目录', 'README 或 package.json / requirements.txt', '你能确认的验证命令'],
     steps: ['让 AI 只读取项目说明和脚本', '生成规则文件草稿', '人工删掉不确定内容', '让 AI 复述规则并开始下一步任务'],
     deliverables: ['一份 CLAUDE.md 或 AGENTS.md 草稿', '项目验证命令清单', '禁止修改范围'],
-    successCriteria: ['规则文件能说明项目目标、验证命令和编辑边界', '新会话能先引用规则再开始计划'],
+    successCriteria: ['规则文件能说明项目目标、验证命令和编辑边界', '新会话能先引用规则再开始计划', '草稿中没有未经确认的项目事实'],
     detailSteps: [
       {
         title: '收集稳定信息',
@@ -2669,7 +2647,7 @@ export const PRACTICE_TASKS: PracticeTask[] = [
     requiredInputs: ['一组本地改动', 'git diff 或文件变更摘要', '已运行或准备运行的验证命令'],
     steps: ['让 AI 阅读 diff', '生成变更摘要', '列出验证命令和未验证项', '人工决定是否继续修改'],
     deliverables: ['PR 摘要草稿', '验证记录', '风险和后续事项清单'],
-    successCriteria: ['摘要能让同伴知道为什么改', '未验证项被明确写出'],
+    successCriteria: ['摘要能让同伴知道为什么改', '未验证项被明确写出', '每个关键判断能回到 diff、测试或来源'],
     detailSteps: [
       {
         title: '先看 diff',
@@ -2791,7 +2769,7 @@ export interface UpdateRecord {
   title: string;
   sourceId: string;
   detectedAt: string;
-  impactArea: 'install' | 'auth' | 'network' | 'permissions' | 'configuration' | 'workflow' | 'troubleshooting';
+  impactArea: 'install' | 'auth' | 'network' | 'permissions' | 'configuration' | 'workflow';
   impactSummary: string;
   userActionRequired: boolean;
   status: 'candidate' | 'reviewed' | 'published' | 'ignored';
@@ -2817,16 +2795,6 @@ export const UPDATES: UpdateRecord[] = [
     impactSummary: '后续 Codex CLI、云端任务和账号相关变化应先进入候选更新，再由人工判断是否影响校内用户。',
     userActionRequired: false,
     status: 'published',
-  },
-  {
-    id: 'codex-troubleshooting-source-added',
-    title: 'Codex troubleshooting 已接入排障来源',
-    sourceId: 'codex-troubleshooting',
-    detectedAt: '2026-05-04',
-    impactArea: 'troubleshooting',
-    impactSummary: '排障页中的 Codex 相关事实优先引用官方 troubleshooting 页面，社区经验只能作为补充。',
-    userActionRequired: false,
-    status: 'reviewed',
   },
   {
     id: 'tool-selection-evidence-review',
@@ -2889,6 +2857,72 @@ export const UPDATES: UpdateRecord[] = [
     status: 'published',
   },
 ];
+
+export const SOURCE_SITES: SourceSite[] = [
+  {
+    id: 'anthropic',
+    title: 'Anthropic / Claude Code',
+    layer: '官方资料',
+    purpose: '核对 Claude Code 的安装、权限、配置、功能与版本变化。',
+    ownerIds: ['Anthropic'],
+  },
+  {
+    id: 'openai',
+    title: 'OpenAI / Codex',
+    layer: '官方资料',
+    purpose: '核对 Codex 的入口、CLI、沙箱、规则、搜索、review 与更新。',
+    ownerIds: ['OpenAI'],
+  },
+  {
+    id: 'tooling',
+    title: '基础开发工具',
+    layer: '官方资料',
+    purpose: '仅在所选安装或项目路径需要时，核对 Node.js、npm 与 Git。',
+    ownerIds: ['Node.js', 'Git', 'GitHub'],
+  },
+  {
+    id: 'community',
+    title: '研究、社区与个人创作者',
+    layer: '研究与社区',
+    purpose: '发现真实痛点、工作流观点和练习灵感；不能单独决定产品事实。',
+    ownerIds: ['Thoughtworks', 'DORA', 'Community'],
+  },
+  {
+    id: 'local',
+    title: '本站方法与校园记录',
+    layer: '校园记录',
+    purpose: '保存官方派生的行动路径与已标注日期、场景的本地经验。',
+    ownerIds: ['Personal'],
+  },
+];
+
+function evidenceUseFor(source: Source) {
+  if (source.sourceType === 'Official') return '产品事实、操作边界与版本核对';
+  if (source.sourceType === 'Official-Derived') return '把官方事实转成可执行路径与验收标准';
+  if (source.sourceType === 'Personal Note') return '补充特定校园或本地场景经验';
+  if (source.sourceType === 'Learning Reference') return '练习结构与学习路径参考';
+  return '发现痛点、讨论议题或待核验线索';
+}
+
+function applicableScopeFor(source: Source) {
+  if (source.owner === 'Anthropic') return 'Claude Code 相关路径';
+  if (source.owner === 'OpenAI') return 'Codex 相关路径';
+  if (source.owner === 'Node.js' || source.owner === 'Git' || source.owner === 'GitHub') return '对应基础工具路径';
+  if (source.owner === 'Personal') return '本站说明的日期与校园场景';
+  return '工作流启发与问题发现，不作为产品事实';
+}
+
+export const SOURCE_RECORDS: SourceRecord[] = SOURCES.map((source) => ({
+  ...source,
+  evidenceUse: evidenceUseFor(source),
+  applicableScope: applicableScopeFor(source),
+  reviewStatus:
+    source.sourceType === 'Personal Note'
+      ? 'Local Record'
+      : source.sourceType === 'Official' || source.sourceType === 'Official-Derived'
+        ? 'Reviewed'
+        : 'Signal Only',
+}));
 
 export function getSource(sourceId: string) {
   return SOURCES.find((source) => source.id === sourceId);

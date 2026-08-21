@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'motion/react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import {
   Compass,
+  Github,
   Menu,
+  MessageSquareText,
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -17,16 +19,14 @@ import { twMerge } from 'tailwind-merge';
 import Home from './pages/Home';
 import ToolSelection from './pages/ToolSelection';
 import SetupVerification from './pages/SetupVerification';
-import Troubleshooting from './pages/Troubleshooting';
-import TroubleshootingDetail from './pages/TroubleshootingDetail';
 import FirstTask from './pages/FirstTask';
 import PracticeDetail from './pages/PracticeDetail';
 import Updates from './pages/Updates';
 import Advanced from './pages/Advanced';
 import RoadmapDetail from './pages/RoadmapDetail';
 import LayerRoute from './pages/LayerRoute';
-import FloatingAssistant from './components/FloatingAssistant';
 import MobileMenu from './components/MobileMenu';
+import UpdateAnnouncement, { FEEDBACK_URL } from './components/UpdateAnnouncement';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -67,8 +67,8 @@ function Layout({ children }: { children: ReactNode }) {
 
           <nav className="hidden xl:flex items-center gap-1">
             <NavItem to="/" label="路线图" />
-            <NavItem to="/troubleshooting" label="卡点排障" />
             <NavItem to="/practice" label="首次实践" />
+            <NavItem to="/updates" label="来源与更新" />
           </nav>
 
           <div className="flex items-center gap-3">
@@ -80,10 +80,10 @@ function Layout({ children }: { children: ReactNode }) {
               <Menu size={18} />
             </button>
             <Link
-              to="/practice"
+              to="/#installation-check"
               className="h-10 px-5 rounded-full bg-ink text-paper text-[10px] font-black tracking-[0.08em] hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-clay/20 flex items-center whitespace-nowrap"
             >
-              开始任务
+              安装确认
             </Link>
           </div>
         </div>
@@ -95,6 +95,8 @@ function Layout({ children }: { children: ReactNode }) {
         <AnimatePresence mode="wait">{children}</AnimatePresence>
       </main>
 
+      <UpdateAnnouncement />
+
       <footer className="border-t border-clay/30 py-24 px-6 bg-oat/20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-20">
           <div className="md:col-span-2">
@@ -103,8 +105,16 @@ function Layout({ children }: { children: ReactNode }) {
               <span>AI Onboarding Navigator</span>
             </div>
             <p className="text-[15px] text-sage/70 leading-relaxed max-w-sm mb-10 font-medium">
-              面向校内学生的 AI 编程上手导航：选工具、装环境、查卡点、做第一次可验证任务。
+              面向校内学生的 AI 编程上手导航：建立工具基础，从真实问题出发，完成第一次可验证任务。
             </p>
+            <div className="flex flex-wrap items-center gap-5 mb-8">
+              <a href="https://github.com/BallCard" target="_blank" rel="noreferrer" className="link-claude normal-case tracking-normal">
+                <Github size={15} /> GitHub · @BallCard
+              </a>
+              <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" className="link-claude normal-case tracking-normal">
+                <MessageSquareText size={15} /> 提交反馈
+              </a>
+            </div>
             <div className="flex items-center gap-4 py-2 px-4 rounded-full bg-paper w-fit border border-clay/30">
               <span className="h-1.5 w-1.5 rounded-full bg-sage animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-widest text-sage/60">Sources reviewed on 2026-05-04</span>
@@ -116,7 +126,7 @@ function Layout({ children }: { children: ReactNode }) {
             <div className="flex flex-col gap-4">
               <Link to="/tools" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">工具选择</Link>
               <Link to="/setup" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">安装验证</Link>
-              <Link to="/troubleshooting" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">卡点排障</Link>
+              <Link to="/practice" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">首次实践</Link>
             </div>
           </div>
 
@@ -130,7 +140,6 @@ function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
-      <FloatingAssistant />
     </div>
   );
 }
@@ -145,8 +154,7 @@ export default function App() {
           <Route path="/roadmap/:nodeId" element={<RoadmapDetail />} />
           <Route path="/tools" element={<ToolSelection />} />
           <Route path="/setup" element={<SetupVerification />} />
-          <Route path="/troubleshooting" element={<Troubleshooting />} />
-          <Route path="/troubleshooting/:issueId" element={<TroubleshootingDetail />} />
+          <Route path="/troubleshooting/*" element={<Navigate to="/" replace />} />
           <Route path="/practice" element={<FirstTask />} />
           <Route path="/practice/:taskId" element={<PracticeDetail />} />
           <Route path="/updates" element={<Updates />} />

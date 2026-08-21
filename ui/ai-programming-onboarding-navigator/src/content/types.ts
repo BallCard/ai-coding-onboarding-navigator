@@ -6,8 +6,9 @@ export type {
   RouteLevel,
   RouteLevelOption,
   Source,
+  SourceRecord,
+  SourceReviewStatus,
+  SourceSite,
   SourceType,
   ToolOption,
-  TroubleshootingCategory,
-  TroubleshootingItem,
 } from '../constants';

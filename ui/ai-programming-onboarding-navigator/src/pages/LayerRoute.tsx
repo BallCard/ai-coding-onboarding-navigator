@@ -27,8 +27,8 @@ const LEVEL_GUIDE: Record<RouteLevel, { eyebrow: string; headline: string; subco
   starter: {
     eyebrow: 'Starter Layer',
     headline: '入门层：从零跑通第一次任务',
-    subcopy: '这层按保姆级执行稿维护：按什么键、复制什么命令、看到什么输出、失败时去哪排障，都要写清楚。',
-    owner: '适合负责新手引导、安装验证、排障卡的人维护。',
+    subcopy: '这层按保姆级执行稿维护：按什么键、复制什么命令、看到什么输出，都要写清楚。遇到错误时把原文或截图交给可用的 AI 继续处理。',
+    owner: '适合负责新手引导与安装验证的人维护。',
   },
   project: {
     eyebrow: 'Project Layer',
@@ -228,12 +228,6 @@ function ProjectLayerMap({
                   <Link to={`/roadmap/${node.id}`} className="link-claude">
                     查看详情 <ArrowRight size={14} />
                   </Link>
-                  <Link
-                    to={`/troubleshooting?node=${node.id}&category=${node.stuckCategory}`}
-                    className="h-9 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.14em] bg-clay/40 text-sage border border-clay/40 hover:bg-clay/60 transition-all flex items-center"
-                  >
-                    卡住了
-                  </Link>
                   {primarySource && (
                     <span className="tertiary-text px-3 py-1.5 rounded-full border border-clay/50 bg-paper">
                       {primarySource.sourceType}
@@ -387,12 +381,6 @@ export default function LayerRoute() {
                       >
                         {isCompleted ? '取消完成' : '我完成了'}
                       </button>
-                      <Link
-                        to={`/troubleshooting?node=${node.id}&category=${node.stuckCategory}`}
-                        className="h-12 px-7 rounded-full text-[11px] font-black uppercase tracking-[0.16em] bg-clay/40 text-sage border border-clay/30 hover:bg-clay/60 transition-all flex items-center active:scale-95"
-                      >
-                        我卡住了
-                      </Link>
                     </div>
                   </div>
                 </div>

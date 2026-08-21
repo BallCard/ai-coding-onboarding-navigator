@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, FileText, ListChecks, Target } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock, FileText, ListChecks, Target } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { PRACTICE_TASKS, getSource } from '../constants';
 
@@ -44,9 +44,9 @@ export default function PracticeDetail() {
               <p className="text-lg font-serif font-bold mt-2">{task.recommendedTool}</p>
             </div>
           </div>
-          <Link to="/troubleshooting?node=task-one&category=workflow" className="link-claude">
-            做不下去，去排障 <ArrowRight size={16} />
-          </Link>
+          <p className="text-sm text-sage/70 leading-relaxed">
+            做不下去时，把当前目标、完整报错或截图发给你手边可用的 AI，请它先解释原因。
+          </p>
         </aside>
       </header>
 
