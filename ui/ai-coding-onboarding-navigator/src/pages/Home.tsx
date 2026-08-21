@@ -107,19 +107,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-ink text-paper py-24 md:py-28">
+      <section className="bg-oat/55 border-y border-clay/60 py-24 md:py-28">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="max-w-3xl mb-14">
-            <span className="tertiary-text !text-paper/45">A repeatable loop</span>
+            <span className="tertiary-text">A repeatable loop</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold mt-5 mb-6">每次只练同一个闭环</h2>
-            <p className="text-paper/60 leading-relaxed">工具会变化，这四个动作可以迁移到课程作业、个人项目和真实仓库。</p>
+            <p className="text-sage/75 leading-relaxed">工具会变化，这四个动作可以迁移到课程作业、个人项目和真实仓库。</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-paper/10 border border-paper/10 rounded-[32px] overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {LOOP_STEPS.map(([title, description], index) => (
-              <article key={title} className="bg-ink p-7 md:p-8">
-                <span className="font-mono text-xs text-paper/35">0{index + 1}</span>
-                <h3 className="text-xl font-serif font-bold mt-6 mb-4 text-paper">{title}</h3>
-                <p className="text-sm text-paper/55 leading-relaxed">{description}</p>
+              <article key={title} className="bg-paper border border-clay/80 rounded-[28px] p-7 md:p-8 shadow-[0_18px_48px_-38px_rgba(18,17,16,0.45)]">
+                <span className="inline-flex h-9 min-w-9 items-center justify-center rounded-full bg-sage/8 border border-sage/15 px-2 font-mono text-xs font-medium text-sage/70">0{index + 1}</span>
+                <h3 className="text-xl font-serif font-bold mt-7 mb-4 text-ink">{title}</h3>
+                <p className="text-sm text-sage/75 leading-relaxed">{description}</p>
               </article>
             ))}
           </div>
