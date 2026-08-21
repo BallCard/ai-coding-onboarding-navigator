@@ -126,7 +126,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-28">
+      <section id="three-level-roadmap" className="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-28 scroll-mt-24">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
           <div className="max-w-3xl">
             <span className="tertiary-text">Progressive Depth</span>

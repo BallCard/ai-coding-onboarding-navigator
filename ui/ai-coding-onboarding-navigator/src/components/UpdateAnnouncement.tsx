@@ -37,6 +37,7 @@ export default function UpdateAnnouncement() {
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-5">
             <a href="/#growth-start" className="link-claude">查看新路线 <ArrowUpRight size={13} /></a>
+            <a href="/#three-level-roadmap" className="link-claude">查看三层路线 <ArrowUpRight size={13} /></a>
             <a href={FEEDBACK_URL} target="_blank" rel="noreferrer" className="link-claude">提出反馈 <ArrowUpRight size={13} /></a>
           </div>
         </div>
