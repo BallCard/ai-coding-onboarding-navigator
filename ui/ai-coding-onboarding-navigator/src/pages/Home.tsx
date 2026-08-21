@@ -38,6 +38,17 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    const targetId = window.location.hash.slice(1);
+    if (!targetId) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
   const starterNodes = ROADMAP_NODES.filter((node) => node.level === 'starter');
   const starterCompleted = starterNodes.filter((node) => completed.includes(node.id)).length;
 
