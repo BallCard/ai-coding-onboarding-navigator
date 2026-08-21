@@ -1,58 +1,42 @@
-# AI Onboarding Navigator - Handoff Documentation
+# Frontend Handover
 
-## 1. 项目愿景 (Project Vision)
-本站是一个专为**中国高校学生**设计的 AI 编程工具上手导航。它旨在解决官方文档与实际国内网络/学术环境之间的“最后一公里”问题。
+Last updated: 2026-08-21
 
-## 2. 视觉与设计语言 (Design Language - "Claude Style")
-本项目采用了一种深受 Anthropic (Claude) 启发的视觉风格。接手 AI 必须严格遵守以下设计准则：
+This file is a frontend entry point. The authoritative product handoff is `../../docs/product/handoff-summary.md`; deployment instructions are in `../../docs/operations/deployment-handoff.md`.
 
-### A. 核心设计原理 (24 Keywords Implementation)
-- **呼吸感 (Breathing Space)**：极大的 Padding 和 Margin（如 `py-48`, `gap-24`）。
-- **克制 (Restraint)**：仅使用黑 (Ink)、白 (Paper)、灰绿 (Sage) 和燕麦色 (Oat)。严禁使用高饱和度彩色。
-- **秩序感 (Order)**：严格的网格对齐与排版层次。
-- **质感 (Texture)**：全站覆盖 3.5% 透明度的 SVG 噪声滤镜（在 `index.css` 的 `body::before` 中定义）。
+## Current app
 
-### B. 排版系统 (Typography)
-- **标题 (Serif)**：`font-serif` (Libre Baskerville)。用于 H1-H4，强调人文感与思考深度。
-- **正文 (Sans)**：`font-sans` (Inter)。用于功能性描述，确保清晰易读。
-- **代码 (Mono)**：`font-mono` (JetBrains Mono)。用于指令与终端演示。
+- React 19, Vite 6, TypeScript, Tailwind CSS 4, Motion, and React Router
+- Static frontend with no application server or embedded AI assistant
+- Installation confirmation for Claude Code, Codex, and WorkBuddy
+- Starter, project, workflow, practice, setup, tool, and source/update routes
+- GitHub maintainer contact and GitHub Issue feedback
+- Dismissible redesign announcement
+- Local-only progress and workflow notes
 
-### C. 调色板 (Color Palette)
-定义于 `index.css` 的 `@theme` 块：
-- `--color-paper`: `#fbfaf8` (主背景)
-- `--color-ink`: `#121110` (主文字)
-- `--color-sage`: `#6b705c` (辅助装饰)
-- `--color-clay`: `#e8e4e0` (边框与分割线)
-- `--color-oat`: `#f3f0ec` (次要背景)
+## Product boundary
 
-## 3. 技术栈 (Tech Stack)
-- **Framework**: React 18 (Vite)
-- **Styling**: Tailwind CSS 4.0 (采用新版原生变量定义)
-- **Animation**: `motion/react` (Framer Motion)
-- **Icons**: `lucide-react`
-- **Routing**: `react-router-dom`
+Do not restore the retired troubleshooting database, troubleshooting pages, floating assistant, or assistant backend. When a user is stuck, preserve the goal, complete error information or screenshot, and attempted steps, then give that context to an available AI after removing sensitive data.
 
-## 4. 关键组件与样式类 (Critical Utilities)
-在编写 UI 时，请优先使用以下预设类：
-- `.step-card`：大圆角 (40px) 的白色容器，带有基于 `cubic-bezier` 的平滑阴影过渡。
-- `.btn-claude`：标志性的圆柱形黑色按钮。
-- `.link-claude`：带有下划线动效的文本链接。
-- `.tertiary-text`：用于描述性小字，带有较高的字符间距 (`tracking-[0.25em]`)。
-- `.terminal-box`：用于展示代码块的深色容器。
+The current feedback flow is not stored by this app. It opens a prefilled issue in the repository, so it works on static hosts and Sites without D1. Use platform-backed persistence only if a future release adds native site submission.
 
-## 5. 页面架构 (Page Structure)
-- `Home.tsx`: 视觉化的 Roadmap 节点。
-- `ToolSelection.tsx`: 决策矩阵，对比 Claude Code 与 Cursor。
-- `SetupVerification.tsx`: OS 相关的原子化安装步骤。
-- `Troubleshooting.tsx`: 错误对策索引。
-- `Updates.tsx`: 信息可靠性验证与更新流水。
+## Important files
 
-## 6. 后续开发建议 (Next Steps)
-1. **Practice.tsx 填充**：目前仅为占位，需补充第一个 AI 编程任务（如：创建一个带 API 的天气看板）的步骤。
-2. **移动端适配优化**：虽然使用了响应式类，但在超大间距下，移动端需微调字体大小。
-3. **GitHub Student Pack 指引**：在 `ToolSelection` 底部按钮点击后，应落地到一个详细的申请攻略页。
-4. **交互增强**：利用 `AnimatePresence` 为页面切换增加淡入淡出（Fade & Slide）效果。
+- `src/App.tsx`: routes, shell, footer contact, and feedback entry
+- `src/components/InstallationGate.tsx`: opening readiness question and reference links
+- `src/components/UpdateAnnouncement.tsx`: redesign notice and feedback shortcut
+- `src/components/WorkflowNotebook.tsx`: local notes and Markdown export
+- `src/constants.ts`: current content data
+- `src/pages/`: route and task surfaces
+- `scripts/capture-visual-regression.mjs`: 1440px / 390px screenshots and overflow checks
 
-## 7. 开发者提示 (Developer Note)
-> "好设计，是克制的表达，也是有温度的思考。"
-在修改 UI 时，如果一个元素看起来“太像普通的互联网产品”，请尝试增加留白、降低对比度、或更换为衬线体 (Serif)。
+## Visual invariants
+
+- Paper, ink, sage, clay, and oat palette
+- Libre Baskerville headings, Inter body, JetBrains Mono code
+- Large whitespace, restrained motion, soft borders, rounded cards
+- Validate desktop and mobile; the floating update notice must remain dismissible and must not block the primary action
+
+## Validation
+
+Run the content contract, TypeScript check, production build, route smoke test, browser smoke test, and visual regression capture before publishing. See `README.md` for the current commands.

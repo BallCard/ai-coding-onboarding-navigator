@@ -391,15 +391,14 @@ The site does not provide a troubleshooting database or an embedded AI assistant
 
 The MVP is useful only if a real student can:
 
-1. Choose the correct layer.
-2. Choose Claude Code or Codex without overthinking.
-3. Open terminal and run environment checks.
-4. Install one tool using official instructions.
-5. Log in or identify the login blocker.
-6. Create a safe test project.
-7. Add a rule file.
-8. Complete one small AI coding task.
-9. Use an available AI with complete error context when stuck.
+1. Confirm whether Claude Code, Codex, and WorkBuddy are ready, or open the correct setup reference when unsure.
+2. Choose one small, relevant task without first studying the full tool ecosystem.
+3. State a goal, boundary, and acceptance evidence before asking AI to act.
+4. Complete one small AI coding task in a safe test project.
+5. Verify the result through running, testing, diff review, or direct inspection.
+6. Save one reusable rule, note, or reflection for the next task.
+7. Use an available AI with complete error context when stuck.
+8. Find the maintainer contact and submit a trackable GitHub feedback issue.
 
 Suggested user test:
 
@@ -413,8 +412,8 @@ Suggested user test:
 - Starter content still needs more real-user testing.
 - Some official version numbers may change and must be reviewed.
 - Bundle size warning appears during Vite build.
-- API assistant is reserved but not connected to real OpenAI Responses API.
-- Mobile visual QA should be repeated before public launch.
+- The GitHub Issue feedback flow requires the visitor to have or create a GitHub account.
+- Sites hosting metadata has not been created yet; that belongs to the deployment step.
 
 ## 11. Next Product Work
 
@@ -424,6 +423,5 @@ Recommended order:
 2. Rewrite weak starter pages based on observed confusion.
 3. Improve task prompts and evidence checks from real user failures without building an error database.
 4. Add richer project-layer examples.
-5. Implement real assistant API with current official OpenAI docs.
-6. Add rate limiting and logging redaction.
-7. Optimize mobile layout and bundle splitting.
+5. Decide from real feedback whether an in-site, anonymous D1-backed form is worth maintaining.
+6. Optimize bundle splitting after the content structure stabilizes.

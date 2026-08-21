@@ -1,5 +1,9 @@
 # Campus AI Coding Onboarding Site MVP PRD
 
+> Status: historical product draft. It includes the retired troubleshooting-system direction.
+> For current scope and deployment decisions, use `docs/project-guide.md`,
+> `docs/product/handoff-summary.md`, and `docs/operations/deployment-handoff.md`.
+
 ## 1. Positioning
 
 Build a campus-facing AI coding onboarding navigation site for students who want to start using Claude Code or Codex but do not know where to begin.

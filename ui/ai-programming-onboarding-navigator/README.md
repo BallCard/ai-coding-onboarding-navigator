@@ -37,3 +37,5 @@ node scripts\capture-visual-regression.mjs
 - `scripts/`: route smoke checks and visual regression captures
 
 The app intentionally has no troubleshooting database, embedded AI assistant, or assistant backend. Error states should briefly tell users to give complete error text or screenshots to an available AI after removing sensitive information.
+
+Before publishing, read `../../docs/operations/deployment-handoff.md`. The current feedback link works on static hosting and Sites because GitHub receives the submission; this release does not require a database.

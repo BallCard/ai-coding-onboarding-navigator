@@ -72,6 +72,7 @@ node scripts\capture-visual-regression.mjs
 3. `docs/development-guide.md`
 4. `docs/content-maintenance-guide.md`
 5. `docs/operations/source-policy.md`
+6. `docs/operations/deployment-handoff.md`
 
 硬规则：
 

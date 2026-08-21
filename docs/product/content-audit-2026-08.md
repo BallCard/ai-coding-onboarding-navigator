@@ -82,7 +82,6 @@ DORA 2025 将 AI 描述为会放大组织既有优势和弱点的力量。本站
 - [Codex Sandbox](https://developers.openai.com/codex/concepts/sandboxing)：沙箱是技术边界，approval 是暂停决策，两者不是同一件事。
 - [Codex MCP](https://developers.openai.com/codex/mcp)：外部工具连接需要配置、认证和工具级审批，不能把 MCP 当成“自动获得可信资料”。
 - [ChatGPT & Codex Changelog](https://learn.chatgpt.com/docs/changelog)：更新雷达入口。
-- [Codex Troubleshooting](https://learn.chatgpt.com/docs/reference/troubleshooting)：账号、CLI 和产品排障入口。
 
 ## AI 辅助编程的原则来源
 
