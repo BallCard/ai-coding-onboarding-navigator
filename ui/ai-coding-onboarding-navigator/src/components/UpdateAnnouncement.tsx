@@ -1,20 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ArrowUpRight, Megaphone, X } from 'lucide-react';
 
-const DISMISSED_KEY = 'ai-navigator-learning-loop-update-dismissed';
+const DISMISSED_KEY = 'ai-navigator-dismissed-announcement';
+const ANNOUNCEMENT_ID = '2026-08-21-learning-loop';
 const FEEDBACK_URL = 'https://github.com/BallCard/ai-coding-onboarding-navigator/issues/new?title=%5B%E5%8F%8D%E9%A6%88%5D%20&body=%E6%88%91%E5%9C%A8%E4%BD%BF%E7%94%A8%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%9A%0A%0A%E6%88%91%E6%83%B3%E5%8F%8D%E9%A6%88%E7%9A%84%E9%97%AE%E9%A2%98%E6%88%96%E5%BB%BA%E8%AE%AE%EF%BC%9A%0A%0A%E6%88%91%E6%9C%9F%E6%9C%9B%E7%9A%84%E7%BB%93%E6%9E%9C%EF%BC%9A';
 
 export { FEEDBACK_URL };
 
-export default function UpdateAnnouncement() {
-  const [visible, setVisible] = useState(false);
+function getInitialVisibility() {
+  try {
+    return window.localStorage.getItem(DISMISSED_KEY) !== ANNOUNCEMENT_ID;
+  } catch {
+    return true;
+  }
+}
 
-  useEffect(() => {
-    setVisible(window.localStorage.getItem(DISMISSED_KEY) !== 'true');
-  }, []);
+export default function UpdateAnnouncement() {
+  const [visible, setVisible] = useState(getInitialVisibility);
 
   const dismiss = () => {
-    window.localStorage.setItem(DISMISSED_KEY, 'true');
+    try {
+      window.localStorage.setItem(DISMISSED_KEY, ANNOUNCEMENT_ID);
+    } catch {
+      // The close action should still work when storage is unavailable.
+    }
     setVisible(false);
   };
 
