@@ -14,6 +14,6 @@ Start here:
 
 Important rule:
 
-> `ui/ai-programming-onboarding-navigator/src/constants.ts` is the current source of truth for product content and data structures.
+> `ui/ai-coding-onboarding-navigator/src/constants.ts` is the current source of truth for product content and data structures.
 
 Some older product docs are design history. Use them for context, not as implementation authority. For a future UI or content change, read `product/learning-and-design-baseline.md` first.

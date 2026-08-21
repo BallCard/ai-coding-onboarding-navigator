@@ -362,7 +362,7 @@ Purpose:
 
 Current source of truth:
 
-`ui/ai-programming-onboarding-navigator/src/constants.ts`
+`ui/ai-coding-onboarding-navigator/src/constants.ts`
 
 Main exported data:
 

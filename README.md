@@ -28,7 +28,7 @@
 ## 本地运行
 
 ```powershell
-cd D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
+cd D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-coding-onboarding-navigator
 npm install
 npm run dev
 ```

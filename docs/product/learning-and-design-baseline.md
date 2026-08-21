@@ -144,7 +144,7 @@ AI 是扩展个人能力边界的杠杆，不是替人决定目标、承担风�
 
 - `ui/post-assets/home-roadmap.png`
 - `ui/post-assets/tool-selection.png`
-- `ui/ai-programming-onboarding-navigator/src/index.css`
+- `ui/ai-coding-onboarding-navigator/src/index.css`
 
 ### 5.2 不可破坏的视觉要素
 
@@ -203,7 +203,7 @@ serif Libre Baskerville | sans Inter | mono JetBrains Mono
 
 ## 8. 与旧文档的关系
 
-- `ui/ai-programming-onboarding-navigator/HANDOVER.md`：保留为早期视觉语言参考；其中 Cursor、Practice 占位等内容已过时。
+- `ui/ai-coding-onboarding-navigator/HANDOVER.md`：保留为早期视觉语言参考；其中 Cursor、Practice 占位等内容已过时。
 - `docs/product/ui-v1-review.md`：保留为 2026-05-04 的 UI 审查记录；其“保留视觉方向”的结论仍有效，但路线与内容状态已更新。
 - `docs/product/ui-integration-checklist.md`：保留为组件/交互核对表；遇到和本文冲突时，以本文的教学模型、渐进披露和视觉基线为准。
 - `src/index.css` 与已保存的页面截图：是当前实际视觉实现的直接依据。

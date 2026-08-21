@@ -2,7 +2,7 @@
 
 Review date: 2026-05-04
 
-Reviewed target: `ui/ai-programming-onboarding-navigator`
+Reviewed target: `ui/ai-coding-onboarding-navigator`
 
 Scope: review only. No source code changes were made.
 

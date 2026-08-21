@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npm --prefix ui/ai-coding-onboarding-navigator ci",
+  "buildCommand": "npm --prefix ui/ai-coding-onboarding-navigator run build",
+  "outputDirectory": "ui/ai-coding-onboarding-navigator/dist",
+  "rewrites": [
+    {
+      "source": "/((?!.*\\.[^/]+$).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

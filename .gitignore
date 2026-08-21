@@ -3,6 +3,7 @@
 .superpowers/
 .vite/
 **/.vite/
+.vercel/
 *.zip
 .chrome-post*/
 .edge-post*/

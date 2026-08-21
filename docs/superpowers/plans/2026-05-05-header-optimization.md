@@ -137,7 +137,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
 - [ ] **Step 2: 验证组件创建成功**
 
-Run: `cd "D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator" && npx tsc --noEmit src/components/MobileMenu.tsx`
+Run: `cd "D:\ClaudeCode教学\ui\ai-coding-onboarding-navigator" && npx tsc --noEmit src/components/MobileMenu.tsx`
 Expected: 无错误输出
 
 ---
@@ -300,12 +300,12 @@ function Layout({ children }: { children: ReactNode }) {
 
 - [ ] **Step 4: 验证 TypeScript 编译**
 
-Run: `cd "D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator" && npx tsc --noEmit`
+Run: `cd "D:\ClaudeCode教学\ui\ai-coding-onboarding-navigator" && npx tsc --noEmit`
 Expected: 无错误输出
 
 - [ ] **Step 5: 启动开发服务器验证**
 
-Run: `cd "D:\ClaudeCode教学\ui\ai-programming-onboarding-navigator" && npm run dev`
+Run: `cd "D:\ClaudeCode教学\ui\ai-coding-onboarding-navigator" && npm run dev`
 Expected: 服务器启动成功，浏览器访问 localhost:3002 显示页面，Header 显示 3 个导航项
 
 ---
@@ -316,7 +316,7 @@ Expected: 服务器启动成功，浏览器访问 localhost:3002 显示页面，
 
 ```bash
 cd "D:\ClaudeCode教学"
-git add ui/ai-programming-onboarding-navigator/src/App.tsx ui/ai-programming-onboarding-navigator/src/components/MobileMenu.tsx
+git add ui/ai-coding-onboarding-navigator/src/App.tsx ui/ai-coding-onboarding-navigator/src/components/MobileMenu.tsx
 git commit -m "$(cat <<'EOF'
 feat: optimize header navigation
 

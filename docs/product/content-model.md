@@ -1,7 +1,7 @@
 # Content and Data Model
 
 > Status: historical draft. The current implementation source of truth is
-> `ui/ai-programming-onboarding-navigator/src/constants.ts`.
+> `ui/ai-coding-onboarding-navigator/src/constants.ts`.
 > For current maintenance rules, use `docs/content-maintenance-guide.md`.
 
 ## 1. Source Type

@@ -7,7 +7,7 @@ Last updated: 2026-08-20
 Current content source:
 
 ```text
-ui/ai-programming-onboarding-navigator/src/constants.ts
+ui/ai-coding-onboarding-navigator/src/constants.ts
 ```
 
 Current docs that matter most:

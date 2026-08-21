@@ -5,7 +5,7 @@ Last updated: 2026-08-21
 ## Project Location
 
 ```text
-D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-programming-onboarding-navigator
+D:\Workspace\projects\ai-coding-onboarding-navigator\ui\ai-coding-onboarding-navigator
 ```
 
 ## Stack
