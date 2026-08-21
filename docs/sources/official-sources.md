@@ -1,6 +1,6 @@
 # Official Sources
 
-Last checked: 2026-05-04
+Last checked: 2026-08-21
 
 This file records first-pass official sources for the MVP. Use these as linked references and maintenance targets. Do not copy full documentation into the site.
 
@@ -32,11 +32,11 @@ This file records first-pass official sources for the MVP. Use these as linked r
 
 | ID | Title | URL | Use In MVP | Source Type | Usage Policy |
 |---|---|---|---|---|---|
-| `codex-overview` | Codex Overview | https://developers.openai.com/codex/ | Tool choice, Start Here | Official | Link and summarize |
+| `codex-overview` | Use Codex | https://developers.openai.com/api/docs/guides/code-generation#use-codex | Tool choice, Start Here | Official | Link and summarize |
 | `codex-cli-docs` | Codex CLI Docs | https://developers.openai.com/codex/cli | Install and Verify | Official | Link and summarize |
-| `codex-changelog` | Codex Changelog | https://developers.openai.com/codex/changelog | Sources and Updates, Radar | Official | Link and summarize |
-| `codex-windows` | Codex Windows Docs | https://developers.openai.com/codex/windows | Windows setup and troubleshooting | Official | Link and summarize |
-| `codex-troubleshooting` | Codex Troubleshooting | https://developers.openai.com/codex/troubleshooting | Troubleshooting | Official | Link and summarize |
+| `codex-changelog` | ChatGPT & Codex Changelog | https://learn.chatgpt.com/docs/changelog | Sources and Updates, Radar | Official | Link and summarize |
+| `codex-windows` | Windows Sandbox Troubleshooting | https://learn.chatgpt.com/docs/windows/windows-sandbox#troubleshooting-and-faq | Windows setup and troubleshooting | Official | Link and summarize |
+| `codex-troubleshooting` | Codex Troubleshooting | https://learn.chatgpt.com/docs/reference/troubleshooting | Troubleshooting | Official | Link and summarize |
 | `codex-agents-md` | Codex AGENTS.md Docs | https://developers.openai.com/codex/guides/agents-md | Project rules and configuration | Official | Link and summarize |
 | `codex-mcp` | Codex MCP Docs | https://developers.openai.com/codex/mcp | Later-stage configuration | Official | Link and summarize |
 | `codex-skills` | Codex Skills Docs | https://developers.openai.com/codex/skills | Later-stage configuration | Official | Link and summarize |
@@ -45,7 +45,9 @@ This file records first-pass official sources for the MVP. Use these as linked r
 | `codex-rules` | Codex Rules | https://developers.openai.com/codex/rules | Project rules and instructions | Official | Link and summarize |
 | `codex-hooks` | Codex Hooks | https://developers.openai.com/codex/hooks | Advanced later-stage configuration | Official | Link and summarize |
 | `codex-config-reference` | Codex Config Reference | https://developers.openai.com/codex/config-reference | Configuration reference | Official | Link and summarize |
-| `codex-use-cases` | Codex Use Cases | https://developers.openai.com/codex/use-cases | Workflow and review examples | Official | Link and summarize |
+| `codex-use-cases` | Codex CLI Workflows | https://developers.openai.com/codex/cli | Local workflow, scripting, review and external context | Official | Link and summarize |
+| `codex-web-search` | Codex Web Search | https://learn.chatgpt.com/docs/web-search?surface=cli | Current-information lookup | Official | Link and summarize; verify source/date |
+| `codex-code-review` | Codex Code Review | https://learn.chatgpt.com/docs/code-review?surface=cli | Review and verification | Official | Link and summarize |
 
 ## Maintenance Notes
 
@@ -55,3 +57,15 @@ This file records first-pass official sources for the MVP. Use these as linked r
 - Community content should not be added here. Put it in `docs/sources/community-signals.md` when needed.
 - Product facts must not be sourced from self-media, forum posts, or generated summaries.
 - Community content can identify likely user pain points, but it cannot become official guidance until checked against official documentation or local verification.
+- A search result is an input, not evidence by itself. Record the page URL, checked date, applicable version/surface, and the exact claim it supports.
+- Separate repository facts, official product facts, time-sensitive external facts, community signals, and model inference. Do not promote an inference into a rule file without verification.
+
+## AI-assisted programming and human-AI collaboration
+
+These sources are used for principles and framing, not for product facts or tool rankings.
+
+| ID | Title | URL | Use In MVP | Source Type | Usage Policy |
+|---|---|---|---|---|---|
+| `fowler-humans-and-agents` | Humans and Agents in Software Engineering Loops | https://martinfowler.com/articles/exploring-gen-ai/humans-and-agents.html | Human/agent roles, verification loops | Community Signal | Use as a named expert perspective; do not present as official product guidance |
+| `dora-2025-ai-amplifier` | DORA Research 2025 | https://dora.dev/dora-report-2025/ | AI as amplifier, delivery system context | Community Signal | Use the research claim with scope and date; do not convert it into a universal causal law |
+| `baoyu-claude-code-secrets` | Claude Code 强大的秘密究竟是什么？ | https://baoyu.ai/blog/claude-code-secrets | Community observations about model/tool/context/verification | Community Signal | Use only as a clearly labeled community signal; verify product claims against official docs |

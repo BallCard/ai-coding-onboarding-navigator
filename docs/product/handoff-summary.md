@@ -63,7 +63,7 @@ Core writing idea:
 - Explain how the workflow improves efficiency or reduces mistakes.
 - Do not present features as isolated tricks.
 
-### Architecture Layer
+### Workflow Layer
 
 Covers:
 

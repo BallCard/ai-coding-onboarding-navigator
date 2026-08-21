@@ -11,12 +11,12 @@ $userDataDir = Join-Path $PSScriptRoot "..\.chrome-smoke"
 $checks = @(
   @{ Path = "/"; Text = @("AI Navigator", "Campus AI Coding Onboarding", "Official", "排障助手") },
   @{ Path = "/roadmap/select-tool"; Text = @("starter route", "Official", "Claude Code") },
-  @{ Path = "/roadmap/agentic-thinking"; Text = @("advanced route", "Agentic Thinking", "Official") },
+  @{ Path = "/roadmap/agentic-thinking"; Text = @("Workflow Layer", "Agentic Thinking", "Official") },
   @{ Path = "/tools"; Text = @("Claude Code", "Codex", "Official Path") },
   @{ Path = "/setup"; Text = @("Install &amp; Verify", "Windows", "macOS", "Claude Code", "Codex") },
   @{ Path = "/troubleshooting"; Text = @("Troubleshooting", "API Key", "npm / Node") },
   @{ Path = "/practice"; Text = @("First Practice", "Frontend", "Testing") },
-  @{ Path = "/advanced"; Text = @("Advanced Route", "Agentic Thinking", "Pipeline") },
+  @{ Path = "/advanced"; Text = @("Workflow Route", "Agentic Thinking", "Pipeline") },
   @{ Path = "/updates"; Text = @("Sources &amp; Updates", "Claude Code Changelog", "Codex Changelog") }
 )
 

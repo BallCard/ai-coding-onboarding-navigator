@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { to: '/', label: '路线图', icon: Compass },
   { to: '/starter', label: '入门层', icon: Route },
   { to: '/project', label: '项目层', icon: Layers },
-  { to: '/advanced', label: '架构层', icon: Network },
+  { to: '/advanced', label: '工作流层', icon: Network },
   { to: '/troubleshooting', label: '卡点排障', icon: AlertCircle },
   { to: '/practice', label: '首次实践', icon: FileCode },
 ];

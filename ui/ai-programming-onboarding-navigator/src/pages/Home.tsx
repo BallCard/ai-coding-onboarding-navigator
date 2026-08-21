@@ -41,7 +41,7 @@ export default function Home() {
             <span className="italic opacity-40">再按步骤做</span>
           </h1>
           <p className="text-xl text-sage/70 max-w-2xl leading-relaxed font-serif italic">
-            不知道从哪开始，就走入门层。已经跑通，再进项目层。重复任务太多，再看架构层。
+            先把一次任务跑通，再把经验带进真实项目。工具会变化，但目标、上下文、权限和验证这套闭环可以迁移。
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default function Home() {
           <span className="tertiary-text">默认选择</span>
           <h2 className="text-3xl font-serif font-bold mt-6 mb-6">先跑通第一次任务</h2>
           <p className="text-sage/70 leading-relaxed mb-8">
-            还没完成第一次 AI 编程任务，就不要先配 MCP、Hooks 或多 Agent。先选工具、装好、登录、做一个小任务。
+            还没完成第一次 AI 编程任务，先选一个入口、装好、登录、做一个小任务。MCP、Hooks 或多 Agent 都是遇到真实重复问题后再加的选项。
           </p>
           <button onClick={() => setActiveLevel('starter')} className="btn-claude w-fit">
             查看入门路线 <ArrowRight size={16} />

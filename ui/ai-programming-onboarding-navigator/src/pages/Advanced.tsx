@@ -26,6 +26,9 @@ const sourceIds = [
   'claude-code-subagents',
   'codex-mcp',
   'codex-hooks',
+  'fowler-humans-and-agents',
+  'dora-2025-ai-amplifier',
+  'baoyu-claude-code-secrets',
 ];
 
 const agentLoop = [
@@ -143,25 +146,25 @@ export default function Advanced() {
         <div>
           <div className="flex items-center gap-4 mb-8">
             <div className="w-12 h-[1px] bg-sage" />
-            <span className="tertiary-text !tracking-[0.3em] !text-sage">Architecture Route</span>
+            <span className="tertiary-text !tracking-[0.3em] !text-sage">Workflow Route</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-serif tracking-tighter mb-8 text-ink leading-none">
             AI 不是更会聊天，<br />
             <span className="italic opacity-45">而是开始行动</span>
           </h1>
           <p className="text-xl text-sage/70 leading-relaxed font-serif italic border-l-2 border-clay/40 pl-8">
-            架构层不搬运硬核名词。这里拆开 Agent 的内部结构：它为什么能读项目、调用工具、修正错误、验证结果，最后落到你怎样自己搭一个可复用的 Agent。
+            这一层是可选进阶，不是新手门槛。我们把 Claude Code、Codex，以及 OpenCode、Z Code、Grok Build 等同类工具放回同一个问题里：人如何定义目标，AI 如何行动，结果如何被验证并沉淀。
           </p>
         </div>
 
         <aside className="step-card !p-8 md:!p-10">
           <span className="tertiary-text">本站判断</span>
-          <h2 className="text-3xl font-serif font-bold mt-5 mb-5">Claude Code 是目前最好的编程 Agent</h2>
+          <h2 className="text-3xl font-serif font-bold mt-5 mb-5">工具不是核心，闭环才是</h2>
           <p className="text-sage/75 leading-relaxed mb-8">
-            原因不是单点模型能力，而是它把终端、真实仓库、工具链、权限边界、hooks、MCP 和 subagents 组合成了完整的行动系统。对学生来说，它也是最适合拆开学习的 Agent 样本。
+            不同工具的入口、权限和扩展方式会变化，但可迁移的工作模型相同：目标、上下文、工具、执行、验证和反馈。先学会这套模型，再按账号、任务和环境选择工具。
           </p>
           <div className="flex flex-wrap gap-2">
-            {['Terminal-native', 'Repo-aware', 'Tool-using', 'Permissioned', 'Composable'].map((tag) => (
+            {['Goal-first', 'Context-aware', 'Tool-using', 'Permissioned', 'Verifiable'].map((tag) => (
               <span key={tag} className="text-[9px] font-black uppercase tracking-[0.16em] bg-oat/40 text-sage/70 border border-clay/30 px-2.5 py-1 rounded-md">
                 {tag}
               </span>
@@ -247,15 +250,15 @@ export default function Advanced() {
       <section className="mb-24 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-10 items-stretch">
         <div className="step-card !p-8 md:!p-10">
           <ShieldCheck size={26} className="text-sage mb-8" />
-          <span className="tertiary-text">04 · Why Claude Code</span>
-          <h2 className="text-4xl font-serif font-bold mt-5 mb-6">为什么它是最好的样本</h2>
+          <span className="tertiary-text">04 · Human On The Loop</span>
+          <h2 className="text-4xl font-serif font-bold mt-5 mb-6">人负责为什么，AI 负责怎么做</h2>
           <p className="text-sage/75 leading-relaxed mb-8">
-            Claude Code 的关键价值在于：它不把自己伪装成万能聊天框，而是直接进入工程现场。终端、文件、命令、权限、规则、扩展点都在同一个工作流里。
+            Martin Fowler 对软件工程循环的区分很有用：人应该掌握目标、价值判断和最终结果的 why loop；AI 可以承担代码、工具和中间产物的 how loop。人不必逐行盯住每个动作，但必须设计边界、反馈和验收。
           </p>
           <ul className="space-y-4 text-sm text-sage/80 leading-relaxed">
-            <li>· 它让学生看到 Agent 不是魔法，而是“模型 + 工具 + 反馈 + 约束”。</li>
-            <li>· 它把安全边界显式化：能做什么、要不要批准、哪里应该停下来。</li>
-            <li>· 它适合沉淀个人工作流：规则文件、hooks、MCP、subagents 都能逐步加入。</li>
+            <li>· 你负责目标、优先级、风险承受和完成标准。</li>
+            <li>· AI 负责检索、归纳、生成、执行和根据反馈提出下一步。</li>
+            <li>· 工具权限、测试、diff、运行结果和用户反馈共同构成验收证据。</li>
           </ul>
         </div>
 

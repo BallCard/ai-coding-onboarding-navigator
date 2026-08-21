@@ -37,10 +37,10 @@ const LEVEL_GUIDE: Record<RouteLevel, { eyebrow: string; headline: string; subco
     owner: '适合负责课程项目、GitHub 工作流、测试和协作规范的人维护。',
   },
   advanced: {
-    eyebrow: 'Architecture Layer',
-    headline: '架构层：把重复任务做成流程资产',
-    subcopy: '这层按系统设计维护：pipeline、上下文、自动化边界、多 Agent、评估循环，重点讲效率、token 成本和复用。',
-    owner: '适合负责工作流设计、自动化、Agent 架构和方法论的人维护。',
+    eyebrow: 'Workflow Layer',
+    headline: '工作流层：把一次协作变成下一次的起点',
+    subcopy: '这是可选进阶：从上下文、信息来源、验证和复盘入手，再决定是否需要 pipeline、自动化或多 Agent。',
+    owner: '适合已经跑通一次任务，想减少重复沟通和错误的人。',
   },
 };
 

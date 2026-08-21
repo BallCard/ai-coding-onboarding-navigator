@@ -22,7 +22,7 @@ Purpose: keep the site aligned with official Claude Code and Codex documentation
 | Multi-agent collaboration | `claude-code-features-overview`, `claude-code-directory` | Codex docs navigation / subagents pages | Covered conceptually | Add role-based example later | P2 |
 | Evaluation / feedback loop | Local verification rule | `codex-use-cases` | Covered as advanced route | Add metric examples later | P1 |
 | MCP / Hooks / Skills / Subagents capability map | `claude-code-features-overview`, `claude-code-hooks` | `codex-mcp`, `codex-hooks`, `codex-skills` | Covered in project route | Defer deep tutorials | P1 |
-| Workflow retrospective | Local process rule | Local process rule | Covered as architecture route | Add examples after user testing | P1 |
+| Workflow retrospective | Local process rule | Local process rule | Covered as workflow route | Add examples after user testing | P1 |
 | IDE / App / Web | Claude Code docs navigation | Codex App / IDE / Web docs navigation | Not covered | Add second-stage comparison later | P1 |
 | GitHub / PR workflow | Claude Code commands/review docs | Codex GitHub integration docs | First-practice only | Add PR workflow example later | P1 |
 | Troubleshooting | `claude-code-setup`, `codex-troubleshooting` | `codex-troubleshooting` | Covered lightly | Add official-specific error branches | P1 |

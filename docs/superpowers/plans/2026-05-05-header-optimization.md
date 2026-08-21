@@ -286,7 +286,7 @@ function Layout({ children }: { children: ReactNode }) {
             <span className="tertiary-text">官方入口</span>
             <div className="flex flex-col gap-4">
               <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">Claude Code Docs</a>
-              <a href="https://developers.openai.com/codex/" target="_blank" rel="noreferrer" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">Codex Docs</a>
+              <a href="https://developers.openai.com/codex/cli" target="_blank" rel="noreferrer" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">Codex CLI Docs</a>
               <Link to="/updates" className="text-sm text-sage/80 hover:text-ink transition-colors font-medium">来源与更新</Link>
             </div>
           </div>

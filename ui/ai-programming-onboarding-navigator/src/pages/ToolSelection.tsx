@@ -15,7 +15,7 @@ export default function ToolSelection() {
           先选今天要跑通的工具，<br /><span className="opacity-40 italic">再去安装</span>
         </h1>
         <p className="text-xl text-sage/70 leading-relaxed font-serif italic border-l-2 border-clay/40 pl-8">
-          不做参数竞赛。只判断一件事：你现在该用 Claude Code 还是 Codex 完成第一次可验证任务。
+          不做参数竞赛。Claude Code 和 Codex 是本站的两条示范路径；同样的判断也适用于 OpenCode、Z Code、Grok Build 等 AI 辅助编程工具：入口、任务、权限和验证是否匹配。
         </p>
       </header>
 
@@ -100,9 +100,9 @@ export default function ToolSelection() {
           <BookOpen size={42} className="text-clay" />
         </div>
         <div className="relative z-10 flex-1 text-center lg:text-left">
-          <h3 className="font-serif text-3xl md:text-4xl mb-6 italic opacity-90">还选不出来？</h3>
-          <p className="text-lg text-paper/55 leading-relaxed max-w-2xl font-serif italic mb-0">
-            没有真实项目就先选 Codex 做最小任务；已有项目要改就先选 Claude Code。选完直接进安装验证。
+            <h3 className="font-serif text-3xl md:text-4xl mb-6 italic opacity-90">还选不出来？</h3>
+            <p className="text-lg text-paper/55 leading-relaxed max-w-2xl font-serif italic mb-0">
+              先用你已有账号体系和客户端的一侧；两边都能用，就各自完成同一个小任务后再比较。别把工具选择变成开始工作的替代品。
           </p>
         </div>
         <Link to="/practice" className="relative z-10 bg-paper text-ink px-12 py-5 rounded-full font-bold text-[12px] uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-2xl active:scale-95 whitespace-nowrap">

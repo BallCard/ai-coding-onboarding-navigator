@@ -1,6 +1,6 @@
 # Content Maintenance Guide
 
-Last updated: 2026-05-05
+Last updated: 2026-08-20
 
 ## 1. Source of Truth
 
@@ -61,20 +61,24 @@ Windows
 
 Copy:
 
-node --version
-npm --version
 git --version
 
 Should see:
 
-- Node version, for example v24.15.0.
-- npm version, for example 11.6.0.
-- Git version, for example git version 2.54.0.windows.1.
+- Git version, for example `git version 2.x.x.windows.x`.
+
+If you selected an npm install path, also run:
+
+```text
+node --version
+npm --version
+npm config get registry
+```
 
 If failed:
 
-- node is not recognized: install Node.js LTS first.
-- git is not recognized: install Git for Windows first.
+- node/npm is not recognized: install Node.js LTS only if the selected install path requires npm.
+- git is not recognized: record that Git checkpoints are unavailable, then install Git before the first important project task.
 ```
 
 ### Project Layer
@@ -114,7 +118,7 @@ Common project-layer failure modes to reference:
 - CI failure loop
 - token waste from repeated context setup
 
-### Architecture Layer
+### Workflow Layer
 
 Write like a systems designer and reflective practitioner.
 
@@ -354,11 +358,14 @@ The tool selection page should not become a benchmark page.
 
 Current decision logic:
 
-- No project directory: start with Codex.
-- Existing project directory: start with Claude Code.
-- Only one loose code file: treat as no project directory.
-- Already familiar with ChatGPT: Codex is easier to start.
-- Need multi-file project modification: Claude Code is more direct.
+- Claude Code and Codex both support local repository work; project presence is not a product verdict.
+- Compare the user's account/entry point, preferred surface (terminal, IDE, desktop, web), task shape (read, edit, review, automation), external-context needs, and approval/sandbox expectations.
+- If the user already has one provider account and no strong task-specific reason to switch, start there and record the choice.
+- If the user needs current external information, make source retrieval and verification part of the task contract; do not imply either tool makes search results true.
+
+The maintained product paths are examples, not a claim that Claude Code and Codex are the only valid tools. OpenCode, Z Code, Grok Build, Cursor, Copilot, and future tools may share the same workflow questions. Add a product to the maintained database only after official-source review; otherwise mention it as a `Community Signal` or unverified example.
+
+The transferable model is: human defines the why, boundaries, priorities, and acceptance test; the AI handles exploration, generation, execution, and feedback processing; tools expose context and actions; verification decides whether the result is acceptable. Fowler's why/how/on-the-loop framing is a source for this principle, not a product endorsement.
 
 Do not write:
 
@@ -369,41 +376,42 @@ Do not write:
 Write:
 
 - "If you have X, choose Y."
-- "If not sure, default to Codex for the first run."
+- "Both can do X; choose based on the entry point and control surface that fit this task."
 
-## 8. Environment Check Guide
+## 8. Information and Evidence Guide
+
+AI coding tasks often mix four different kinds of input:
+
+1. Repository facts: files, scripts, tests, and runtime behavior that can be inspected locally.
+2. Official product facts: provider documentation, release notes, and support pages.
+3. Time-sensitive external facts: current versions, APIs, service status, or changing policies.
+4. Community or personal signals: useful for finding pain points, never sufficient for product truth.
+
+Every material claim should carry a source, checked date, applicable version/surface, and a status: `Official`, `Official-Derived`, `Personal Note`, `Community Signal`, or `Needs Verification`.
+
+Search is an information retrieval step, not a truth oracle. The user should ask the agent to show what a source proves, what it does not prove, and which claims still need a local check. High-risk claims need an independent source or a reproducible local validation before entering code, `CLAUDE.md`, `AGENTS.md`, or automation.
+
+## 9. Environment Check Guide
 
 Current starter expectation:
 
-- Windows and macOS are separated.
+- Windows and macOS are separated when shell behavior differs.
 - User sees exact terminal opening instructions.
 - User copies command block.
 - User sees expected output examples.
 - User gets stop conditions.
 
-Current reference values as of 2026-05-05:
-
-- Node LTS reference: `v24.15.0`
-- npm latest reference: `11.6.0`
-- Git for Windows reference: `git version 2.54.0.windows.1`
-
-Important:
-
-- These version examples are not strict equality checks.
-- Node `v20` or higher can continue.
-- Git `2.x` can generally continue.
-- npm output must exist.
-- `npm view npm version` must output a version or the npm/network layer is not ready.
+Do not hard-code a version as a product requirement. Native installers for Claude Code and Codex may not require Node/npm; check those only when the selected install path or project requires them. Version examples are illustrative, not equality checks. Git remains a recommended checkpoint/review dependency, but is not a universal install gate.
 
 When updating versions:
 
-1. Check official Node.js download page.
-2. Check npm package/latest official page.
-3. Check git-scm official install page or release page.
+1. Check the selected tool's current official install page.
+2. If using npm, check the official Node.js and npm pages.
+3. If using Git for checkpoints, check the official Git install page.
 4. Update `SOURCES.lastCheckedAt`.
 5. Update docs if examples changed.
 
-## 9. Practice Task Guide
+## 10. Practice Task Guide
 
 Practice tasks should be small and verifiable.
 
@@ -421,7 +429,7 @@ Avoid:
 - "Connect real user accounts."
 - "Deploy to production."
 
-## 10. Rule Template Guide
+## 11. Rule Template Guide
 
 Rule templates should teach boundaries, not prompt cleverness.
 
@@ -440,7 +448,7 @@ Do not include:
 - Real personal credentials.
 - Commands that delete or reset files.
 
-## 11. Update Record Guide
+## 12. Update Record Guide
 
 Use `UPDATES` for changes that may affect users.
 
@@ -465,7 +473,7 @@ Statuses:
 - `published`: visible or reflected in content.
 - `ignored`: not relevant.
 
-## 12. Assistant Content Boundary
+## 13. Assistant Content Boundary
 
 The assistant should answer from:
 
@@ -489,7 +497,7 @@ When adding assistant API:
 - Include source IDs.
 - Refuse secret-handling requests.
 
-## 13. Review Checklist Before Publishing Content
+## 14. Review Checklist Before Publishing Content
 
 Before a content change is done:
 
@@ -503,7 +511,7 @@ Before a content change is done:
 - Did `content.test.ts` pass?
 - Did TypeScript pass?
 
-## 14. Current Content Debt
+## 15. Current Content Debt
 
 Known items to improve:
 
@@ -513,7 +521,7 @@ Known items to improve:
 - Add more project-layer examples for PR and CI workflows.
 - Add architecture-layer diagrams or concrete sample pipelines.
 
-## 15. Current Content-Filling Phase
+## 16. Current Content-Filling Phase
 
 Current progress:
 

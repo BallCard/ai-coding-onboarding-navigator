@@ -4,7 +4,7 @@ Last updated: 2026-05-05
 
 ## 1. Project Summary
 
-AI Coding Onboarding Navigator is a campus-facing onboarding site for students who want to start using Claude Code or Codex but do not know where to begin.
+AI Coding Onboarding Navigator is a campus-facing onboarding site for students who want to start using AI-assisted programming tools but do not know where to begin. Claude Code and Codex are the two maintained example paths; the transferable subject is the workflow, not a brand.
 
 The product is not a copied tutorial collection. It is a guided operating layer:
 
@@ -24,7 +24,7 @@ Primary users are campus students with mixed backgrounds:
 
 - Non-CS students who do not know terminal basics.
 - CS or engineering students who know some code but have not used coding agents.
-- Students who have used ChatGPT for coding but not Claude Code or Codex CLI.
+- Students who have used ChatGPT for coding but not a coding agent or tool-using assistant.
 - Students trying to bring AI coding into course projects, personal projects, or GitHub workflows.
 
 The first version serves Windows and macOS users.
@@ -90,7 +90,7 @@ The core claim:
 
 The layer cultivates engineering judgment.
 
-### 3.1.3 Architecture Layer: Thinking
+### 3.1.3 Workflow Layer: Thinking
 
 Core question:
 
@@ -231,7 +231,7 @@ Expected user outcome:
 - They can run tests or verification commands.
 - They can prepare a PR with intent, validation, and risks.
 
-### 5.3 Architecture Layer / Thinking Layer
+### 5.3 Workflow Layer / Thinking Layer
 
 Goal:
 
