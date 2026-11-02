@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Navigator 校园论坛更新帖</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f7f5f1;
+        --card: #ffffff;
+        --ink: #171614;
+        --muted: #6f7268;
+        --line: #dedbd4;
+        --soft: #efede8;
+        --accent: #4f5949;
+        --success: #287a48;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 1px 1px, rgba(79, 89, 73, 0.08) 1px, transparent 0),
+          var(--paper);
+        background-size: 30px 30px;
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      }
+
+      button, textarea { font: inherit; }
+      button { cursor: pointer; }
+      a { color: inherit; }
+      .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 64px; }
+      .toolbar {
+        position: sticky;
+        top: 14px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 24px;
+        padding: 14px 16px;
+        border: 1px solid rgba(222, 219, 212, 0.9);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 18px 50px -36px rgba(23, 22, 20, 0.5);
+        backdrop-filter: blur(16px);
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 850; }
+      .mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: white; }
+      .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+      .button {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0 18px;
+        background: white;
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .button.primary { border-color: var(--ink); background: var(--ink); color: white; }
+      .button:hover { transform: translateY(-1px); }
+      .status { min-width: 100px; color: var(--success); font-size: 12px; font-weight: 800; }
+      .hero {
+        padding: clamp(28px, 6vw, 70px);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        background: var(--card);
+        box-shadow: 0 30px 90px -64px rgba(23, 22, 20, 0.55);
+      }
+      .eyebrow { color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; }
+      .hero h1 { max-width: 900px; margin: 22px 0; font-family: Georgia, "Songti SC", serif; font-size: clamp(40px, 6vw, 72px); line-height: 1.03; letter-spacing: -0.04em; }
+      .lead { max-width: 820px; margin: 0; color: var(--muted); font-family: Georgia, "Songti SC", serif; font-size: clamp(18px, 2.4vw, 24px); line-height: 1.75; }
+      .notice { margin-top: 30px; padding: 18px 20px; border-left: 4px solid var(--accent); border-radius: 12px; background: var(--soft); line-height: 1.75; }
+      .preview, .assets, .source { margin-top: 28px; border: 1px solid var(--line); border-radius: 28px; background: var(--card); overflow: hidden; }
+      .section-head { padding: 24px 28px; border-bottom: 1px solid var(--line); background: var(--soft); }
+      .section-head h2 { margin: 8px 0 0; font-family: Georgia, "Songti SC", serif; font-size: 30px; }
+      .post { width: min(880px, 100%); margin: 0 auto; padding: clamp(28px, 6vw, 64px); font-size: 16px; line-height: 1.9; }
+      .post h2 { margin: 42px 0 16px; font-family: Georgia, "Songti SC", serif; font-size: 28px; line-height: 1.35; }
+      .post p { margin: 0 0 18px; }
+      .post ul { margin: 0 0 22px; padding-left: 1.4em; }
+      .post blockquote { margin: 24px 0; padding: 18px 22px; border-left: 4px solid var(--accent); background: var(--soft); color: #3f443c; }
+      .post img { display: block; width: 100%; margin: 24px 0 32px; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 24px 60px -46px rgba(23, 22, 20, 0.6); }
+      .post .loop { padding: 16px 18px; border-radius: 14px; background: var(--ink); color: white; text-align: center; font-weight: 800; }
+      .post .url-placeholder { color: #7c3f1b; font-family: Consolas, monospace; }
+      .asset-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 24px; }
+      .asset { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+      .asset img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-bottom: 1px solid var(--line); }
+      .asset-copy { display: grid; gap: 10px; padding: 16px; }
+      .asset-copy strong { font-size: 14px; }
+      .path-row { display: flex; align-items: center; gap: 8px; }
+      .path { min-width: 0; flex: 1; overflow: hidden; color: var(--muted); font-family: Consolas, monospace; font-size: 11px; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
+      .copy-path { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 999px; padding: 7px 10px; background: white; font-size: 11px; font-weight: 800; }
+      .source-wrap { padding: 24px; background: #191816; }
+      textarea { display: block; width: 100%; min-height: 680px; resize: vertical; border: 0; border-radius: 16px; padding: 22px; background: #100f0e; color: #eeeae4; font-family: Consolas, "Microsoft YaHei", monospace; font-size: 13px; line-height: 1.75; outline: none; }
+      .source-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; color: white; }
+      .footer-copy { display: flex; justify-content: center; padding: 24px; border-top: 1px solid var(--line); background: var(--soft); }
+      @media (max-width: 760px) {
+        .toolbar { align-items: flex-start; flex-direction: column; }
+        .actions, .button.primary { width: 100%; }
+        .button.primary { justify-content: center; }
+        .asset-grid { grid-template-columns: 1fr; padding: 14px; }
+        .post { padding: 26px 20px; }
+        .source-wrap { padding: 14px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="toolbar">
+        <div class="brand"><span class="mark">N</span><span>AI Navigator / 校园论坛发帖工具</span></div>
+        <div class="actions">
+          <span class="status" id="copyStatus" aria-live="polite"></span>
+          <button class="button" type="button" data-scroll-source>查看 UBB 源码</button>
+          <button class="button primary" type="button" data-copy-ubb>一键复制 UBB 正文</button>
+        </div>
+      </div>
+
+      <header class="hero">
+        <div class="eyebrow">Ready for campus forum</div>
+        <h1>新版网站简介、最终预览与截图素材，都放在这一个 HTML 里</h1>
+        <p class="lead">网站地址和六张截图的本地绝对地址已经写入 UBB 正文，检查最终效果后，点击“一键复制 UBB 正文”即可。</p>
+        <div class="notice"><b>正式站点：</b><a href="https://ai-coding-onboarding-navigator.vercel.app" target="_blank" rel="noreferrer">https://ai-coding-onboarding-navigator.vercel.app</a>。图片使用当前电脑的 <code>file:///D:/...</code> 地址，不会上传到远程服务器。</div>
+      </header>
+
+      <section class="preview">
+        <div class="section-head"><div class="eyebrow">Final preview</div><h2>论坛帖最终效果</h2></div>
+        <article class="post">
+          <h1>【项目更新】给大学生的 AI 编程上手导航：从“查教程”到“做中生长”</h1>
+          <p>大家好，我把之前做的 AI 编程上手导航站重新整理了一版。</p>
+          <p>这次不是简单增加几篇教程，而是重新想清楚了一件事：对于刚开始接触 AI 编程的同学，真正缺少的往往不是更多资料，而是一条能马上行动、能判断是否成功、卡住后知道怎么办的路线。</p>
+          <p><b>项目地址：</b><a href="https://ai-coding-onboarding-navigator.vercel.app" target="_blank" rel="noreferrer">https://ai-coding-onboarding-navigator.vercel.app</a><br /><b>反馈入口：</b>GitHub Issues</p>
+          <blockquote>这个网站现在只想回答三个问题：<br />1. 我现在应该做什么？<br />2. 怎样才算这一步成功？<br />3. 如果卡住，下一步怎么继续？</blockquote>
+
+          <h2>一、先确认工具，再开始行动</h2>
+          <p>进入网站后，第一步不是读长教程，而是确认 Claude Code、Codex 和 WorkBuddy 是否已经安装好。如果已经正常使用过，可以直接继续；如果没有安装或不确定，页面会给出对应的核对资料。</p>
+          <img src="post-assets/home-installation-check.png" alt="安装确认页面" />
+
+          <h2>二、不再要求先“学完整套工具”</h2>
+          <p>新版首页把入口改成了一个更直接的问题：你现在想解决什么？可以从一个 20 分钟内能看到结果的小目标开始，让 AI 帮你计划、行动和验证。</p>
+          <ul><li>一个可以打开、运行或复查的产物</li><li>一份 AI 实际修改范围的说明</li><li>至少三条自己亲自检查过的证据</li><li>一条下次可以直接复用的规则</li></ul>
+          <img src="post-assets/home-growth-loop.png" alt="真实目标与完成证据" />
+
+          <h2>三、首次实践不再是“随便和 AI 聊聊”</h2>
+          <p>网站准备了一组小型实践任务。推荐的第一项是生成一个网页小工具，例如计时器、Todo、单位换算或课程 DDL 提醒。每张任务卡都会写清楚预计时间、开始前的安全边界、需要提供的材料、最终交付物和验收证据。</p>
+          <img src="post-assets/practice-task-picker.png" alt="首次实践任务选择" />
+
+          <h2>四、每个任务都有可检查的通过标准</h2>
+          <p>做完后不是只看 AI 说“已经完成”，而是要自己打开页面、检查核心交互、确认修改了哪些文件，并留下至少三条人工验收记录。</p>
+          <img src="post-assets/practice-web-tool-detail.png" alt="网页小工具任务详情" />
+          <p class="loop">说清目标 → 确认边界 → 执行小动作 → 检查证据 → 留下方法</p>
+
+          <h2>五、把经验留给下一次的自己</h2>
+          <p>新版增加了个人工作流笔记。笔记只保存在当前浏览器，也可以导出为 Markdown。网站不会把本地保存伪装成已经上传或已经提交的反馈。</p>
+          <img src="post-assets/workflow-notebook.png" alt="个人工作流笔记" />
+
+          <h2>六、资料不是“资源墙”，事实来源可以追溯</h2>
+          <p>站内涉及安装、权限、安全、配置和产品变化的事实，以 Anthropic、OpenAI 的官方资料为准。来源页按“官方资料、研究与社区、校园记录”分层，并保留用途、适用范围、核查日期和审核状态。</p>
+          <img src="post-assets/sources-and-updates.png" alt="来源与更新页面" />
+
+          <h2>适合哪些同学？</h2>
+          <ul><li>想开始 AI 编程，但还没有跑通第一次任务</li><li>不确定该怎样安全地让 AI 修改文件或运行命令</li><li>看过不少教程，却不知道自己现在应该做哪一步</li><li>希望从一次性聊天，逐渐形成可复用工作流</li></ul>
+          <blockquote>官方文档决定什么是真的；这个网站负责把真实信息组织成一条适合校内同学行动的路线。</blockquote>
+          <p>目前网站还在持续调整中。如果你愿意体验，欢迎告诉我：你在哪一步停住了、哪一页看不懂，或者哪个验收标准不够明确。</p>
+        </article>
+      </section>
+
+      <section class="assets">
+        <div class="section-head"><div class="eyebrow">Local screenshot assets</div><h2>截图预览与本地地址</h2></div>
+        <div class="asset-grid" id="assetGrid"></div>
+      </section>
+
+      <section class="source" id="ubbSourceSection">
+        <div class="section-head"><div class="eyebrow">UBB source</div><h2>可直接复制的论坛正文</h2></div>
+        <div class="source-wrap">
+          <div class="source-actions"><span>网站地址与截图本地绝对地址已填写</span><button class="button primary" type="button" data-copy-ubb>一键复制 UBB 正文</button></div>
+          <textarea id="ubbSource" spellcheck="false">[size=5][b]【项目更新】给大学生的 AI 编程上手导航：从“查教程”到“做中生长”[/b][/size]
+
+大家好，我把之前做的 AI 编程上手导航站重新整理了一版。
+
+这次不是简单增加几篇教程，而是重新想清楚了一件事：对于刚开始接触 AI 编程的同学，真正缺少的往往不是更多资料，而是一条能马上行动、能判断是否成功、卡住后知道怎么办的路线。
+
+[b]项目地址：[/b][url=https://ai-coding-onboarding-navigator.vercel.app]https://ai-coding-onboarding-navigator.vercel.app[/url]
+[b]反馈入口：[/b][url=https://github.com/BallCard/ai-coding-onboarding-navigator/issues/new]提交建议或问题[/url]
+
+[quote]这个网站现在只想回答三个问题：
+1. 我现在应该做什么？
+2. 怎样才算这一步成功？
+3. 如果卡住，下一步怎么继续？[/quote]
+
+[size=4][b]一、先确认工具，再开始行动[/b][/size]
+
+进入网站后，第一步不是读长教程，而是确认 Claude Code、Codex 和 WorkBuddy 是否已经安装好。
+
+如果已经正常使用过，可以直接继续；如果没有安装或不确定，页面会给出对应的核对资料。这个步骤只负责建立共同起点，不要求大家先理解一堆命令和配置细节。
+
+[img]file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/home-installation-check.png[/img]
+
+[size=4][b]二、不再要求先“学完整套工具”[/b][/size]
+
+新版首页把入口改成了一个更直接的问题：你现在想解决什么？
+
+可以从一个 20 分钟内能看到结果的小目标开始，让 AI 帮你计划、行动和验证。完成一次任务后，至少应该留下四样东西：
+
+• 一个可以打开、运行或复查的产物
+• 一份 AI 实际修改范围的说明
+• 至少三条自己亲自检查过的证据
+• 一条下次可以直接复用的规则
+
+[img]file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/home-growth-loop.png[/img]
+
+[size=4][b]三、首次实践不再是“随便和 AI 聊聊”[/b][/size]
+
+网站准备了一组小型实践任务。推荐的第一项是生成一个网页小工具，例如计时器、Todo、单位换算或课程 DDL 提醒。
+
+每张任务卡都会写清楚预计时间、开始前的安全边界、需要提供的材料、最终交付物和验收证据。第一次练习建议放在空目录或独立测试目录中，保留人工确认，不把真实成绩、隐私数据、账号凭据或课程项目的大范围修改当作练习材料。
+
+[img]file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/practice-task-picker.png[/img]
+
+[size=4][b]四、每个任务都有可检查的通过标准[/b][/size]
+
+以“生成一个网页小工具”为例，页面会把任务拆成准备、交付、通过标准和执行步骤。做完后不是只看 AI 说“已经完成”，而是要自己打开页面、检查核心交互、确认修改了哪些文件，并留下至少三条人工验收记录。
+
+[img]file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/practice-web-tool-detail.png[/img]
+
+[b]说清目标 → 确认边界 → 执行小动作 → 检查证据 → 留下方法[/b]
+
+我希望大家练到的不是某个按钮或某条命令，而是以后面对课程作业、个人项目和真实仓库时仍然能复用的协作方式。
+
+[size=4][b]五、把经验留给下一次的自己[/b][/size]
+
+新版增加了个人工作流笔记。完成任务后，可以记录：
+
+• 这次解决了什么
+• 使用了什么证据
+• AI 在哪一步容易猜错
+• 下一次要沿用哪条规则
+
+笔记只保存在当前浏览器，也可以导出为 Markdown。网站不会把本地保存伪装成已经上传或已经提交的反馈。
+
+[img]file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/workflow-notebook.png[/img]
+
+[size=4][b]六、资料不是“资源墙”，事实来源可以追溯[/b][/size]
+
+站内涉及安装、权限、安全、配置和产品变化的事实，以 Anthropic、OpenAI 的官方文档、帮助中心和官方更新记录为准。
+
+来源页按“官方资料、研究与社区、校园记录”分层，并保留每条记录的用途、适用范围、核查日期和审核状态。社区文章只用来发现痛点或提供练习灵感，不会被直接当成产品事实。
+
+[img]file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/sources-and-updates.png[/img]
+
+[size=4][b]适合哪些同学？[/b][/size]
+
+• 想开始 AI 编程，但还没有跑通第一次任务
+• 不确定该怎样安全地让 AI 修改文件或运行命令
+• 看过不少教程，却不知道自己现在应该做哪一步
+• 希望从一次性聊天，逐渐形成可复用工作流
+
+[size=4][b]它不是什么？[/b][/size]
+
+它不是教程大全，也不是工具营销页；不会转载未经核验的产品传闻，也不会提供绕过网络、账号、权限或安全规则的方法。
+
+遇到具体报错时，网站会建议把原始目标、完整报错或截图交给 Codex、豆包或手边可用的 AI，请它先解释原因，再给最小解决步骤。分享前请务必移除密钥、密码、Cookie 和其他敏感信息。
+
+[quote]官方文档决定什么是真的；这个网站负责把真实信息组织成一条适合校内同学行动的路线。[/quote]
+
+目前网站还在持续调整中。如果你愿意体验，欢迎告诉我：你在哪一步停住了、哪一页看不懂，或者哪个验收标准不够明确。比起“内容再多一点”，这些真实卡点对项目更有帮助。
+
+[b]项目地址：[/b][url=https://ai-coding-onboarding-navigator.vercel.app]https://ai-coding-onboarding-navigator.vercel.app[/url]
+[b]维护者：[/b][url=https://github.com/BallCard]GitHub @BallCard[/url]</textarea>
+        </div>
+        <div class="footer-copy"><button class="button primary" type="button" data-copy-ubb>一键复制 UBB 正文</button></div>
+      </section>
+    </main>
+
+    <script>
+      const rootPath = 'D:\\Workspace\\projects\\ai-coding-onboarding-navigator\\ui\\post-assets\\';
+      const publicRoot = 'file:///D:/Workspace/projects/ai-coding-onboarding-navigator/ui/post-assets/';
+      const assets = [
+        ['安装确认', 'home-installation-check.png'],
+        ['真实目标与完成证据', 'home-growth-loop.png'],
+        ['首次实践任务选择', 'practice-task-picker.png'],
+        ['网页小工具任务详情', 'practice-web-tool-detail.png'],
+        ['个人工作流笔记', 'workflow-notebook.png'],
+        ['来源与更新', 'sources-and-updates.png'],
+      ];
+
+      const grid = document.querySelector('#assetGrid');
+      assets.forEach(([title, filename]) => {
+        const path = rootPath + filename;
+        const publicUrl = publicRoot + filename;
+        const card = document.createElement('article');
+        card.className = 'asset';
+        card.innerHTML = `
+          <img src="post-assets/${filename}" alt="${title}" />
+          <div class="asset-copy">
+            <strong>${title}</strong>
+            <div class="path-row"><span class="path" title="${path}">${path}</span><button class="copy-path" type="button">复制地址</button></div>
+            <span class="path" title="${publicUrl}">本地文件 URL：${publicUrl}</span>
+          </div>`;
+        card.querySelector('.copy-path').addEventListener('click', (event) => copyText(path, event.currentTarget));
+        grid.appendChild(card);
+      });
+
+      const source = document.querySelector('#ubbSource');
+      const status = document.querySelector('#copyStatus');
+
+      async function copyText(text, button) {
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const helper = document.createElement('textarea');
+          helper.value = text;
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.appendChild(helper);
+          helper.focus();
+          helper.select();
+          document.execCommand('copy');
+          helper.remove();
+        }
+        if (button) {
+          const original = button.textContent;
+          button.textContent = '已复制';
+          window.setTimeout(() => { button.textContent = original; }, 1500);
+        }
+      }
+
+      document.querySelectorAll('[data-copy-ubb]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          await copyText(source.value, button);
+          status.textContent = 'UBB 已复制';
+          window.setTimeout(() => { status.textContent = ''; }, 1800);
+        });
+      });
+
+      document.querySelector('[data-scroll-source]').addEventListener('click', () => {
+        document.querySelector('#ubbSourceSection').scrollIntoView({ block: 'start' });
+      });
+    </script>
+  </body>
+</html>
